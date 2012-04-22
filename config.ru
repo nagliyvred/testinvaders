@@ -1,13 +1,16 @@
 require 'rack-rewrite'
+require 'rack/coffee'
 
-root=File.join(Dir.pwd, 'public')
 run Rack::Builder.new {
   use Rack::Rewrite do
-    r302 '/', '/public/html/index.html' 
+    r302 '/', '/public/html/index.html'
   end
+
+  use Rack::Coffee,
+    :root => Dir.pwd,
+    :urls => '/public'
 
   map '/public' do
-    run Rack::Directory.new(root)
+    run Rack::Directory.new File.join Dir.pwd, 'public'
   end
 }
-
