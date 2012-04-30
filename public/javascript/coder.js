@@ -1,6 +1,15 @@
 var src, spec, out;
 
 $(function(){
+  $(".chrome").hide();
+
+  $(".btn").click(function(e) {
+    $(".ui").toggle();
+    $(".chrome").toggle();
+
+    e.preventDefault();
+  });
+
   var JavaScriptMode = require("ace/mode/javascript").Mode;
   
   src = ace.edit("src");
