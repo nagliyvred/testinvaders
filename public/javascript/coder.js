@@ -11,7 +11,7 @@ $(function(){
   });
 
   var JavaScriptMode = require("ace/mode/javascript").Mode;
-  
+
   src = ace.edit("src");
   src.setTheme("ace/theme/twilight");
   src.getSession().setMode(new JavaScriptMode());

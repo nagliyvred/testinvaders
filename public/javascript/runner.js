@@ -11,5 +11,3 @@ jasmine.iframeRunner = function(print, name){
     }
   }
 }
-
-
