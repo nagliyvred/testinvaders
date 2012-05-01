@@ -1,11 +1,22 @@
 var src, spec, out;
 
 $(function(){
+  var iframe = document.getElementById('game');
+  $(iframe).bind('load', function() {
+    this.contentWindow.run(src.getSession().getValue());
+  });
+
+  function refreshGame() {
+    iframe.src = iframe.src;
+  }
+  refreshGame();
+
   $(".chrome").hide();
 
   $(".btn").click(function(e) {
     $(".ui").toggle();
     $(".chrome").toggle();
+    refreshGame();
 
     e.preventDefault();
   });
