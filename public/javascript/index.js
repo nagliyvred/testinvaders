@@ -1,10 +1,10 @@
 require([
     "require",
     "ace/ace",
+    "runner",
 
     "order!/public/javascript/ext/zepto.min.js",
-    "order!/public/javascript/ext/bootstrap-dropdown.js",
-    "order!/public/javascript/runner.js"], function(require, ace, jsmode) {
+    "order!/public/javascript/ext/bootstrap-dropdown.js"], function(require, ace, runner) {
 
   $(function() {
     var src, spec, out;
@@ -62,7 +62,7 @@ require([
           }
 
           out.getSession().setValue("");
-          jasmine.iframeRunner(print, "runner").run([src.getSession().getValue(), spec.getSession().getValue()]);
+          runner(print, "runner").run([src.getSession().getValue(), spec.getSession().getValue()]);
 
           iframe.src = iframe.src;
         }

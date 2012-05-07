@@ -1,13 +1,13 @@
-var jasmine = {};
+define(['/public/javascript/ext/zepto.min.js'], function() {
+  return function(print, name){
+    return {
+      run: function(scripts, callback){
+        $("#" + name).remove();
 
-jasmine.iframeRunner = function(print, name){
-  return {
-    run: function(scripts, callback){
-      $("#" + name).remove();
-
-      var sandbox = $('<iframe />').attr({id: name, src: "runner.html"}).bind('load', function(){ 
-        this.contentWindow.run(scripts, print, callback);
-      }).appendTo(document.body);
+        var sandbox = $('<iframe />').attr({id: name, src: "runner.html"}).bind('load', function(){ 
+          this.contentWindow.run(scripts, print, callback);
+        }).appendTo(document.body);
+      }
     }
   }
-}
+});
