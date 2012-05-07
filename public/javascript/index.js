@@ -1,39 +1,63 @@
+var src, spec, out;
+
 $(function(){
-  function showLessons(lessons){
-    $.each(lessons, function(index, lesson){
-      var stat = lesson.passed ? "PASS" : "FAIL";
-      $("<li></li>")
-      .append($("<a />", {href:"/public/html/exercise.html#" + lesson.id, target: "_blank"}).text(lesson.name + " "))
-      .append($("<span />", {"class": "label " + (lesson.passed ? "success" : "important")}).text(stat))
-      .appendTo($("#lessons"));
-    });
-  }
+  var iframe = document.getElementById('game');
 
-  function loadLessons(){
-    datasources.lessons().index(function(data){
-      var loadedLessons = [];
-      
-      $.each(data, function(index, info){
-        datasources.lessons().get(info.id, function(lesson){
-          jasmine.iframeRunner(function(msg) { console.log(msg); }, "runner" + index).run([lesson.src, lesson.spec], function(runner){
-            lesson.passed = runner.results().passed();
-            loadedLessons.push(lesson);
-
-            if(loadedLessons.length === data.length){
-              loadedLessons.sort(function(a, b){ return a.id > b.id; });
-              showLessons(loadedLessons);
-            }
-          });
-        });
-      });
-    });
-  }
-
-  $("#reload").click(function(){
-    localStorage.lessons = "[]";
-    $("#lessons").empty();
-    loadLessons();
+  $(iframe).bind('load', function() {
+    this.contentWindow.eval(src.getSession().getValue());
   });
 
-  loadLessons();
+  $(".chrome").hide();
+
+  $(".btn").click(function(e) {
+    $(".ui").toggle();
+    $(".chrome").toggle();
+
+    e.preventDefault();
+  });
+
+  var JavaScriptMode = require("ace/mode/javascript").Mode;
+
+  src = ace.edit("src");
+  src.setTheme("ace/theme/twilight");
+  src.getSession().setMode(new JavaScriptMode());
+  src.setShowPrintMargin(false);
+
+  spec = ace.edit("spec");
+  spec.setTheme("ace/theme/twilight");
+  spec.getSession().setMode(new JavaScriptMode());
+  spec.setShowPrintMargin(false);
+
+  out = ace.edit("out");
+  out.setTheme("ace/theme/twilight");
+  out.setReadOnly(true);
+  out.setHighlightActiveLine(false);
+  out.setShowPrintMargin(false);
+  out.setPrintMarginColumn(false);
+  out.renderer.setShowGutter(false);
+  out.renderer.hideCursor(true);
+
+  var scheduledRuns = [];
+
+  setInterval(function(){
+    var r = scheduledRuns.pop();
+    r && r();
+  }, 1000);
+
+  function delayedRun(){
+    scheduledRuns = [];
+    scheduledRuns[scheduledRuns.length] = function(){
+      function print(msg){
+        out.getSession().setValue(out.getSession().getValue() + msg);
+      }
+
+      out.getSession().setValue("");
+      jasmine.iframeRunner(print, "runner").run([src.getSession().getValue(), spec.getSession().getValue()]);
+
+      iframe.src = iframe.src;
+    }
+  }
+
+  spec.getSession().addEventListener("change", delayedRun);
+  src.getSession().addEventListener("change", delayedRun);
 });
