@@ -1,6 +1,6 @@
-var src, spec, out;
-
 $(function(){
+  var src, spec, out;
+
   var iframe = document.getElementById('game');
 
   $(iframe).bind('load', function() {
