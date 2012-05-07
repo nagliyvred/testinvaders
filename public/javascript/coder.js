@@ -2,21 +2,16 @@ var src, spec, out;
 
 $(function(){
   var iframe = document.getElementById('game');
+
   $(iframe).bind('load', function() {
     this.contentWindow.run(src.getSession().getValue());
   });
-
-  function refreshGame() {
-    iframe.src = iframe.src;
-  }
-  refreshGame();
 
   $(".chrome").hide();
 
   $(".btn").click(function(e) {
     $(".ui").toggle();
     $(".chrome").toggle();
-    refreshGame();
 
     e.preventDefault();
   });
@@ -55,9 +50,11 @@ $(function(){
       function print(msg){
         out.getSession().setValue(out.getSession().getValue() + msg);
       }
- 
+
       out.getSession().setValue("");
       jasmine.iframeRunner(print, "runner").run([src.getSession().getValue(), spec.getSession().getValue()]);
+
+      iframe.src = iframe.src;
     }
   }
 
