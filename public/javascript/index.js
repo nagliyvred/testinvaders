@@ -1,63 +1,75 @@
-$(function(){
-  var src, spec, out;
+require([
+    "require",
+    "ace/ace",
 
-  var iframe = document.getElementById('game');
+    "order!/public/javascript/ext/zepto.min.js",
+    "order!/public/javascript/ext/bootstrap-dropdown.js",
+    "order!/public/javascript/runner.js"], function(require, ace, jsmode) {
 
-  $(iframe).bind('load', function() {
-    this.contentWindow.eval(src.getSession().getValue());
-  });
+  $(function() {
+    var src, spec, out;
 
-  $(".chrome").hide();
+    var iframe = document.getElementById('game');
 
-  $(".btn").click(function(e) {
-    $(".ui").toggle();
-    $(".chrome").toggle();
+    $(iframe).bind('load', function() {
+      this.contentWindow.eval(src.getSession().getValue());
+    });
 
-    e.preventDefault();
-  });
+    $(".chrome").hide();
 
-  var JavaScriptMode = require("ace/mode/javascript").Mode;
+    $(".btn").click(function(e) {
+      $(".ui").toggle();
+      $(".chrome").toggle();
 
-  src = ace.edit("src");
-  src.setTheme("ace/theme/twilight");
-  src.getSession().setMode(new JavaScriptMode());
-  src.setShowPrintMargin(false);
+      e.preventDefault();
+    });
 
-  spec = ace.edit("spec");
-  spec.setTheme("ace/theme/twilight");
-  spec.getSession().setMode(new JavaScriptMode());
-  spec.setShowPrintMargin(false);
+    require(["ace/mode-javascript", "ace/theme-twilight"], function() {
+      var JavaScriptMode = require("ace/mode/javascript").Mode;
+      var themeTwilight = require("ace/theme-twilight");
 
-  out = ace.edit("out");
-  out.setTheme("ace/theme/twilight");
-  out.setReadOnly(true);
-  out.setHighlightActiveLine(false);
-  out.setShowPrintMargin(false);
-  out.setPrintMarginColumn(false);
-  out.renderer.setShowGutter(false);
-  out.renderer.hideCursor(true);
+      src = ace.edit("src");
+      src.setTheme("ace/theme/twilight");
+      src.getSession().setMode(new JavaScriptMode());
+      src.setShowPrintMargin(false);
 
-  var scheduledRuns = [];
+      spec = ace.edit("spec");
+      spec.setTheme("ace/theme/twilight");
+      spec.getSession().setMode(new JavaScriptMode());
+      spec.setShowPrintMargin(false);
 
-  setInterval(function(){
-    var r = scheduledRuns.pop();
-    r && r();
-  }, 1000);
+      out = ace.edit("out");
+      out.setTheme("ace/theme/twilight");
+      out.setReadOnly(true);
+      out.setHighlightActiveLine(false);
+      out.setShowPrintMargin(false);
+      out.setPrintMarginColumn(false);
+      out.renderer.setShowGutter(false);
+      out.renderer.hideCursor(true);
 
-  function delayedRun(){
-    scheduledRuns = [];
-    scheduledRuns[scheduledRuns.length] = function(){
-      function print(msg){
-        out.getSession().setValue(out.getSession().getValue() + msg);
+      var scheduledRuns = [];
+
+      setInterval(function(){
+        var r = scheduledRuns.pop();
+        r && r();
+      }, 1000);
+
+      function delayedRun(){
+        scheduledRuns = [];
+        scheduledRuns[scheduledRuns.length] = function(){
+          function print(msg){
+            out.getSession().setValue(out.getSession().getValue() + msg);
+          }
+
+          out.getSession().setValue("");
+          jasmine.iframeRunner(print, "runner").run([src.getSession().getValue(), spec.getSession().getValue()]);
+
+          iframe.src = iframe.src;
+        }
       }
 
-      out.getSession().setValue("");
-      jasmine.iframeRunner(print, "runner").run([src.getSession().getValue(), spec.getSession().getValue()]);
-
-      iframe.src = iframe.src;
-    }
-  }
-
-  spec.getSession().addEventListener("change", delayedRun);
-  src.getSession().addEventListener("change", delayedRun);
+      spec.getSession().addEventListener("change", delayedRun);
+      src.getSession().addEventListener("change", delayedRun);
+    });
+  });
 });
