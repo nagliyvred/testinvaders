@@ -4,7 +4,7 @@ $(function(){
   var iframe = document.getElementById('game');
 
   $(iframe).bind('load', function() {
-    this.contentWindow.run(src.getSession().getValue());
+    this.contentWindow.eval(src.getSession().getValue());
   });
 
   $(".chrome").hide();
