@@ -46,7 +46,9 @@
       var print = function(msg) {
         out.setValue(out.getValue() + msg);
       };
-      var to_test = sessions.map(function(s) { return s.getValue(); });
+      var to_test = sessions.map(function(s) {
+        return s.getValue();
+      });
 
       out.setValue("");
       runner(print, "runner").run(to_test);
