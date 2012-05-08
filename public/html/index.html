@@ -7,7 +7,14 @@
                 <link rel="stylesheet" type="text/css" href="/public/stylesheet/bootstrap.min.css" />
                 <link rel="stylesheet" type="text/css" href="/public/stylesheet/index.css" />
 
-                <script data-main="/public/javascript/index" src="/public/javascript/ext/require.js" type="text/javascript"></script>
+                <script src="/public/javascript/ext/zepto.min.js" type="text/javascript"></script>
+                <script src="/public/javascript/ext/bootstrap-dropdown.js" type="text/javascript"></script>
+
+                <script src="/public/javascript/ext/ace/ace.js" type="text/javascript"></script>
+                <script src="/public/javascript/ext/ace/mode-javascript.js" type="text/javascript"></script>
+                <script src="/public/javascript/ext/ace/theme-twilight.js" type="text/javascript"></script>
+
+                <script src="/public/javascript/index.js" type="text/javascript"></script>
         </head>
         <body>
                 <div class="chrome container">
@@ -25,15 +32,15 @@
                                                 <li class="dropdown" id="examples">
                                                         <a href="#examples" class="brand dropdown-toggle" data-toggle="dropdown">Welcome<b class="caret"></b></a>
                                                         <ul class="dropdown-menu">
-                                                                <li><a href="#">Initialization</a></li>
-                                                                <li><a href="#">Invader</a></li>
-                                                                <li><a href="#">Swarm</a></li>
-                                                                <li><a href="#">Ship</a></li>
-                                                                <li><a href="#">Bullet</a></li>
-                                                                <li><a href="#">Score</a></li>
+                                                                <li><a data-example="game/init" href="#">Initialization</a></li>
+                                                                <li><a data-example="game/invader" href="#">Invader</a></li>
+                                                                <li><a data-example="game/swarm" href="#">Swarm</a></li>
+                                                                <li><a data-example="game/ship" href="#">Ship</a></li>
+                                                                <li><a data-example="game/bullet" href="#">Bullet</a></li>
+                                                                <li><a data-example="game/score" href="#">Score</a></li>
                                                                 <li class="divider"></li>
-                                                                <li><a href="#">Welcome</a></li>
-                                                                <li><a href="#">Scratchpad</a></li>
+                                                                <li><a data-example="game/welcome" href="#">Welcome</a></li>
+                                                                <li><a data-example="game/scratchpad" href="#">Scratchpad</a></li>
                                                         </ul>
                                                 </li>
                                         </ul>
