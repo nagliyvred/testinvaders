@@ -1,75 +1,114 @@
-function runner(print, name) {
-  return {
-    run: function(scripts, callback){
-      $("#" + name).remove();
+;(function($, ace, console, require) {
+  "use strict";
 
-      var sandbox = $('<iframe />').attr({id: name, src: "runner.html"}).bind('load', function(){ 
-        this.contentWindow.run(scripts, print, callback);
-      }).appendTo(document.body);
-    }
-  }
-}
+  var aceModeJavascript = require("ace/mode/javascript").Mode;
 
-$(function() {
-  var src, spec, out;
+  function runner(print, name) {
+    return {
+      run: function(scripts, callback){
+        $("#" + name).remove();
 
-  var iframe = document.getElementById('game');
-
-  $(iframe).bind('load', function() {
-    this.contentWindow.eval(src.getSession().getValue());
-  });
-
-  $(".chrome").hide();
-
-  $(".btn").click(function(e) {
-    $(".ui").toggle();
-    $(".chrome").toggle();
-
-    e.preventDefault();
-  });
-
-  var JavaScriptMode = require("ace/mode/javascript").Mode;
-
-  src = ace.edit("src");
-  src.setTheme("ace/theme/twilight");
-  src.getSession().setMode(new JavaScriptMode());
-  src.setShowPrintMargin(false);
-
-  spec = ace.edit("spec");
-  spec.setTheme("ace/theme/twilight");
-  spec.getSession().setMode(new JavaScriptMode());
-  spec.setShowPrintMargin(false);
-
-  out = ace.edit("out");
-  out.setTheme("ace/theme/twilight");
-  out.setReadOnly(true);
-  out.setHighlightActiveLine(false);
-  out.setShowPrintMargin(false);
-  out.setPrintMarginColumn(false);
-  out.renderer.setShowGutter(false);
-  out.renderer.hideCursor(true);
-
-  var scheduledRuns = [];
-
-  setInterval(function(){
-    var r = scheduledRuns.pop();
-    r && r();
-  }, 1000);
-
-  function delayedRun(){
-    scheduledRuns = [];
-    scheduledRuns[scheduledRuns.length] = function(){
-      function print(msg){
-        out.getSession().setValue(out.getSession().getValue() + msg);
+        var sandbox = $('<iframe />').attr({id: name, src: "runner.html"}).on('load', function() {
+          this.contentWindow.run(scripts, print, callback);
+        }).appendTo(document.body);
       }
-
-      out.getSession().setValue("");
-      runner(print, "runner").run([src.getSession().getValue(), spec.getSession().getValue()]);
-
-      iframe.src = iframe.src;
-    }
+    };
   }
 
-  spec.getSession().addEventListener("change", delayedRun);
-  src.getSession().addEventListener("change", delayedRun);
-});
+  function initEditor(id) {
+    var editor = ace.edit(id);
+    editor.setShowPrintMargin(false);
+    editor.setTheme("ace/theme/twilight");
+
+    var session = editor.getSession();
+    session.setMode(new aceModeJavascript());
+
+    return session;
+  }
+
+  function initConsole(id) {
+    var editor = ace.edit(id);
+    editor.setHighlightActiveLine(false);
+    editor.setPrintMarginColumn(false);
+    editor.setReadOnly(true);
+    editor.setShowPrintMargin(false);
+    editor.setTheme("ace/theme/twilight");
+
+    var renderer = editor.renderer;
+    renderer.hideCursor(true);
+    renderer.setShowGutter(false);
+
+    return editor.getSession();
+  }
+
+  function SpecReloader(sessions, out) {
+    var run = function() {
+      var print = function(msg) {
+        out.setValue(out.getValue() + msg);
+      };
+      var to_test = sessions.map(function(s) { return s.getValue(); });
+
+      out.setValue("");
+      runner(print, "runner").run(to_test);
+    };
+
+    sessions.forEach(function(e) {
+      e.on("delay:change", run);
+    });
+
+    return this;
+  }
+
+  function ChromeVisibilityController(data_binding, controls) {
+    data_binding.on('click', function() {
+      controls.forEach(function(e) {
+        $(e).toggle();
+      });
+
+      return false;
+    });
+  }
+
+  function iFrameReloader(src, iframe) {
+    iframe.on('load', function() {
+      this.contentWindow.eval(src.getValue());
+    });
+
+    src.on("delay:change", function() {
+      iframe.attr("src", iframe.attr("src"));
+    });
+  }
+
+  function DelayedChangeScheduler(watch, delay) {
+    var _this = this;
+
+    _this.scheduled = false;
+
+    setInterval(function() {
+      if (_this.scheduled) {
+        watch._emit("delay:change");
+        _this.scheduled = false;
+      }
+    }, delay);
+
+    watch.on("change", function() {
+      _this.scheduled = true;
+    });
+
+    return _this;
+  }
+
+  $(function() {
+    var spec = initEditor("spec");
+    var src = initEditor("src");
+    var out = initConsole("out");
+
+    new DelayedChangeScheduler(spec, 1000);
+    new DelayedChangeScheduler(src, 1000);
+    new SpecReloader([src, spec], out);
+    new iFrameReloader(src, $("#game"));
+
+    $(".chrome-edit").hide();
+    new ChromeVisibilityController($("[data-toggle=chrome]"), $(".chrome"));
+  });
+})($, ace, console, require);
