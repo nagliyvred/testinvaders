@@ -2,7 +2,7 @@ function Bullet(velocity, x, y) {
   this.y = y;
 
   this.update = function(dt) {
-    this.y = dt * velocity;
+    this.y = y + (dt * velocity);
   };
 
   this.box = function() {
