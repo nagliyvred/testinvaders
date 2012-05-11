@@ -100,6 +100,51 @@
     return _this;
   }
 
+  function ExampleLoader(bindings, base, on_loaded) {
+    var data = {};
+    var names = bindings.map(function() {
+      return $(this).data("example");
+    });
+
+    var inflight = names.length * 2;
+
+    function try_done() {
+      if (!inflight && on_loaded) {
+        on_loaded();
+      }
+    }
+
+    names.forEach(function(n) {
+      // TODO: When things fall apart, they tend to shatter.
+      // So handle errors.
+
+      data[n] = {};
+
+      function complete() {
+        inflight--;
+        try_done();
+      }
+
+      $.ajax({
+        url: base + n + ".js",
+        dataType: 'text',
+        success: function(r) {
+          data[n].code = r;
+        },
+        complete: complete,
+      });
+
+      $.ajax({
+        url: base + "spec/" + n + "_spec.js",
+        dataType: 'text',
+        success: function(r) {
+          data[n].spec = r;
+        },
+        complete: complete,
+      });
+    });
+  }
+
   $(function() {
     var spec = initEditor("spec");
     var src = initEditor("src");
@@ -112,5 +157,9 @@
 
     $(".chrome-edit").hide();
     new ChromeVisibilityController($("[data-toggle=chrome]"), $(".chrome"));
+
+    var examples = new ExampleLoader($("[data-example]"), "/public/javascript/game/", function() {
+      console.log("scripts ready");
+    });
   });
 })($, ace, console, require);
