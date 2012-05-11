@@ -110,7 +110,7 @@
 
     function try_done() {
       if (!inflight && on_loaded) {
-        on_loaded();
+        on_loaded(data);
       }
     }
 
@@ -129,7 +129,7 @@
         url: base + n + ".js",
         dataType: 'text',
         success: function(r) {
-          data[n].code = r;
+          data[n].src = r;
         },
         complete: complete,
       });
@@ -145,21 +145,33 @@
     });
   }
 
+  function ExampleSelector(data, spec, src) {
+    return function() {
+      var example = data[location.hash.slice(1)];
+
+      if (example && example.spec && example.src) {
+        spec.setValue(example.spec);
+        src.setValue(example.src);
+      }
+    };
+  }
+
   $(function() {
-    var spec = initEditor("spec");
-    var src = initEditor("src");
-    var out = initConsole("out");
+    $(".chrome").hide();
 
-    new DelayedChangeScheduler(spec, 1000);
-    new DelayedChangeScheduler(src, 1000);
-    new SpecReloader([src, spec], out);
-    new iFrameReloader(src, $("#game"));
+    var examples = new ExampleLoader($("[data-example]"), "/public/javascript/game/", function(data) {
+      var spec = initEditor("spec");
+      var src = initEditor("src");
+      var out = initConsole("out");
 
-    $(".chrome-edit").hide();
-    new ChromeVisibilityController($("[data-toggle=chrome]"), $(".chrome"));
+      new DelayedChangeScheduler(spec, 1000);
+      new DelayedChangeScheduler(src, 1000);
+      new SpecReloader([src, spec], out);
+      new iFrameReloader(src, $("#game"));
+      window.addEventListener("hashchange", ExampleSelector(data, spec, src));
 
-    var examples = new ExampleLoader($("[data-example]"), "/public/javascript/game/", function() {
-      console.log("scripts ready");
+      $(".chrome-play").show();
+      new ChromeVisibilityController($("[data-toggle=chrome]"), $(".chrome"));
     });
   });
 })($, ace, console, require);
