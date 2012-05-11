@@ -145,9 +145,13 @@
     });
   }
 
-  function ExampleSelector(data, spec, src) {
+  function ExampleSelector(default_example, data, spec, src) {
     return function() {
       var example = data[location.hash.slice(1)];
+
+      if (!example) {
+        example = data[default_example];
+      }
 
       if (example && example.spec && example.src) {
         spec.setValue(example.spec);
@@ -168,7 +172,9 @@
       new DelayedChangeScheduler(src, 1000);
       new SpecReloader([src, spec], out);
       new iFrameReloader(src, $("#game"));
-      window.addEventListener("hashchange", ExampleSelector(data, spec, src));
+
+      window.addEventListener("hashchange", ExampleSelector('welcome', data, spec, src));
+      $(window).trigger('hashchange');
 
       $(".chrome-play").show();
       new ChromeVisibilityController($("[data-toggle=chrome]"), $(".chrome"));
