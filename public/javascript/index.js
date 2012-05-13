@@ -160,8 +160,18 @@
     };
   }
 
+  function TitleUpdater(title) {
+    return function() {
+      var hash = location.hash || "#welcome";
+      var link = $('[href="' + hash + '"]');
+      title.text(link.text());
+    }
+  }
+
   $(function() {
     $(".chrome").hide();
+
+    window.addEventListener("hashchange", TitleUpdater($(".brand .title")));
 
     var examples = new ExampleLoader($("[data-example]"), "/public/javascript/game/", function(data) {
       var spec = initEditor("spec");
