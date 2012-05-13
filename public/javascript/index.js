@@ -156,11 +156,7 @@
 
   function ExampleSelector(default_example, data, spec, src) {
     return function() {
-      var example = data[location.hash.slice(1)];
-
-      if (!example) {
-        example = data[default_example];
-      }
+      var example = data[getCurrentExample()];
 
       if (example && example.spec && example.src) {
         spec.setValue(example.spec);
@@ -169,10 +165,13 @@
     };
   }
 
+  function getCurrentExample() {
+    return location.hash.slice(1) || "welcome";
+  }
+
   function TitleUpdater(title) {
     return function() {
-      var hash = location.hash || "#welcome";
-      var link = $('[href="' + hash + '"]');
+      var link = $('[href="#' + getCurrentExample() + '"]');
       title.text(link.text());
     }
   }
