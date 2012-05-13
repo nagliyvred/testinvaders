@@ -140,7 +140,7 @@
         success: function(r) {
           data[n].src = r;
         },
-        complete: complete,
+        complete: complete
       });
 
       $.ajax({
@@ -149,12 +149,12 @@
         success: function(r) {
           data[n].spec = r;
         },
-        complete: complete,
+        complete: complete
       });
     });
   }
 
-  function ExampleSelector(default_example, data, spec, src) {
+  function exampleSelector(default_example, data, spec, src) {
     return function() {
       var example = data[getCurrentExample()];
 
@@ -169,14 +169,14 @@
     return location.hash.slice(1) || "welcome";
   }
 
-  function TitleUpdater(title) {
+  function titleUpdater(title) {
     return function() {
       var link = $('[href="#' + getCurrentExample() + '"]');
       title.text(link.text());
-    }
+    };
   }
 
-  function DataSync(editor, data, view) {
+  function dataSync(editor, data, view) {
     editor.on("delay:change", function() {
       data[getCurrentExample()][view] = editor.getValue();
     });
@@ -192,18 +192,17 @@
     var out = initConsole("out");
     new SpecReloader([src, spec], out);
 
-    window.addEventListener("hashchange", TitleUpdater($(".brand .title")));
+    window.addEventListener("hashchange", titleUpdater($(".brand .title")));
 
     new ChromeVisibilityController($("[data-toggle=chrome]"), $(".chrome"));
     $(".chrome").hide();
 
     new ExampleLoader($("[data-example]"), "/public/javascript/game/", function(data) {
-      new DataSync(spec, data, 'spec');
-      new DataSync(src, data, 'src');
+      dataSync(spec, data, 'spec');
+      dataSync(src, data, 'src');
+      iFrameReloader(src, data, $("#game"));
 
-      new iFrameReloader(src, data, $("#game"));
-
-      window.addEventListener("hashchange", ExampleSelector("welcome", data, spec, src));
+      window.addEventListener("hashchange", exampleSelector("welcome", data, spec, src));
       $(window).trigger("hashchange");
 
       $(".chrome-play").show();
