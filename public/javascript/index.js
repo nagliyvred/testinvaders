@@ -184,26 +184,27 @@
 
   $(function() {
     var spec = initEditor("spec");
-    var src = initEditor("src");
-    var out = initConsole("out");
-    var bindings = $("[data-example]");
-
     new DelayedChangeScheduler(spec, 1000);
+
+    var src = initEditor("src");
     new DelayedChangeScheduler(src, 1000);
+
+    var out = initConsole("out");
     new SpecReloader([src, spec], out);
+
+    window.addEventListener("hashchange", TitleUpdater($(".brand .title")));
 
     new ChromeVisibilityController($("[data-toggle=chrome]"), $(".chrome"));
     $(".chrome").hide();
 
-    new ExampleLoader(bindings, "/public/javascript/game/", function(data) {
+    new ExampleLoader($("[data-example]"), "/public/javascript/game/", function(data) {
       new DataSync(spec, data, 'spec');
       new DataSync(src, data, 'src');
 
       new iFrameReloader(src, data, $("#game"));
 
-      window.addEventListener("hashchange", ExampleSelector('welcome', data, spec, src));
-      window.addEventListener("hashchange", TitleUpdater($(".brand .title")));
-      $(window).trigger('hashchange');
+      window.addEventListener("hashchange", ExampleSelector("welcome", data, spec, src));
+      $(window).trigger("hashchange");
 
       $(".chrome-play").show();
     });
