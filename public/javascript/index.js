@@ -71,9 +71,18 @@
     });
   }
 
-  function iFrameReloader(src, iframe) {
+  function iFrameReloader(src, data, iframe) {
     iframe.on('load', function() {
-      this.contentWindow.eval(src.getValue());
+      var sources = Object.keys(data).map(function(n) {
+        return data[n].src;
+      });
+
+      sources.push("Init();");
+
+      var script = this.contentDocument.createElement("script");
+      var script_text = this.contentDocument.createTextNode(sources.join("\n"));
+      script.appendChild(script_text);
+      this.contentDocument.body.appendChild(script);
     });
 
     src.on("delay:change", function() {
@@ -174,20 +183,21 @@
     var out = initConsole("out");
     var bindings = $("[data-example]");
 
-    var examples = new ExampleLoader(bindings, "/public/javascript/game/", function(data) {
+    new DelayedChangeScheduler(spec, 1000);
+    new DelayedChangeScheduler(src, 1000);
+    new SpecReloader([src, spec], out);
+
+    new ChromeVisibilityController($("[data-toggle=chrome]"), $(".chrome"));
+    $(".chrome").hide();
+
+    new ExampleLoader(bindings, "/public/javascript/game/", function(data) {
+      new iFrameReloader(src, data, $("#game"));
+
       window.addEventListener("hashchange", ExampleSelector('welcome', data, spec, src));
       window.addEventListener("hashchange", TitleUpdater($(".brand .title")));
       $(window).trigger('hashchange');
 
       $(".chrome-play").show();
     });
-
-    new DelayedChangeScheduler(spec, 1000);
-    new DelayedChangeScheduler(src, 1000);
-    new SpecReloader([src, spec], out);
-    new iFrameReloader(src, $("#game"));
-
-    new ChromeVisibilityController($("[data-toggle=chrome]"), $(".chrome"));
-    $(".chrome").hide();
   });
 })($, ace, console, require);
