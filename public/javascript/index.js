@@ -169,15 +169,16 @@
   }
 
   $(function() {
-    $(".chrome").hide();
+    var spec = initEditor("spec");
+    var src = initEditor("src");
+    var out = initConsole("out");
+    var bindings = $("[data-example]");
 
     window.addEventListener("hashchange", TitleUpdater($(".brand .title")));
 
-    var examples = new ExampleLoader($("[data-example]"), "/public/javascript/game/", function(data) {
-      var spec = initEditor("spec");
-      var src = initEditor("src");
-      var out = initConsole("out");
+    $(".chrome").hide();
 
+    var examples = new ExampleLoader(bindings, "/public/javascript/game/", function(data) {
       new DelayedChangeScheduler(spec, 1000);
       new DelayedChangeScheduler(src, 1000);
       new SpecReloader([src, spec], out);
