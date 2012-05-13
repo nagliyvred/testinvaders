@@ -174,21 +174,20 @@
     var out = initConsole("out");
     var bindings = $("[data-example]");
 
-    window.addEventListener("hashchange", TitleUpdater($(".brand .title")));
-
-    $(".chrome").hide();
-
     var examples = new ExampleLoader(bindings, "/public/javascript/game/", function(data) {
-      new DelayedChangeScheduler(spec, 1000);
-      new DelayedChangeScheduler(src, 1000);
-      new SpecReloader([src, spec], out);
-      new iFrameReloader(src, $("#game"));
-
       window.addEventListener("hashchange", ExampleSelector('welcome', data, spec, src));
+      window.addEventListener("hashchange", TitleUpdater($(".brand .title")));
       $(window).trigger('hashchange');
 
       $(".chrome-play").show();
-      new ChromeVisibilityController($("[data-toggle=chrome]"), $(".chrome"));
     });
+
+    new DelayedChangeScheduler(spec, 1000);
+    new DelayedChangeScheduler(src, 1000);
+    new SpecReloader([src, spec], out);
+    new iFrameReloader(src, $("#game"));
+
+    new ChromeVisibilityController($("[data-toggle=chrome]"), $(".chrome"));
+    $(".chrome").hide();
   });
 })($, ace, console, require);
