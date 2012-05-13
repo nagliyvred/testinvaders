@@ -176,6 +176,12 @@
     }
   }
 
+  function DataSync(editor, data, view) {
+    editor.on("delay:change", function() {
+      data[getCurrentExample()][view] = editor.getValue();
+    });
+  }
+
   $(function() {
     var spec = initEditor("spec");
     var src = initEditor("src");
@@ -190,6 +196,9 @@
     $(".chrome").hide();
 
     new ExampleLoader(bindings, "/public/javascript/game/", function(data) {
+      new DataSync(spec, data, 'spec');
+      new DataSync(src, data, 'src');
+
       new iFrameReloader(src, data, $("#game"));
 
       window.addEventListener("hashchange", ExampleSelector('welcome', data, spec, src));
