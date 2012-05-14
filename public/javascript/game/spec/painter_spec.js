@@ -10,7 +10,6 @@ describe("Painter", function() {
   });
 
   describe("drawing bullets", function() {
-
     it("should draw the tank bullet image at the specified position", function() {
       var spy_drawImage = jasmine.createSpy("drawImage");
       var stub_canvas = {drawImage: spy_drawImage};
@@ -20,7 +19,5 @@ describe("Painter", function() {
 
       expect(spy_drawImage).toHaveBeenCalledWith(stub_tank_bullet_image, x, y);
     });
-
   });
-
 });
