@@ -1,5 +1,4 @@
 describe("Tank", function() {
-  var stub_bullet = {};
   var input = {
     mouse: {
       x: Math.random()
@@ -8,7 +7,7 @@ describe("Tank", function() {
   var tank;
 
   beforeEach(function() {
-    tank = new Tank(stub_bullet);
+    tank = new Tank();
   });
 
   it("should look like a tank", function() {
