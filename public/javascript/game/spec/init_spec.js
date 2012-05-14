@@ -1,23 +1,24 @@
 describe("Game", function() {
-  var game;
-  var things;
-  var the_thing;
+  var game, painter, thing;
 
   beforeEach(function() {
-    the_thing = {};
-    things = [the_thing];
-    game = new Game(things);
-    the_thing.draw = jasmine.createSpy('the_thing_draw');
-    the_thing.update = jasmine.createSpy('update');
+    painter = {id: "Stub Painter"};
+    thing = {
+      id: "Stub Thing",
+      draw: jasmine.createSpy('thing.draw'),
+      update: jasmine.createSpy('update')
+    };
+
+    game = new Game(painter, [thing]);
   });
 
   it("should draw ALL THE THINGS", function() {
-    game.run()
-    expect(the_thing.draw).toHaveBeenCalled();
+    game.run();
+    expect(thing.draw).toHaveBeenCalledWith(painter);
   });
 
   it("should update ALL THE THINGS", function() {
-    game.run()
-    expect(the_thing.update).toHaveBeenCalledWith(0);
+    game.run();
+    expect(thing.update).toHaveBeenCalledWith(0);
   });
 });

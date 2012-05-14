@@ -6,12 +6,12 @@ function Init() {
   game.run();
 }
 
-function Game(things) {
+function Game(painter, things) {
   var _this = new atom.Game();
 
   _this.draw = function() {
     things.forEach(function(thing) {
-      thing.draw();
+      thing.draw(painter);
     });
   };
 
