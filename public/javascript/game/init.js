@@ -1,6 +1,6 @@
 function Init() {
   var bullet = new Bullet(0, 0, 0);
-  bullet.shoot(5, 200, 200)
+  bullet.shoot(5, 200, 200);
 
   var game = new Game([bullet]);
   game.run();
