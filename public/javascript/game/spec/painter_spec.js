@@ -15,7 +15,7 @@ describe("Painter", function() {
     painter = new Painter(stub_context, stub_gfx);
   });
 
-  describe("drawing bullets", function() {
+  describe("draw_bullet", function() {
     it("should draw the tank bullet image at the specified position", function() {
       var x = Math.random();
       var y = Math.random();
