@@ -4,7 +4,7 @@ function Tank() {
   var height = 42;
 
   this.update = function(dt, input) {
-    x = input.mouse.x + (width / 2);
+    x = input.mouse.x - (width / 2);
   };
 
   this.box = function() {
