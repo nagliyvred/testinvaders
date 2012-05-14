@@ -5,7 +5,8 @@ function Init() {
   var painter = new Painter(atom.context, gfx);
 
   var tank = new Tank();
+  var swarm = new Swarm([]);
 
-  var game = new Game(painter, [tank, bullet]);
+  var game = new Game(painter, [tank, swarm]);
   game.run();
 }
