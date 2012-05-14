@@ -1,23 +1,36 @@
 describe("Painter", function() {
-  var stub_tank_bullet_image = "stub_tank_bullet_image";
-  var stub_gfx = {tank_bullet: stub_tank_bullet_image};
-
-  var x, y;
+  var stub_canvas = {
+    width: Math.random(),
+    height: Math.random()
+  };
+  var stub_gfx = {tank_bullet: "stub_tank_bullet_image"};
+  var stub_context, painter;
 
   beforeEach(function() {
-    x = Math.random();
-    y = Math.random();
+    stub_context = {
+      canvas: stub_canvas,
+      drawImage: jasmine.createSpy("stub_context.drawImage"),
+      clearRect: jasmine.createSpy("stub_context.clearRect")
+    };
+    painter = new Painter(stub_context, stub_gfx);
   });
 
   describe("drawing bullets", function() {
     it("should draw the tank bullet image at the specified position", function() {
-      var spy_drawImage = jasmine.createSpy("drawImage");
-      var stub_canvas = {drawImage: spy_drawImage};
+      var x = Math.random();
+      var y = Math.random();
 
-      var painter = new Painter(stub_canvas, stub_gfx);
       painter.draw_bullet(x, y);
 
-      expect(spy_drawImage).toHaveBeenCalledWith(stub_tank_bullet_image, x, y);
+      expect(stub_context.drawImage).toHaveBeenCalledWith(stub_gfx.tank_bullet, x, y);
+    });
+  });
+
+  describe("clear", function() {
+    it("should blank the screen", function() {
+      painter.clear();
+
+      expect(stub_context.clearRect).toHaveBeenCalledWith(0, 0, stub_canvas.width, stub_canvas.height);
     });
   });
 });

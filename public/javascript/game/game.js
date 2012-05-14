@@ -2,6 +2,7 @@ function Game(painter, things) {
   var _this = new atom.Game();
 
   _this.draw = function() {
+    painter.clear();
     things.forEach(function(thing) {
       thing.draw(painter);
     });
