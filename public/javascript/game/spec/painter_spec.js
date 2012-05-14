@@ -1,13 +1,26 @@
 describe("Painter", function() {
-  var painter;
+  var stub_tank_bullet_image = "stub_tank_bullet_image";
+  var stub_gfx = {tank_bullet: stub_tank_bullet_image};
+
+  var x, y;
 
   beforeEach(function() {
-    // TODO: Verifying the stub context is even being used...
-    var stub_context = {};
-    painter = new Painter(stub_context);
+    x = Math.random();
+    y = Math.random();
   });
 
-  it("should be able to draw a bullet", function() {
-    painter.draw_bullet(0, 0);
+  describe("drawing bullets", function() {
+
+    it("should draw the tank bullet image at the specified position", function() {
+      var spy_drawImage = jasmine.createSpy("drawImage");
+      var stub_canvas = {drawImage: spy_drawImage};
+
+      var painter = new Painter(stub_canvas, stub_gfx);
+      painter.draw_bullet(x, y);
+
+      expect(spy_drawImage).toHaveBeenCalledWith(stub_tank_bullet_image, x, y);
+    });
+
   });
+
 });
