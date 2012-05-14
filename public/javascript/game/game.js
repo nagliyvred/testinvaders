@@ -10,7 +10,7 @@ function Game(painter, things) {
 
   _this.update = function(dt) {
     things.forEach(function(thing) {
-      thing.update(dt);
+      thing.update(dt, atom.input);
     });
   };
 

@@ -26,6 +26,17 @@ describe("Painter", function() {
     });
   });
 
+  describe("draw_tank", function() {
+    it("should draw the tank image at the specified position", function() {
+      var x = Math.random();
+      var y = Math.random();
+
+      painter.draw_tank(x, y);
+
+      expect(stub_context.drawImage).toHaveBeenCalledWith(stub_gfx.tank, x, y);
+    });
+  });
+
   describe("clear", function() {
     it("should blank the screen", function() {
       painter.clear();

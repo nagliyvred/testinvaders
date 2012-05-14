@@ -23,7 +23,7 @@ describe("Game", function() {
   it("should update ALL THE THINGS", function() {
     var dt = Math.random();
     game.update(dt);
-    expect(thing.update).toHaveBeenCalledWith(dt);
+    expect(thing.update).toHaveBeenCalledWith(dt, atom.input);
   });
 
   it("should clear the canvas between frames of animation", function() {
