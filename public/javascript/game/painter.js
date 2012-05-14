@@ -4,7 +4,8 @@ function Painter(context, gfx) {
   };
 
   this.clear = function() {
-    context.clearRect(0, 0, context.canvas.width, context.canvas.height);
+    context.fillStyle = "black";
+    context.fillRect(0, 0, context.canvas.width, context.canvas.height);
   };
 
   return this;

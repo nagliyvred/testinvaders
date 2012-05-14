@@ -10,7 +10,7 @@ describe("Painter", function() {
     stub_context = {
       canvas: stub_canvas,
       drawImage: jasmine.createSpy("stub_context.drawImage"),
-      clearRect: jasmine.createSpy("stub_context.clearRect")
+      fillRect: jasmine.createSpy("stub_context.clearRect")
     };
     painter = new Painter(stub_context, stub_gfx);
   });
@@ -30,7 +30,8 @@ describe("Painter", function() {
     it("should blank the screen", function() {
       painter.clear();
 
-      expect(stub_context.clearRect).toHaveBeenCalledWith(0, 0, stub_canvas.width, stub_canvas.height);
+      expect(stub_context.fillStyle).toEqual("black");
+      expect(stub_context.fillRect).toHaveBeenCalledWith(0, 0, stub_canvas.width, stub_canvas.height);
     });
   });
 });
