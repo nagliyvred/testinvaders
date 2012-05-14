@@ -1,5 +1,5 @@
 function Invader(initial_velocity, initial_x, initial_y) {
-  var velocity = initial_velocity || 15;
+  var velocity = initial_velocity || 50;
   var x = initial_x || 0;
   var y = initial_y || 0;
 
