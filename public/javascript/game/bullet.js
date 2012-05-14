@@ -24,7 +24,7 @@ function Bullet(velocity, x, y) {
         x: x,
         y: y,
         width: 4,
-        height: 12,
+        height: 20,
       };
     } else {
       return {
