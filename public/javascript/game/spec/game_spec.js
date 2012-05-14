@@ -16,13 +16,15 @@ describe("Game", function() {
   });
 
   it("should draw ALL THE THINGS", function() {
-    game.run();
+    game.draw();
     expect(thing.draw).toHaveBeenCalledWith(painter);
   });
 
   it("should update ALL THE THINGS", function() {
-    game.run();
-    expect(thing.update).toHaveBeenCalledWith(0);
+    var dt = Math.random();
+    game.update(dt);
+    expect(thing.update).toHaveBeenCalledWith(dt);
+  });
 
   it("should clear the canvas between frames of animation", function() {
     game.draw();
