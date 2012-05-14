@@ -3,7 +3,11 @@ describe("Painter", function() {
     width: Math.random(),
     height: Math.random()
   };
-  var stub_gfx = {tank_bullet: "stub_tank_bullet_image"};
+  var stub_gfx = {
+    tank_bullet: "stub_gfx_tank_bullet",
+    tank: "stub_gfx_tank",
+    invader: "stub_gfx_invader"
+  };
   var stub_context, painter;
 
   beforeEach(function() {
@@ -34,6 +38,17 @@ describe("Painter", function() {
       painter.draw_tank(x, y);
 
       expect(stub_context.drawImage).toHaveBeenCalledWith(stub_gfx.tank, x, y);
+    });
+  });
+
+  describe("draw_invader", function() {
+    it("should draw the invader image at the specified position", function() {
+      var x = Math.random();
+      var y = Math.random();
+
+      painter.draw_invader(x, y);
+
+      expect(stub_context.drawImage).toHaveBeenCalledWith(stub_gfx.invader, x, y);
     });
   });
 

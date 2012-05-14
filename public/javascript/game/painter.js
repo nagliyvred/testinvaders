@@ -7,6 +7,10 @@ function Painter(context, gfx) {
     context.drawImage(gfx.tank, x, y);
   }
 
+  this.draw_invader = function(x, y) {
+    context.drawImage(gfx.invader, x, y);
+  }
+
   this.clear = function() {
     context.fillStyle = "black";
     context.fillRect(0, 0, context.canvas.width, context.canvas.height);
