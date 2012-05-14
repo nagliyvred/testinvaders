@@ -22,7 +22,8 @@ describe("Tank", function() {
     });
 
     it("should set the tank position based on the mouse", function() {
-      expect(tank.box().x).toEqual(input.mouse.x);
+      var box = tank.box();
+      expect(box.x).toEqual(input.mouse.x + (box.width / 2));
     });
   });
 });

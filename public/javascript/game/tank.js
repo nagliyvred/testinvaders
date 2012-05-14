@@ -1,16 +1,18 @@
 function Tank() {
   var x = 0;
+  var width = 66;
+  var height = 42;
 
   this.update = function(dt, input) {
-    x = input.mouse.x;
+    x = input.mouse.x + (width / 2);
   };
 
   this.box = function() {
     return {
       x: x,
       y: 500,
-      width: 10,
-      height: 10
+      width: width,
+      height: height
     };
   };
 
