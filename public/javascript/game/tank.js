@@ -1,5 +1,5 @@
 function Tank() {
-  var x;
+  var x = 0;
 
   this.update = function(dt, input) {
     x = input.mouse.x;
