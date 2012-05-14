@@ -1,4 +1,9 @@
-/* HI */
+/*
+ *
+ * As for over here,
+ * it's much harder to say.
+ *
+ */
 
 function Init() {
   var gfx = new Gfx();
