@@ -10,12 +10,12 @@ describe("Bullet", function() {
       var stub_painter = {};
       bullet.draw(stub_painter);
     });
-  
+
     it("should not be hittable", function() {
       var box = bullet.box();
 
       expect(box.width).toBe(0);
-      expect(box.height).toBe(0);  
+      expect(box.height).toBe(0);
     });
   }
 
