@@ -158,7 +158,7 @@
     return function() {
       var example = data[getCurrentExample()];
 
-      if (example && example.spec && example.src) {
+      if (example && example.spec != null && example.src != null) {
         spec.setValue(example.spec);
         src.setValue(example.src);
       }
