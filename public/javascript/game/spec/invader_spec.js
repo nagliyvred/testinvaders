@@ -1,6 +1,7 @@
 describe("Invader", function() {
   var invader;
   var velocity, x, y;
+  var stub_painter;
 
   beforeEach(function() {
     velocity = Math.random();
@@ -8,6 +9,8 @@ describe("Invader", function() {
     y = Math.random();
 
     invader = new Invader(velocity, x, y);
+
+    stub_painter = {draw_invader: jasmine.createSpy("stub_painter.draw_invader")}
   });
 
   it("should be hittable", function() {
@@ -20,7 +23,6 @@ describe("Invader", function() {
   });
 
   it("should look like blatant copyright infringement", function() {
-    var stub_painter = {draw_invader: jasmine.createSpy("stub_painter.draw_invader")};
     invader.draw(stub_painter);
     expect(stub_painter.draw_invader).toHaveBeenCalledWith(x, y);
   });
@@ -43,5 +45,25 @@ describe("Invader", function() {
   describe("when told to invade", function() {
     xit("should move toward the player's tank");
     xit("should invert its lateral velocity");
+  });
+
+  describe("after a collision", function() {
+
+    beforeEach(function() {
+      invader.collide();
+    });
+
+    it("should be dead dead dead (ie, not visible)", function() {
+      invader.draw(stub_painter);
+
+      expect(stub_painter.draw_invader).wasNotCalled();
+    });
+
+    it("should not be hittable", function() {
+      var box = invader.box();
+
+      expect(box.width).toEqual(0);
+      expect(box.height).toEqual(0);
+    });
   });
 });
