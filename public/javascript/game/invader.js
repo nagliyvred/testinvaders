@@ -7,6 +7,8 @@ function Invader(initial_velocity, initial_x, initial_y, initial_shot_countdown,
   var shot_countdown = adjusted_countdown;
   var active = true;
 
+  var width = 66, height = 48;
+
   this.update = function(delta_time) {
     if((shot_countdown -= delta_time) < 0) {
       bullet.shoot(50, x, y);
@@ -26,8 +28,8 @@ function Invader(initial_velocity, initial_x, initial_y, initial_shot_countdown,
       return {
         x: x,
         y: y,
-        width: 66,
-        height: 48
+        width: width,
+        height: height
       };
     } else {
       return {
