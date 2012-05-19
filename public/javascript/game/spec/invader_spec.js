@@ -47,25 +47,34 @@ describe("Invader", function() {
 
     describe("shooting", function() {
 
+      var time_elapsed_for_shot;
+      var invader_shoot = function() {
+        invader.update(time_elapsed_for_shot);
+      };
+
+      beforeEach(function() {
+        time_elapsed_for_shot = shot_countdown + minimum_countdown + 1;
+      });
+
       it("should not shoot a bullet within ten seconds of firing one before", function() {
-        invader.update(minimum_countdown + 1);
+        invader_shoot();
         invader.update(5);
         expect(stub_bullet.shoot.callCount).toEqual(1);
       });
 
       it("should shoot the bullet from the middle of the invader", function() {
-        invader.update(shot_countdown + (minimum_countdown + 1));
+        invader_shoot();
         expect(stub_bullet.shoot).toHaveBeenCalledWith(jasmine.any(Number), x + (width / 2), y + (height / 2));
       });
 
       it("should shoot a bullet when the shot countdown is first up", function() {
-        invader.update(shot_countdown + (minimum_countdown + 1));
+        invader_shoot();
         expect(stub_bullet.shoot).toHaveBeenCalled();
       });
 
       it("should shoot a bullet every time the shot countdown is up", function() {
-        invader.update(shot_countdown + (minimum_countdown + 1));
-        invader.update(shot_countdown + (minimum_countdown + 1));
+        invader_shoot();
+        invader_shoot();
 
         expect(stub_bullet.shoot.callCount).toEqual(2);
       });
