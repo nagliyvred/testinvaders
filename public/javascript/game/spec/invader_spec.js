@@ -5,6 +5,7 @@ describe("Invader", function() {
   var stub_painter;
 
   var minimum_countdown = 10;
+  var width = 66, height = 48;
 
   beforeEach(function() {
     velocity = Math.random();
@@ -52,9 +53,14 @@ describe("Invader", function() {
         expect(stub_bullet.shoot.callCount).toEqual(1);
       });
 
+      it("should shoot the bullet from the middle of the invader", function() {
+        invader.update(shot_countdown + (minimum_countdown + 1));
+        expect(stub_bullet.shoot).toHaveBeenCalledWith(jasmine.any(Number), x + (width / 2), y + (height / 2));
+      });
+
       it("should shoot a bullet when the shot countdown is first up", function() {
         invader.update(shot_countdown + (minimum_countdown + 1));
-        expect(stub_bullet.shoot).toHaveBeenCalledWith(50, x, y);
+        expect(stub_bullet.shoot).toHaveBeenCalled();
       });
 
       it("should shoot a bullet every time the shot countdown is up", function() {

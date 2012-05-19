@@ -11,7 +11,7 @@ function Invader(initial_velocity, initial_x, initial_y, initial_shot_countdown,
 
   this.update = function(delta_time) {
     if((shot_countdown -= delta_time) < 0) {
-      bullet.shoot(50, x, y);
+      bullet.shoot(50, x + (width / 2), y + (height / 2));
       shot_countdown = adjusted_countdown;
     }
     x += delta_time * velocity;
