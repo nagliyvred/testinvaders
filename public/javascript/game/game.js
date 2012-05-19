@@ -23,13 +23,10 @@ function Game(painter, collision, things) {
           return ;
         }
 
-        //this line is only here so I know my test is right
-        have_collided(thing.box, other_thing.box);
-        //this is what it probably will be.
-        //if (have_collided(thing.box, other_thing.box)) {
-          //thing.collide();
-          //other_thing.collide();
-        //}
+        if (collision.have_collided(thing.box, other_thing.box)) {
+          thing.collide();
+          other_thing.collide();
+        }
       });
     });
   };

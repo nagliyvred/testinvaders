@@ -9,10 +9,12 @@ describe("Game", function() {
     thing = {
       id: "Stub Thing",
       draw: jasmine.createSpy('thing.draw'),
-      update: jasmine.createSpy('update')
+      update: jasmine.createSpy('update'),
+      collide: jasmine.createSpy('collide')
     };
 
-    game = new Game(painter, [thing]);
+    collision = new Collision();
+    game = new Game(painter, collision, [thing]);
   });
 
   it("should draw ALL THE THINGS", function() {
@@ -36,8 +38,14 @@ describe("Game", function() {
   });
 
   describe("checking for collisions", function() {
+    var other_thing;
     beforeEach(function() {
-      collision = new Collision();
+      other_thing = {
+        id: "Stub Thing",
+        draw: jasmine.createSpy('thing.draw'),
+        update: jasmine.createSpy('update'),
+        collide: jasmine.createSpy('collide')
+      }; 
     });
 
     it("should not check a thing against itself", function () {
@@ -48,21 +56,32 @@ describe("Game", function() {
     });
 
     it("should call have_collided", function() {
-      other_thing = {
-        id: "Stub Thing",
-        draw: jasmine.createSpy('thing.draw'),
-        update: jasmine.createSpy('update')
-      };
-      game = new Game(painter, [thing, other_thing]);
-      expect(false).toBe(true); 
+      game = new Game(painter, collision, [thing, other_thing]);
+
+      spyOn(collision, "have_collided");
+
+      game.check_for_collisions();
+      expect(collision.have_collided).toHaveBeenCalledWith(thing.box, other_thing.box); 
     });
 
     it("should call collide on both things if they collide", function() {
-      expect(false).toBe(true);
+      game = new Game(painter, collision, [thing, other_thing]);
+
+      spyOn(collision, "have_collided").andReturn(true);
+
+      game.check_for_collisions();
+      expect(thing.collide).toHaveBeenCalled();
+      expect(other_thing.collide).toHaveBeenCalled();
     });
 
     it("should not call collide IF THERE IS NO COLLISION", function() {
-      expect(false).toBe(true);
+      game = new Game(painter, collision, [thing, other_thing]);
+
+      spyOn(collision, "have_collided").andReturn(false);
+
+      game.check_for_collisions();
+      expect(thing.collide).not.toHaveBeenCalled();
+      expect(other_thing.collide).not.toHaveBeenCalled();
     });
   });
 
