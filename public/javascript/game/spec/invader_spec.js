@@ -48,33 +48,33 @@ describe("Invader", function() {
     describe("shooting", function() {
 
       var time_elapsed_for_shot;
-      var invader_shoot = function() {
+      var countdown_up = function() {
         invader.update(time_elapsed_for_shot);
       };
 
       beforeEach(function() {
-        time_elapsed_for_shot = shot_countdown + minimum_countdown + 1;
+        time_elapsed_for_shot = shot_countdown + minimum_countdown;
       });
 
       it("should not shoot a bullet within ten seconds of firing one before", function() {
-        invader_shoot();
+        countdown_up();
         invader.update(5);
         expect(stub_bullet.shoot.callCount).toEqual(1);
       });
 
       it("should shoot the bullet from the middle of the invader", function() {
-        invader_shoot();
+        countdown_up();
         expect(stub_bullet.shoot).toHaveBeenCalledWith(jasmine.any(Number), x + (width / 2), y + (height / 2));
       });
 
       it("should shoot a bullet when the shot countdown is first up", function() {
-        invader_shoot();
+        countdown_up();
         expect(stub_bullet.shoot).toHaveBeenCalled();
       });
 
       it("should shoot a bullet every time the shot countdown is up", function() {
-        invader_shoot();
-        invader_shoot();
+        countdown_up();
+        countdown_up();
 
         expect(stub_bullet.shoot.callCount).toEqual(2);
       });
@@ -86,7 +86,7 @@ describe("Invader", function() {
           var another_invader = new Invader(0, 0, 0, another_shot_countdown, another_stub_bullet);
 
           [invader, another_invader].forEach(function(i) {
-            i.update(shot_countdown + (minimum_countdown + 1));
+            i.update(shot_countdown + (minimum_countdown));
           });
 
           expect(stub_bullet.shoot).toHaveBeenCalled();
