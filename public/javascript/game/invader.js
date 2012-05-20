@@ -35,7 +35,7 @@ function Invader(initial_velocity, initial_x, initial_y, initial_countdown, bull
   };
 
   this.collide = function() {
-    this.box.reset(0, 0, 0, 0);
+    this.box.make_unhittable();
   };
 
   return this;
