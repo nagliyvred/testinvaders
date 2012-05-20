@@ -50,10 +50,11 @@ describe("Invader", function() {
       var time_elapsed_for_shot;
       var countdown_up = function() {
         invader.update(time_elapsed_for_shot);
+        time_elapsed_for_shot = 10;
       };
 
       beforeEach(function() {
-        time_elapsed_for_shot = shot_countdown + minimum_countdown;
+        time_elapsed_for_shot = shot_countdown;
       });
 
       it("should not shoot a bullet within ten seconds of firing one before", function() {
@@ -77,6 +78,14 @@ describe("Invader", function() {
         countdown_up();
 
         expect(stub_bullet.shoot.callCount).toEqual(2);
+      });
+
+      it("should shoot a bullet when update is signalled in less than full seconds" , function() {
+        invader.update(time_elapsed_for_shot - 1);
+        invader.update(0.999);
+        invader.update(0.010);
+
+        expect(stub_bullet.shoot).toHaveBeenCalled();
       });
 
       describe("staggered bullets", function() {
