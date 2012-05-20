@@ -14,5 +14,8 @@ function Invader(initial_velocity, initial_x, initial_y) {
     painter.draw_invader(this.box.x, this.box.y);
   };
 
+  this.collide = function() {
+  } ;
+
   return this;
 }
