@@ -30,4 +30,15 @@ describe("BoundingBox", function() {
       expect(bb.bottom()).toBe(60);
     });
   });
+
+  describe("reset", function() {
+    it("should set the x,y,width and height to new values", function() {
+      bb.reset(1,2,3,4);
+      
+      expect(bb.x).toBe(1);
+      expect(bb.y).toBe(2);
+      expect(bb.width).toBe(3);
+      expect(bb.height).toBe(4);
+    });
+  });
 });

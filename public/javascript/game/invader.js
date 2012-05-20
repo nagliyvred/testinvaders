@@ -2,22 +2,16 @@ function Invader(initial_velocity, initial_x, initial_y) {
   var velocity = initial_velocity || 50;
   var x = initial_x || 0;
   var y = initial_y || 0;
-
+  var width = 66 ;
+  var height = 48 ;
+  this.box = new BoundingBox(x, y, width, height) ;
+  
   this.update = function(dt) {
-    x += dt * velocity;
+    this.box.x += dt * velocity;
   };
 
   this.draw = function(painter) {
-    painter.draw_invader(x, y);
-  };
-
-  this.box = function() {
-    return {
-      x: x,
-      y: y,
-      width: 66,
-      height: 48
-    };
+    painter.draw_invader(this.box.x, this.box.y);
   };
 
   return this;

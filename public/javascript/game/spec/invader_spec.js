@@ -11,7 +11,7 @@ describe("Invader", function() {
   });
 
   it("should be hittable", function() {
-    var box = invader.box();
+    var box = invader.box;
 
     expect(box.x).toEqual(x);
     expect(box.y).toEqual(y);
@@ -33,7 +33,7 @@ describe("Invader", function() {
     });
 
     it("should move laterally", function() {
-      var new_box = invader.box();
+      var new_box = invader.box;
 
       expect(new_box.x).toEqual(x + velocity);
       expect(new_box.y).toEqual(y);
