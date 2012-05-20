@@ -11,7 +11,7 @@ function Init() {
   var gfx = new Gfx();
   var painter = new Painter(atom.context, gfx);
 
-  var bullet = new Bullet();
+  var bullet = new Bullet("us");
   var tank = new Tank(bullet);
 
   var things = [bullet, tank];
@@ -19,7 +19,7 @@ function Init() {
   var invaders = [];
   for(var y = 0; y < 5; y++) {
     for(var x = 0; x < 10; x++) {
-      var invader_bullet = new Bullet();
+      var invader_bullet = new Bullet("them");
       things.push(invader_bullet);
 
       var invader = new Invader(50, x * 80, y * 60, 10 - (Math.random() * 10), invader_bullet);

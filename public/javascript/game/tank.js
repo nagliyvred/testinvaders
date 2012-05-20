@@ -5,6 +5,7 @@ function Tank(bullet) {
   var height = 42;
 
   this.box = new BoundingBox(x, y, width, height) ;
+  this.team = "us" ;
 
   this.update = function(dt, input) {
     this.box.x = input.mouse.x - (this.box.width / 2);
@@ -12,7 +13,7 @@ function Tank(bullet) {
     if (input.pressed("shoot")) {
       //TODO: remove 25; this is arbitary offset until we make the tank bullet a seperate 
       //concept. if we don't do the offset then it collides with the tank immediately
-      bullet.shoot(-200, input.mouse.x, this.box.y - 25);
+      bullet.shoot(-200, input.mouse.x, this.box.y);
     }
   };
 

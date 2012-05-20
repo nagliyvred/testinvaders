@@ -22,6 +22,10 @@ function Game(painter, collision, things) {
         if (thing === other_thing) {
           return ;
         }
+        if (thing.team == other_thing.team) {
+          return ;
+        }
+
 
         if (collision.have_collided(thing.box, other_thing.box)) {
           thing.collide();

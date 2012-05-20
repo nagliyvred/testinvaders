@@ -10,7 +10,8 @@ describe("Game", function() {
       id: "Stub Thing",
       draw: jasmine.createSpy('thing.draw'),
       update: jasmine.createSpy('update'),
-      collide: jasmine.createSpy('collide')
+      collide: jasmine.createSpy('collide'),
+      team: "us"
     };
 
     collision = new Collision();
@@ -44,7 +45,8 @@ describe("Game", function() {
         id: "Stub Thing",
         draw: jasmine.createSpy('thing.draw'),
         update: jasmine.createSpy('update'),
-        collide: jasmine.createSpy('collide')
+        collide: jasmine.createSpy('collide'),
+        team: "them";
       }; 
     });
 
@@ -53,6 +55,24 @@ describe("Game", function() {
 
       game.update();
       expect(collision.have_collided).not.toHaveBeenCalled();
+    });
+
+    it("should not check for collisions if both things are on the same team", function() {
+      game = new Game(painter, collision, [thing, other_thing]);
+      thing.team = 'us' ;
+      other_thing.team = 'us' ;
+      spyOn(collision, "have_collided");
+
+      game.update();
+      expect(collision.have_collided).not.toHaveBeenCalled();
+    });
+
+    it("should check for collisions if things are on different teams", function() {
+      game = new Game(painter, collision, [thing, other_thing]);
+      spyOn(collision, "have_collided");
+
+      game.update();
+      expect(collision.have_collided).toHaveBeenCalled();
     });
 
     it("should call have_collided", function() {

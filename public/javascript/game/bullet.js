@@ -1,4 +1,5 @@
-function Bullet(velocity, x, y) {
+function Bullet(team, velocity, x, y) {
+  this.team = team ;
   var active = false;
   var width = 4 ;
   var height = 20 ;
@@ -23,7 +24,7 @@ function Bullet(velocity, x, y) {
 
   this.collide = function() {
     active = false;
-    this.box.reset(0,0,0,0);
+    this.box.make_unhittable();
   };
 
   return this;

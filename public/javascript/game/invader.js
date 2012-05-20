@@ -7,6 +7,7 @@ function Invader(initial_velocity, initial_x, initial_y, initial_countdown, bull
   var x = initial_x || 0;
   var y = initial_y || 0;
   this.box = new BoundingBox(x, y, width, height) ;
+  this.team = "them" ;
 
   var shoot_countdown = (initial_countdown || 0);
 
@@ -38,7 +39,7 @@ function Invader(initial_velocity, initial_x, initial_y, initial_countdown, bull
   };
 
   this.collide = function() {
-    this.box.reset(0, 0, 0, 0);
+    this.box.make_unhittable();
   };
 
   return this;
