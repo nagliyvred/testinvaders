@@ -3,9 +3,10 @@ function Tank(bullet) {
   var y = 500;
   var width = 66;
   var height = 42;
+  var box = new BoundingBox(x, y, width, height) ;
 
   this.update = function(dt, input) {
-    x = input.mouse.x - (width / 2);
+    box.x = input.mouse.x - (width / 2);
 
     if (input.pressed("shoot")) {
       bullet.shoot(-200, input.mouse.x, y);
@@ -13,16 +14,14 @@ function Tank(bullet) {
   };
 
   this.box = function() {
-    return {
-      x: x,
-      y: y,
-      width: width,
-      height: height
-    };
+    return box;
   };
 
   this.draw = function(painter) {
     painter.draw_tank(x, 500);
+  };
+
+  this.collide = function() {
   };
 
   return this;

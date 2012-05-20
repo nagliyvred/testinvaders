@@ -32,29 +32,29 @@ describe("Collision", function() {
   
   it("should return true as a is overlapping the top-left of b", function() {
     a = new BoundingBox(50, 50, width, height) ;
-    b = new BoundingBox(75, 75, width, height) 
+    b = new BoundingBox(75, 75, width, height);
     
-    ;expect(collision.have_collided(a,b)).toBe(true);
+    expect(collision.have_collided(a,b)).toBe(true);
   });
 
   it("should return true as a is overlapping the top-right of b", function() {
     a = new BoundingBox(50, 50, width, height) ;
-    b = new BoundingBox(75, 25, width, height) 
+    b = new BoundingBox(75, 25, width, height);
     
     expect(collision.have_collided(a,b)).toBe(true);
   });
 
   it("should return true as a is inside of b", function() {
     a = new BoundingBox(60, 60, 30, 30) ;
-    b = new BoundingBox(50, 50, width, height) 
+    b = new BoundingBox(50, 50, width, height);
     
     expect(collision.have_collided(a,b)).toBe(true);
   });
 
   it("should return true as a and b form a cross", function() {
     a = new BoundingBox(50, 60, width, 20) ;
-    b = new BoundingBox(60, 50, 20, height); 
+    b = new BoundingBox(60, 50, 20, height);
     
-     expect(collision.have_collided(a,b)).toBe(true);
+    expect(collision.have_collided(a,b)).toBe(true);
   });
 });
