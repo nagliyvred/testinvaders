@@ -25,7 +25,7 @@ describe("Tank", function() {
     });
 
     it("should set the tank position based on the mouse", function() {
-      var box = tank.box();
+      var box = tank.box;
       expect(box.x).toEqual(input.mouse.x - (box.width / 2));
     });
   });
@@ -43,7 +43,7 @@ describe("Tank", function() {
     it("should shoot", function() {
       stub_bullet.shoot = jasmine.createSpy("stub_bullet.shoot");
       tank.update(0, input);
-      expect(stub_bullet.shoot).toHaveBeenCalledWith(-200, 0, 500);
+      expect(stub_bullet.shoot).toHaveBeenCalledWith(-200, 0, 475);
     });
   });
 });

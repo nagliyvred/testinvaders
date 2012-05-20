@@ -1,43 +1,29 @@
 function Bullet(velocity, x, y) {
   var active = false;
+  var width = 4 ;
+  var height = 20 ;
+
+  this.box = new BoundingBox(x, y, 0, 0) ;
 
   this.shoot = function(new_velocity, new_x, new_y) {
     velocity = new_velocity;
-    x = new_x;
-    y = new_y;
+    this.box.reset(new_x, new_y, width, height) ;
     active = true;
   };
 
   this.update = function(delta_time) {
-    y = y + (delta_time * velocity);
+    this.box.y = this.box.y + (delta_time * velocity);
   };
 
   this.draw = function(painter) {
     if (active) {
-      painter.draw_bullet(x, y);
-    }
-  };
-
-  this.box = function() {
-    if (active) {
-      return {
-        x: x,
-        y: y,
-        width: 4,
-        height: 20,
-      };
-    } else {
-      return {
-        x: 0,
-        y: 0,
-        width: 0,
-        height: 0,
-      };
+      painter.draw_bullet(this.box.x, this.box.y);
     }
   };
 
   this.collide = function() {
     active = false;
+    this.box.reset(0,0,0,0);
   };
 
   return this;
