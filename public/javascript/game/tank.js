@@ -15,7 +15,7 @@ function Tank(bullet) {
   };
 
   this.draw = function(painter) {
-    painter.draw_tank(x, 500);
+    painter.draw_tank(this.box.x, this.box.y);
   };
 
   this.collide = function() {
