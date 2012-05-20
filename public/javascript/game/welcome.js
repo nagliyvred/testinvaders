@@ -22,7 +22,7 @@ function Init() {
       var invader_bullet = new Bullet("them");
       things.push(invader_bullet);
 
-      var invader = new Invader(50, x * 80, y * 60, 10 - (Math.random() * 10), invader_bullet);
+      var invader = new Invader(50, x * 80, y * 60, 20 - (Math.random() * 20), invader_bullet);
       invaders.push(invader);
       things.push(invader);
     }

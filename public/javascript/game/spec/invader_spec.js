@@ -47,19 +47,20 @@ describe("Invader", function() {
 
     describe("shooting", function() {
 
-      var time_elapsed_for_shot;
+      var time_elapsed_until_the_next_shot;
+      var minimum_time_between_shots = 20;
       var countdown_up = function() {
-        invader.update(time_elapsed_for_shot);
-        time_elapsed_for_shot = 10;
+        invader.update(time_elapsed_until_the_next_shot);
+        time_elapsed_until_the_next_shot = minimum_time_between_shots;
       };
 
       beforeEach(function() {
-        time_elapsed_for_shot = shot_countdown;
+        time_elapsed_until_the_next_shot = shot_countdown;
       });
 
-      it("should not shoot a bullet within ten seconds of firing one before", function() {
+      it("should not shoot a bullet within twenty seconds of firing one before", function() {
         countdown_up();
-        invader.update(5);
+        invader.update(19);
         expect(stub_bullet.shoot.callCount).toEqual(1);
       });
 
@@ -81,7 +82,7 @@ describe("Invader", function() {
       });
 
       it("should shoot a bullet when update is signalled in less than full seconds" , function() {
-        invader.update(time_elapsed_for_shot - 1);
+        invader.update(time_elapsed_until_the_next_shot - 1);
         invader.update(0.999);
         invader.update(0.010);
 

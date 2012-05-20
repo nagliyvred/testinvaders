@@ -1,6 +1,6 @@
 function Invader(initial_velocity, initial_x, initial_y, initial_countdown, bullet) {
   var width = 66, height = 48;
-  var minimum_time_between_shots = 10;//seconds
+  var minimum_time_between_shots = 20;//seconds
   var active = true;
 
   var velocity = initial_velocity || 50;
