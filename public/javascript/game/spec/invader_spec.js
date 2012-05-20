@@ -95,7 +95,7 @@ describe("Invader", function() {
           var another_invader = new Invader(0, 0, 0, another_shot_countdown, another_stub_bullet);
 
           [invader, another_invader].forEach(function(i) {
-            i.update(shot_countdown + (minimum_countdown));
+            i.update(shot_countdown);
           });
 
           expect(stub_bullet.shoot).toHaveBeenCalled();
