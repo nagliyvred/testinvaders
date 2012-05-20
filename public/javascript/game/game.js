@@ -30,6 +30,6 @@ function Game(painter, collision, things) {
       });
     });
   };
-  
+
   return _this;
 }
