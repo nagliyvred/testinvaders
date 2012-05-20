@@ -46,7 +46,7 @@ describe("Game", function() {
         draw: jasmine.createSpy('thing.draw'),
         update: jasmine.createSpy('update'),
         collide: jasmine.createSpy('collide'),
-        team: "them";
+        team: "them"
       }; 
     });
 
