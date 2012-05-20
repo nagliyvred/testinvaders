@@ -8,6 +8,7 @@ function Invader(initial_velocity, initial_x, initial_y, initial_countdown, bull
   var y = initial_y || 0;
 
   this.box = new BoundingBox(x, y, width, height) ;
+  this.team = "them" ;
 
   var shoot_countdown = (initial_countdown || 0) + minimum_time_between_shots;
   var time_alive = 0;

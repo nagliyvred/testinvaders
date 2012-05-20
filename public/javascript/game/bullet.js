@@ -1,4 +1,5 @@
-function Bullet(velocity, x, y) {
+function Bullet(team, velocity, x, y) {
+  this.team = team ;
   var active = false;
   var width = 4 ;
   var height = 20 ;
