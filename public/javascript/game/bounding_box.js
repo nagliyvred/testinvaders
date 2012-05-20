@@ -11,6 +11,14 @@ function BoundingBox(x, y, width, height) {
     this.height = height ;
   } ;
 
+  this.make_unhittable = function() {
+    this.reset(0,0,0,0) ;
+  }
+
+  this.hittable = function() {
+    return (this.width > 0 || this.height > 0) ;
+  } ;
+
   this.left = function() { return this.x ; } ;
   this.right = function() { return this.x + this.width ; } ;
   this.top = function() { return this.y ; } ;

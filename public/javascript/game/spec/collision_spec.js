@@ -9,52 +9,70 @@ describe("Collision", function() {
     height = 50 ;
   }) ;
 
-  it("should return false as a is far outside the top left of b", function() {
-    a = new BoundingBox(50, 50, width, height) ;
-    b = new BoundingBox(150, 150, width, height) ;
+  describe("have_collided", function() {
+    it("should return false if either box is not hittable", function() {
+      a = new BoundingBox(50, 50, width, height) ;
+      b = new BoundingBox(50, 50, width, height) ;
 
-    expect(collision.have_collided(a, b)).toBe(false);
-  });
+      expect(collision.have_collided(a,b)).toBe(true);
 
-  it("should return false as a horizontally inline with b but not overlapping", function() {
-    a = new BoundingBox(50, 50, width, height) ;
-    b = new BoundingBox(50, 150, width, height) ;
+      a.make_unhittable() ;
 
-    expect(collision.have_collided(a, b)).toBe(false);
-  });
+      expect(collision.have_collided(a,b)).toBe(false);
 
-  it("should return false as a vertically inline with b but not overlapping", function() {
-    a = new BoundingBox(50, 50, width, height) ;
-    b = new BoundingBox(150, 50, width, height) ;
+      a = new BoundingBox(50, 50, width, height) ;
+      b.make_unhittable() ;
+      
+      expect(collision.have_collided(a,b)).toBe(false);
+    }) ;
 
-    expect(collision.have_collided(a, b)).toBe(false);
-  });
-  
-  it("should return true as a is overlapping the top-left of b", function() {
-    a = new BoundingBox(50, 50, width, height) ;
-    b = new BoundingBox(75, 75, width, height);
-    
-    expect(collision.have_collided(a,b)).toBe(true);
-  });
+    it("should return false as a is far outside the top left of b", function() {
+      a = new BoundingBox(50, 50, width, height) ;
+      b = new BoundingBox(150, 150, width, height) ;
 
-  it("should return true as a is overlapping the top-right of b", function() {
-    a = new BoundingBox(50, 50, width, height) ;
-    b = new BoundingBox(75, 25, width, height);
-    
-    expect(collision.have_collided(a,b)).toBe(true);
-  });
+      expect(collision.have_collided(a, b)).toBe(false);
+    });
 
-  it("should return true as a is inside of b", function() {
-    a = new BoundingBox(60, 60, 30, 30) ;
-    b = new BoundingBox(50, 50, width, height);
-    
-    expect(collision.have_collided(a,b)).toBe(true);
-  });
+    it("should return false as a horizontally inline with b but not overlapping", function() {
+      a = new BoundingBox(50, 50, width, height) ;
+      b = new BoundingBox(50, 150, width, height) ;
 
-  it("should return true as a and b form a cross", function() {
-    a = new BoundingBox(50, 60, width, 20) ;
-    b = new BoundingBox(60, 50, 20, height);
-    
-    expect(collision.have_collided(a,b)).toBe(true);
+      expect(collision.have_collided(a, b)).toBe(false);
+    });
+
+    it("should return false as a vertically inline with b but not overlapping", function() {
+      a = new BoundingBox(50, 50, width, height) ;
+      b = new BoundingBox(150, 50, width, height) ;
+
+      expect(collision.have_collided(a, b)).toBe(false);
+    });
+
+    it("should return true as a is overlapping the top-left of b", function() {
+      a = new BoundingBox(50, 50, width, height) ;
+      b = new BoundingBox(75, 75, width, height);
+
+      expect(collision.have_collided(a,b)).toBe(true);
+    });
+
+    it("should return true as a is overlapping the top-right of b", function() {
+      a = new BoundingBox(50, 50, width, height) ;
+      b = new BoundingBox(75, 25, width, height);
+
+      expect(collision.have_collided(a,b)).toBe(true);
+    });
+
+    it("should return true as a is inside of b", function() {
+      a = new BoundingBox(60, 60, 30, 30) ;
+      b = new BoundingBox(50, 50, width, height);
+
+      expect(collision.have_collided(a,b)).toBe(true);
+    });
+
+    it("should return true as a and b form a cross", function() {
+      a = new BoundingBox(50, 60, width, 20) ;
+      b = new BoundingBox(60, 50, 20, height);
+
+      expect(collision.have_collided(a,b)).toBe(true);
+    });
   });
 });
