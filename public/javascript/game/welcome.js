@@ -17,13 +17,15 @@ function Init() {
   var things = [bullet, tank];
 
   var invaders = [];
-  for(var i = 0; i < 3; i++) {
-    var invader_bullet = new Bullet();
-    things.push(invader_bullet);
+  for(var y = 0; y < 5; y++) {
+    for(var x = 0; x < 10; x++) {
+      var invader_bullet = new Bullet();
+      things.push(invader_bullet);
 
-    var invader = new Invader(50, i * 80, 50, 4 - (Math.random() * 4), invader_bullet);
-    invaders.push(invader);
-    things.push(invader);
+      var invader = new Invader(50, x * 80, y * 60, 4 - (Math.random() * 4), invader_bullet);
+      invaders.push(invader);
+      things.push(invader);
+    }
   }
 
   var swarm = new Swarm(invaders);
