@@ -17,7 +17,7 @@ function Init() {
   var things = [bullet, tank];
 
   var invaders = [];
-  for(var i = 0; i <3; i++) {
+  for(var i = 0; i < 3; i++) {
     var invader_bullet = new Bullet();
     things.push(invader_bullet);
 
