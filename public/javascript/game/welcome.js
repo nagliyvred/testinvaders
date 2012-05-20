@@ -17,6 +17,7 @@ function Init() {
   var invader = new Invader();
   var swarm = new Swarm([invader]);
 
-  var game = new Game(painter, [bullet, tank, invader]);
+  var collision = new Collision();
+  var game = new Game(painter, collision, [bullet, tank, invader]);
   game.run();
 }
