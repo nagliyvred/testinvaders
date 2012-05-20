@@ -3,18 +3,15 @@ function Tank(bullet) {
   var y = 500;
   var width = 66;
   var height = 42;
-  var box = new BoundingBox(x, y, width, height) ;
+
+  this.box = new BoundingBox(x, y, width, height) ;
 
   this.update = function(dt, input) {
-    box.x = input.mouse.x - (width / 2);
+    this.box.x = input.mouse.x - (this.box.width / 2);
 
     if (input.pressed("shoot")) {
-      bullet.shoot(-200, input.mouse.x, y);
+      bullet.shoot(-200, input.mouse.x, this.box.y);
     }
-  };
-
-  this.box = function() {
-    return box;
   };
 
   this.draw = function(painter) {

@@ -1,16 +1,13 @@
-function BoundingBox(bx, by, bwidth, bheight) {
-  var x = bx ;
-  var y = by ;
-  var width = bwidth ;
-  var height = bheight ;
+function BoundingBox(x, y, width, height) {
+  this.x = x ;
+  this.y = y ;
+  this.width = width ;
+  this.height = height ;
 
-  this.width = function() { return width;} ;
-  this.height = function() { return height; } ;
-
-  this.left = function() { return x ; } ;
-  this.right = function() { return x + width ; } ;
-  this.top = function() { return y ; } ;
-  this.bottom = function() {return y + height ; } ;
+  this.left = function() { return this.x ; } ;
+  this.right = function() { return this.x + this.width ; } ;
+  this.top = function() { return this.y ; } ;
+  this.bottom = function() {return this.y + this.height ; } ;
 
   return this ;
 } ;
