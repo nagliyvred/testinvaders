@@ -20,6 +20,10 @@ function Invader(initial_velocity, initial_x, initial_y, initial_countdown, bull
   };
 
   this.update = function(delta_time) {
+    if (!active) {
+      return ;
+    }
+
     shoot_countdown -= delta_time;
 
     // Shooting
