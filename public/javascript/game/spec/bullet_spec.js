@@ -21,6 +21,12 @@ describe("Bullet", function() {
 
   shared_initial_state_examples();
 
+  describe("when first create", function() {
+    it("should belong to team us", function() {
+      expect(bullet.team).toBe("us");
+    });
+  }) ;
+
   describe("when it is shot", function() {
     var velocity;
     var x;
@@ -67,4 +73,11 @@ describe("Bullet", function() {
       shared_initial_state_examples();
     });
   });
+
+  describe("joinTeamThem", function() {
+    it("should change the bullet team to them", function() {
+      bullet.joinTeamThem() ;
+      expect(bullet.team).toBe("them") ;
+    }) ;
+  }) ;
 });

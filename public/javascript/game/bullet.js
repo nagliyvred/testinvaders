@@ -1,5 +1,5 @@
-function Bullet(team, velocity, x, y) {
-  this.team = team ;
+function Bullet(velocity, x, y) {
+  this.team = "us" ;
   var active = false;
   var x = 0 ;
   var y = 0 ;
@@ -31,6 +31,10 @@ function Bullet(team, velocity, x, y) {
     active = false;
     this.box.make_unhittable();
   };
+
+  this.joinTeamThem = function() {
+    this.team = "them" ;
+  } ;
 
   return this;
 }
