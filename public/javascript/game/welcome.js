@@ -20,7 +20,6 @@ function Init() {
   for(var y = 0; y < 5; y++) {
     for(var x = 0; x < 10; x++) {
       var invader_bullet = new InvaderBullet();
-      invader_bullet.joinTeamThem();
       things.push(invader_bullet);
 
       var invader = new Invader(50, x * 80, y * 60, 20 - (Math.random() * 20), invader_bullet);

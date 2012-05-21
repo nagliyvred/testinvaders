@@ -74,11 +74,4 @@ describe("Bullet", function() {
       shared_initial_state_examples();
     });
   });
-
-  describe("joinTeamThem", function() {
-    it("should change the bullet team to them", function() {
-      bullet.joinTeamThem() ;
-      expect(bullet.team).toBe("them") ;
-    });
-  });
 });

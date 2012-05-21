@@ -32,9 +32,5 @@ function Bullet(velocity, x, y) {
     this.box.make_unhittable();
   };
 
-  this.joinTeamThem = function() {
-    this.team = "them" ;
-  } ;
-
   return this;
 }
