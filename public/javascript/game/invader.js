@@ -6,7 +6,8 @@ function Invader(initial_velocity, initial_x, initial_y, initial_countdown, bull
   var velocity = initial_velocity || 50;
   var x = initial_x || 0;
   var y = initial_y || 0;
-  this.box = new BoundingBox(x, y, width, height) ;
+  this.position = new Position(x,y)
+  this.box = new BoundingBox(this.position, width, height) ;
   this.team = "them" ;
 
   var shoot_countdown = (initial_countdown || 0);
@@ -28,17 +29,17 @@ function Invader(initial_velocity, initial_x, initial_y, initial_countdown, bull
 
     // Shooting
     if(its_time_to_shoot()) {
-      bullet.shoot(50, this.box.x + (width / 2), this.box.y + (height / 2));
+      bullet.shoot(50, this.position.x + (width / 2), this.position.y + (height / 2));
       reset_shoot_countdown();
     }
 
     // Movement
-    this.box.x += delta_time * velocity;
+    this.position.x += delta_time * velocity;
   };
 
   this.draw = function(painter) {
     if (active) {
-      painter.draw_invader(this.box.x, this.box.y);
+      painter.draw_invader(this.position.x, this.position.y);
     }
   };
 

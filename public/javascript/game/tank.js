@@ -4,21 +4,20 @@ function Tank(bullet) {
   var width = 66;
   var height = 42;
 
-  this.box = new BoundingBox(x, y, width, height) ;
+  this.position = new Position(x, y);
+  this.box = new BoundingBox(this.position, width, height) ;
   this.team = "us" ;
 
   this.update = function(dt, input) {
-    this.box.x = input.mouse.x - (this.box.width / 2);
+    this.position.x = input.mouse.x - (this.box.width / 2);
 
     if (input.pressed("shoot")) {
-      //TODO: remove 25; this is arbitary offset until we make the tank bullet a seperate 
-      //concept. if we don't do the offset then it collides with the tank immediately
-      bullet.shoot(-200, input.mouse.x, this.box.y);
+      bullet.shoot(-200, input.mouse.x, this.position.y);
     }
   };
 
   this.draw = function(painter) {
-    painter.draw_tank(this.box.x, this.box.y);
+    painter.draw_tank(this.position.x, this.position.y);
   };
 
   this.collide = function() {

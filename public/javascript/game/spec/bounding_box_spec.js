@@ -2,9 +2,11 @@
 //go towards the bottom right
 describe("BoundingBox", function() {
   var bb ;
+  var position ;
 
   beforeEach(function() {
-    bb = new BoundingBox(10, 20, 30, 40) ;
+    position = new Position(10, 20);
+    bb = new BoundingBox(position, 30, 40) ;
   });
 
   describe("left", function() {
@@ -31,12 +33,14 @@ describe("BoundingBox", function() {
     });
   });
 
-  describe("reset", function() {
+  describe("set", function() {
     it("should set the x,y,width and height to new values", function() {
-      bb.reset(1,2,3,4);
+      position.x = 1;
+      position.y = 2 ;
+      bb.set(position,3,4);
 
-      expect(bb.x).toBe(1);
-      expect(bb.y).toBe(2);
+      expect(bb.position.x).toBe(1);
+      expect(bb.position.y).toBe(2);
       expect(bb.width).toBe(3);
       expect(bb.height).toBe(4);
     });
@@ -46,8 +50,8 @@ describe("BoundingBox", function() {
     it("should set the x,y,width and height to zero", function() {
       bb.make_unhittable() ;
 
-      expect(bb.x).toBe(0);
-      expect(bb.y).toBe(0);
+      expect(bb.position.x).toBe(0);
+      expect(bb.position.y).toBe(0);
       expect(bb.width).toBe(0);
       expect(bb.height).toBe(0);
     }) ;

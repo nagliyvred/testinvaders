@@ -39,7 +39,7 @@ describe("Bullet", function() {
 
       bullet.update(delta_time);
 
-      expect(bullet.box.y).toEqual(y + (delta_time * velocity));
+      expect(bullet.position.y).toEqual(y + (delta_time * velocity));
     });
 
     it("should appear like a white streak", function() {
@@ -53,8 +53,8 @@ describe("Bullet", function() {
     it("should be hittable", function() {
       var box = bullet.box;
 
-      expect(box.x).toBe(x);
-      expect(box.y).toBe(y);
+      expect(box.position.x).toBe(x);
+      expect(box.position.y).toBe(y);
       expect(box.width).toBeGreaterThan(0);
       expect(box.height).toBeGreaterThan(0);
     });

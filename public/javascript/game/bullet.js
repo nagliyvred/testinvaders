@@ -1,24 +1,29 @@
 function Bullet(team, velocity, x, y) {
   this.team = team ;
   var active = false;
+  var x = 0 ;
+  var y = 0 ;
   var width = 4 ;
   var height = 20 ;
 
-  this.box = new BoundingBox(x, y, 0, 0) ;
+  this.position = new Position(x, y);
+  this.box = new BoundingBox(this.position, 0, 0) ;
 
   this.shoot = function(new_velocity, new_x, new_y) {
     velocity = new_velocity;
-    this.box.reset(new_x, new_y, width, height) ;
+    this.position.x = new_x ;
+    this.position.y = new_y ;
+    this.box.set(this.position, width, height) ;
     active = true;
   };
 
   this.update = function(delta_time) {
-    this.box.y = this.box.y + (delta_time * velocity);
+    this.position.y = this.position.y + (delta_time * velocity);
   };
 
   this.draw = function(painter) {
     if (active) {
-      painter.draw_bullet(this.box.x, this.box.y);
+      painter.draw_bullet(this.position.x, this.position.y);
     }
   };
 

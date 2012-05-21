@@ -22,8 +22,8 @@ describe("Invader", function() {
   it("should be hittable", function() {
     var box = invader.box;
 
-    expect(box.x).toEqual(x);
-    expect(box.y).toEqual(y);
+    expect(box.position.x).toEqual(x);
+    expect(box.position.y).toEqual(y);
     expect(box.height).toBeGreaterThan(0);
     expect(box.width).toBeGreaterThan(0);
   });
@@ -41,8 +41,8 @@ describe("Invader", function() {
 
       var new_box = invader.box;
 
-      expect(new_box.x).toEqual(x + velocity);
-      expect(new_box.y).toEqual(y);
+      expect(new_box.position.x).toEqual(x + velocity);
+      expect(new_box.position.y).toEqual(y);
     });
 
     describe("shooting", function() {
