@@ -33,12 +33,13 @@ function Invader(initial_velocity, initial_x, initial_y, initial_countdown, bull
   };
 
   this.draw = function(painter) {
-    if(this.box.width !== 0 && this.box.height !== 0) {
+    if (active) {
       painter.draw_invader(this.box.x, this.box.y);
     }
   };
 
   this.collide = function() {
+    active = false ;
     this.box.make_unhittable();
   };
 
