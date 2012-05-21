@@ -3,6 +3,10 @@ function Painter(context, gfx) {
     context.drawImage(gfx.tank_bullet, position.x, position.y);
   };
 
+  this.draw_invader_bullet = function(position) {
+    context.drawImage(gfx.invader_bullet, position.x, position.y);
+  };
+
   this.draw_tank = function(position) {
     context.drawImage(gfx.tank, position.x, position.y);
   }

@@ -31,6 +31,18 @@ describe("Painter", function() {
     });
   });
 
+  describe("draw_invader_bullet", function() {
+    it("should draw the invader bullet at the specified position", function() {
+      var x = Math.random();
+      var y = Math.random();
+      var position = new Position(x, y) ;
+
+      painter.draw_invader_bullet(position);
+
+      expect(stub_context.drawImage).toHaveBeenCalledWith(stub_gfx.invader_bullet, position.x, position.y);
+    });
+  });
+
   describe("draw_tank", function() {
     it("should draw the tank image at the specified position", function() {
       var x = Math.random();

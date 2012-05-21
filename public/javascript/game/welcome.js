@@ -19,7 +19,7 @@ function Init() {
   var invaders = [];
   for(var y = 0; y < 5; y++) {
     for(var x = 0; x < 10; x++) {
-      var invader_bullet = new Bullet();
+      var invader_bullet = new InvaderBullet();
       invader_bullet.joinTeamThem();
       things.push(invader_bullet);
 
