@@ -68,4 +68,26 @@ describe("BoundingBox", function() {
       expect(bb.hittable()).toBe(true) ;
     });
   });
+
+  describe("collision detection", function() {
+    var box_overlapping;
+    var box_not_overlapping;
+
+    beforeEach(function() {
+      box_overlapping = new BoundingBox(new Position(10, 20), 30, 40);
+      box_not_overlapping = new BoundingBox(new Position(1, 2), 3, 4);
+    });
+
+    it("should not detect a collision with itself", function() {
+      expect(bb.is_colliding_with(bb)).toBeFalsy();
+    });
+
+    it("should detect a collision with an overlapping box", function() {
+      expect(bb.is_colliding_with(box_overlapping)).toBeTruthy();
+    });
+
+    it("should not detect a collision with boxes that is not overlapping", function() {
+      expect(bb.is_colliding_with(box_not_overlapping)).toBeFalsy();
+    });
+  });
 });
