@@ -16,7 +16,7 @@ function BoundingBox(position, width, height) {
     this.height = 0 ;
   }
 
-  this.hittable = function() {
+  this.is_hittable = function() {
     return (this.width > 0 || this.height > 0) ;
   } ;
 

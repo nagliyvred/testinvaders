@@ -11,11 +11,10 @@ describe("Game", function() {
       draw: jasmine.createSpy('thing.draw'),
       update: jasmine.createSpy('update'),
       collide: jasmine.createSpy('collide'),
-      team: "us"
+      box: {is_colliding_with: jasmine.createSpy('box_is_colliding_with') }
     };
 
-    collision = new Collision();
-    game = new Game(painter, collision, [thing]);
+    game = new Game(painter, [thing]);
   });
 
   it("should draw ALL THE THINGS", function() {
@@ -39,70 +38,9 @@ describe("Game", function() {
   });
 
   describe("checking for collisions", function() {
-    var other_thing;
-    beforeEach(function() {
-      other_thing = {
-        id: "Stub Thing",
-        draw: jasmine.createSpy('thing.draw'),
-        update: jasmine.createSpy('update'),
-        collide: jasmine.createSpy('collide'),
-        team: "them"
-      }; 
-    });
-
-    it("should not check a thing against itself", function () {
-      spyOn(collision, "have_collided");
-
-      game.update();
-      expect(collision.have_collided).not.toHaveBeenCalled();
-    });
-
-    it("should not check for collisions if both things are on the same team", function() {
-      game = new Game(painter, collision, [thing, other_thing]);
-      thing.team = 'us' ;
-      other_thing.team = 'us' ;
-      spyOn(collision, "have_collided");
-
-      game.update();
-      expect(collision.have_collided).not.toHaveBeenCalled();
-    });
-
-    it("should check for collisions if things are on different teams", function() {
-      game = new Game(painter, collision, [thing, other_thing]);
-      spyOn(collision, "have_collided");
-
-      game.update();
-      expect(collision.have_collided).toHaveBeenCalled();
-    });
-
-    it("should call have_collided", function() {
-      game = new Game(painter, collision, [thing, other_thing]);
-
-      spyOn(collision, "have_collided");
-
-      game.check_for_collisions();
-      expect(collision.have_collided).toHaveBeenCalledWith(thing.box, other_thing.box); 
-    });
-
-    it("should call collide on both things if they collide", function() {
-      game = new Game(painter, collision, [thing, other_thing]);
-
-      spyOn(collision, "have_collided").andReturn(true);
-
-      game.check_for_collisions();
-      expect(thing.collide).toHaveBeenCalled();
-      expect(other_thing.collide).toHaveBeenCalled();
-    });
-
-    it("should not call collide IF THERE IS NO COLLISION", function() {
-      game = new Game(painter, collision, [thing, other_thing]);
-
-      spyOn(collision, "have_collided").andReturn(false);
-
-      game.check_for_collisions();
-      expect(thing.collide).not.toHaveBeenCalled();
-      expect(other_thing.collide).not.toHaveBeenCalled();
-    });
+    xit("should check that everything is colliding with everything else");
+    xit("should call collide on both things if they collide");
+    xit("shouldn't call collide if things aren't colliding");
   });
 
   it("should clear the canvas between frames of animation", function() {

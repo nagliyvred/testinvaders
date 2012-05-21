@@ -6,13 +6,12 @@ function Tank(bullet) {
 
   this.position = new Position(x, y);
   this.box = new BoundingBox(this.position, width, height) ;
-  this.team = "us" ;
 
   this.update = function(dt, input) {
     this.position.x = input.mouse.x - (this.box.width / 2);
 
     if (input.pressed("shoot")) {
-      bullet.shoot(-200, input.mouse.x, this.position.y);
+      bullet.shoot(-200, input.mouse.x, this.position.y, this);
     }
   };
 

@@ -8,7 +8,6 @@ function Invader(initial_velocity, initial_x, initial_y, initial_countdown, bull
   var y = initial_y || 0;
   this.position = new Position(x,y)
   this.box = new BoundingBox(this.position, width, height) ;
-  this.team = "them" ;
 
   var shoot_countdown = (initial_countdown || 0);
 
@@ -29,7 +28,7 @@ function Invader(initial_velocity, initial_x, initial_y, initial_countdown, bull
 
     // Shooting
     if(its_time_to_shoot()) {
-      bullet.shoot(50, this.position.x + (width / 2), this.position.y + (height / 2));
+      bullet.shoot(50, this.position.x + (width / 2), this.position.y + (height / 2), this);
       reset_shoot_countdown();
     }
 
@@ -43,9 +42,11 @@ function Invader(initial_velocity, initial_x, initial_y, initial_countdown, bull
     }
   };
 
-  this.collide = function() {
-    active = false ;
-    this.box.make_unhittable();
+  this.collide = function(other_thing) {
+    if(other_thing.owner && other_thing.owner.__proto__ === Tank.prototype) {
+      active = false ;
+      this.box.make_unhittable();
+    }
   };
 
   return this;

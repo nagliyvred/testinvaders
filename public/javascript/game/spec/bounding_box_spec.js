@@ -61,11 +61,11 @@ describe("BoundingBox", function() {
     it("should return false if width and height are zero", function() {
       bb.make_unhittable() ;
 
-      expect(bb.hittable()).toBe(false) ;
+      expect(bb.is_hittable()).toBe(false) ;
     });
 
     it("should return true otherwise", function() {
-      expect(bb.hittable()).toBe(true) ;
+      expect(bb.is_hittable()).toBe(true) ;
     });
   });
 

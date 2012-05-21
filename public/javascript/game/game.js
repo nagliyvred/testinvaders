@@ -1,4 +1,4 @@
-function Game(painter, collision, things) {
+function Game(painter, things) {
   var _this = new atom.Game();
 
   _this.draw = function() {
@@ -19,18 +19,10 @@ function Game(painter, collision, things) {
   _this.check_for_collisions = function() {
     things.forEach(function(thing) {
       things.forEach(function(other_thing) {
-        if (thing === other_thing) {
-          return ;
-        }
-        if (thing.team == other_thing.team) {
-          return ;
-        }
-
-
-        if (collision.have_collided(thing.box, other_thing.box)) {
-          thing.collide();
-          other_thing.collide();
-        }
+        if(thing.box.is_colliding_with(other_thing.box)) {
+          thing.collide(other_thing);
+          other_thing.collide(thing);
+        };
       });
     });
   };

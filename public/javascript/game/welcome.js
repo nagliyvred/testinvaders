@@ -30,7 +30,6 @@ function Init() {
 
   var swarm = new Swarm(invaders);
 
-  var collision = new Collision();
-  var game = new Game(painter, collision, things);
+  var game = new Game(painter, things);
   game.run();
 }

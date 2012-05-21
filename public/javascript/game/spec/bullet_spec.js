@@ -21,24 +21,20 @@ describe("Bullet", function() {
 
   shared_initial_state_examples();
 
-  describe("when first create", function() {
-    it("should belong to team us", function() {
-      expect(bullet.team).toBe("us");
-    });
-  }) ;
-
   describe("when it is shot", function() {
     var velocity;
     var x;
     var y;
+    var owner;
 
     beforeEach(function() {
       velocity = Math.random();
       x = Math.random();
       y = Math.random();
       p = new Position(x, y) ;
+      owner = { };
 
-      bullet.shoot(velocity, x, y);
+      bullet.shoot(velocity, x, y, owner);
     });
 
     it("should move vertically at some velocity", function() {
@@ -66,12 +62,24 @@ describe("Bullet", function() {
       expect(box.height).toBeGreaterThan(0);
     });
 
+    it("should set the owner of the bullet", function() {
+      expect(bullet.owner).toBe(owner);
+    });
+
     describe("when it is hit", function() {
-      beforeEach(function() {
-        bullet.collide();
+
+      it("should not collide with the tank", function() {
+        bullet.collide(new Tank());
+
+        expect(bullet.box.is_hittable()).toBeTruthy();
       });
 
-      shared_initial_state_examples();
+      it("should collide with an invader", function() {
+        bullet.collide(new Invader());
+
+        expect(bullet.box.is_hittable()).toBeFalsy();
+        //shared_initial_state_examples();
+      });
     });
   });
 });

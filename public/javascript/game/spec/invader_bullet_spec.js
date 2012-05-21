@@ -19,10 +19,20 @@ describe("A space invaders bullet", function() {
 
   });
 
-  describe("team membership", function() {
+  describe("collisions", function() {
 
-    it("should be a member of the terrifying invaders team (them)", function() {
-      expect(bullet.team).toEqual("them");
+    beforeEach(function() {
+      bullet.shoot(0, 0, 0);
+    });
+
+    it("should not collide with invaders", function() {
+      bullet.collide(new Invader());
+      expect(bullet.box.is_hittable()).toBeTruthy();
+    });
+
+    it("should collide with the tank", function() {
+      bullet.collide(new Tank());
+      expect(bullet.box.is_hittable()).toBeFalsy();
     });
 
   });

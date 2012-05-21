@@ -71,7 +71,7 @@ describe("Invader", function() {
         });
 
         it("should shoot the bullet from the middle of the invader", function() {
-          expect(stub_bullet.shoot).toHaveBeenCalledWith(jasmine.any(Number), x + (width / 2), y + (height / 2));
+          expect(stub_bullet.shoot).toHaveBeenCalledWith(jasmine.any(Number), x + (width / 2), y + (height / 2), invader);
         });
 
         it("should not shoot a bullet within twenty seconds of firing one before", function() {
@@ -118,10 +118,34 @@ describe("Invader", function() {
     xit("should invert its lateral velocity");
   });
 
+  describe("collisions", function() {
+    it("should not collide with invader bullets", function() {
+      var invader_bullet = new InvaderBullet();
+      var shooting_invader = new Invader();
+      invader_bullet.shoot(0, 0, 0, shooting_invader);
+
+      invader.collide(invader_bullet);
+
+      expect(invader.box.is_hittable()).toBeTruthy();
+    });
+
+    it("should collide with the tank bullets", function() {
+      var tank_bullet = new Bullet();
+      var tank = new Tank();
+      tank_bullet.shoot(0, 0, 0, tank);
+
+      invader.collide(tank_bullet);
+
+      expect(invader.box.is_hittable()).toBeFalsy();
+    });
+  });
+
   describe("after a collision", function() {
 
     beforeEach(function() {
-      invader.collide();
+      var bullet = new Bullet();
+      bullet.shoot(0, 0, 0, new Tank());
+      invader.collide(bullet);
     });
 
     it("should be dead dead dead (ie, not visible)", function() {

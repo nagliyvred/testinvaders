@@ -43,7 +43,7 @@ describe("Tank", function() {
     it("should shoot", function() {
       stub_bullet.shoot = jasmine.createSpy("stub_bullet.shoot");
       tank.update(0, input);
-      expect(stub_bullet.shoot).toHaveBeenCalledWith(-200, 0, 500);
+      expect(stub_bullet.shoot).toHaveBeenCalledWith(-200, 0, 500, tank);
     });
   });
 });
