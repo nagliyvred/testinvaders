@@ -23,10 +23,11 @@ describe("Painter", function() {
     it("should draw the tank bullet image at the specified position", function() {
       var x = Math.random();
       var y = Math.random();
+      var position = new Position(x, y) ;
 
-      painter.draw_bullet(x, y);
+      painter.draw_bullet(position);
 
-      expect(stub_context.drawImage).toHaveBeenCalledWith(stub_gfx.tank_bullet, x, y);
+      expect(stub_context.drawImage).toHaveBeenCalledWith(stub_gfx.tank_bullet, position.x, position.y);
     });
   });
 
@@ -34,8 +35,9 @@ describe("Painter", function() {
     it("should draw the tank image at the specified position", function() {
       var x = Math.random();
       var y = Math.random();
+      var position = new Position(x, y) ;
 
-      painter.draw_tank(x, y);
+      painter.draw_tank(position);
 
       expect(stub_context.drawImage).toHaveBeenCalledWith(stub_gfx.tank, x, y);
     });
@@ -45,8 +47,9 @@ describe("Painter", function() {
     it("should draw the invader image at the specified position", function() {
       var x = Math.random();
       var y = Math.random();
+      var position = new Position(x, y) ;
 
-      painter.draw_invader(x, y);
+      painter.draw_invader(position);
 
       expect(stub_context.drawImage).toHaveBeenCalledWith(stub_gfx.invader, x, y);
     });

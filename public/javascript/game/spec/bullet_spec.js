@@ -36,6 +36,7 @@ describe("Bullet", function() {
       velocity = Math.random();
       x = Math.random();
       y = Math.random();
+      p = new Position(x, y) ;
 
       bullet.shoot(velocity, x, y);
     });
@@ -53,7 +54,7 @@ describe("Bullet", function() {
       var stub_painter = {draw_bullet: spy_draw_bullet};
 
       bullet.draw(stub_painter);
-      expect(spy_draw_bullet).toHaveBeenCalledWith(x, y);
+      expect(spy_draw_bullet).toHaveBeenCalledWith(p);
     });
 
     it("should be hittable", function() {

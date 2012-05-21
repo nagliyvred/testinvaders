@@ -39,7 +39,7 @@ function Invader(initial_velocity, initial_x, initial_y, initial_countdown, bull
 
   this.draw = function(painter) {
     if (active) {
-      painter.draw_invader(this.position.x, this.position.y);
+      painter.draw_invader(this.position);
     }
   };
 

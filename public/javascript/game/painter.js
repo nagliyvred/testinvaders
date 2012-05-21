@@ -1,14 +1,14 @@
 function Painter(context, gfx) {
-  this.draw_bullet = function(x, y) {
-    context.drawImage(gfx.tank_bullet, x, y);
+  this.draw_bullet = function(position) {
+    context.drawImage(gfx.tank_bullet, position.x, position.y);
   };
 
-  this.draw_tank = function(x, y) {
-    context.drawImage(gfx.tank, x, y);
+  this.draw_tank = function(position) {
+    context.drawImage(gfx.tank, position.x, position.y);
   }
 
-  this.draw_invader = function(x, y) {
-    context.drawImage(gfx.invader, x, y);
+  this.draw_invader = function(position) {
+    context.drawImage(gfx.invader, position.x, position.y);
   }
 
   this.clear = function() {

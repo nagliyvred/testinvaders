@@ -11,6 +11,7 @@ describe("Invader", function() {
     velocity = Math.random();
     x = Math.random();
     y = Math.random();
+    p = new Position(x, y) ;
     shot_countdown = Math.random();
 
     stub_bullet = {shoot: jasmine.createSpy("stub_bullet.shoot")};
@@ -30,7 +31,7 @@ describe("Invader", function() {
 
   it("should look like blatant copyright infringement", function() {
     invader.draw(stub_painter);
-    expect(stub_painter.draw_invader).toHaveBeenCalledWith(x, y);
+    expect(stub_painter.draw_invader).toHaveBeenCalledWith(p);
   });
 
   describe("when updated", function() {

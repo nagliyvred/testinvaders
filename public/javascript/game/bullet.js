@@ -23,7 +23,7 @@ function Bullet(velocity, x, y) {
 
   this.draw = function(painter) {
     if (active) {
-      painter.draw_bullet(this.position.x, this.position.y);
+      painter.draw_bullet(this.position) ;
     }
   };
 
