@@ -33,6 +33,10 @@
 
 .chrome .btn { margin-top: 5px; }
 
+body.the_blackness {
+  background-color: black ;
+}
+
 .haz_iframe {
   margin-left: auto;
   margin-right: auto;
@@ -46,8 +50,6 @@
 iframe {
   width: 800px;
   height: 600px;
-  top: 0;
-  left: 0;
   z-index: -99999;
   border: 0;
 }

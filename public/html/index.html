@@ -1,64 +1,64 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8">
-      <title>Test Invaders</title>
+        <head>
+                <meta charset="UTF-8">
+                <title>Test Invaders</title>
 
-      <link rel="stylesheet" type="text/css" href="/public/stylesheet/bootstrap.min.css" />
-      <link rel="stylesheet" type="text/css" href="/public/stylesheet/index.css" />
+                <link rel="stylesheet" type="text/css" href="/public/stylesheet/bootstrap.min.css" />
+                <link rel="stylesheet" type="text/css" href="/public/stylesheet/index.css" />
 
-      <script src="/public/javascript/ext/zepto.min.js" type="text/javascript"></script>
-      <script src="/public/javascript/ext/bootstrap-dropdown.js" type="text/javascript"></script>
+                <script src="/public/javascript/ext/zepto.min.js" type="text/javascript"></script>
+                <script src="/public/javascript/ext/bootstrap-dropdown.js" type="text/javascript"></script>
 
-      <script src="/public/javascript/ext/ace/ace.js" type="text/javascript"></script>
-      <script src="/public/javascript/ext/ace/mode-javascript.js" type="text/javascript"></script>
-      <script src="/public/javascript/ext/ace/theme-twilight.js" type="text/javascript"></script>
+                <script src="/public/javascript/ext/ace/ace.js" type="text/javascript"></script>
+                <script src="/public/javascript/ext/ace/mode-javascript.js" type="text/javascript"></script>
+                <script src="/public/javascript/ext/ace/theme-twilight.js" type="text/javascript"></script>
 
-      <script src="/public/javascript/index.js" type="text/javascript"></script>
-    </head>
-    <body>
-      <div class="chrome chrome-play container">
-        <a data-toggle="chrome" class="btn pull-right" href="#">
-          <i class="icon-pause"></i>
-        </a>
-      </div>
+                <script src="/public/javascript/index.js" type="text/javascript"></script>
+        </head>
+        <body class="the_blackness">
+                <div class="chrome chrome-play container">
+                        <a data-toggle="chrome" class="btn pull-right" href="#">
+                                <i class="icon-pause"></i>
+                        </a>
+                </div>
 
-      <div class="haz_iframe">
-        <iframe id="game" src="game.html" ></iframe>
-      </div>
-      
-      <div class="chrome chrome-edit navbar navbar-fixed-top">
-        <div class="navbar-inner">
-          <div class="container">
-            <ul class="nav">
-              <li class="dropdown" id="examples">
-                <a href="#examples" class="brand dropdown-toggle" data-toggle="dropdown"><span class="title">Welcome</span><b class="caret"></b></a>
-                <ul class="dropdown-menu">
-                  <li><a data-example="bounding_box" href="#bounding_box">Bounding Box</a></li>
-                  <li><a data-example="bullet" href="#bullet">Bullet</a></li>
-                  <li><a data-example="collision" href="#collision">Collision</a></li>
-                  <li><a data-example="game" href="#game">Game</a></li>
-                  <li><a data-example="gfx" href="#gfx">Graphics</a></li>
-                  <li><a data-example="invader" href="#invader">Invader</a></li>
-                  <li><a data-example="painter" href="#painter">Painter</a></li>
-                  <li><a data-example="position" href="#position">Position</a></li>
-                  <li><a data-example="swarm" href="#swarm">Swarm</a></li>
-                  <li><a data-example="tank" href="#tank">Tank</a></li>
-                  <li class="divider"></li>
-                  <li><a data-example="welcome" href="#welcome">Welcome</a></li>
-                  <li><a data-example="scratchpad" href="#scratchpad">Scratchpad</a></li>
-                </ul>
-              </li>
-            </ul>
-            <a data-toggle="chrome" class="btn pull-right" href="#"><i class="icon-play"></i></a>
-          </div>
-        </div>
-      </div>
+                <div class="haz_iframe">
+                  <iframe id="game" src="game.html"></iframe>
+                </div>
 
-      <div id="ide" class="chrome chrome-edit">
-        <pre id="spec"></pre>
-        <pre id="src"></pre>
-        <pre id="out"></pre>
-      </div>
-    </body>
-  </html>
+                <div class="chrome chrome-edit navbar navbar-fixed-top">
+                        <div class="navbar-inner">
+                                <div class="container">
+                                        <ul class="nav">
+                                                <li class="dropdown" id="examples">
+                                                        <a href="#examples" class="brand dropdown-toggle" data-toggle="dropdown"><span class="title">Welcome</span><b class="caret"></b></a>
+                                                        <ul class="dropdown-menu">
+                                                                <li><a data-example="bounding_box" href="#bounding_box">Bounding Box</a></li>
+                                                                <li><a data-example="bullet" href="#bullet">Bullet</a></li>
+                                                                <li><a data-example="collision" href="#collision">Collision</a></li>
+                                                                <li><a data-example="game" href="#game">Game</a></li>
+                                                                <li><a data-example="gfx" href="#gfx">Graphics</a></li>
+                                                                <li><a data-example="invader" href="#invader">Invader</a></li>
+                                                                <li><a data-example="painter" href="#painter">Painter</a></li>
+                                                                <li><a data-example="position" href="#position">Position</a></li>
+                                                                <li><a data-example="swarm" href="#swarm">Swarm</a></li>
+                                                                <li><a data-example="tank" href="#tank">Tank</a></li>
+                                                                <li class="divider"></li>
+                                                                <li><a data-example="welcome" href="#welcome">Welcome</a></li>
+                                                                <li><a data-example="scratchpad" href="#scratchpad">Scratchpad</a></li>
+                                                        </ul>
+                                                </li>
+                                        </ul>
+                                        <a data-toggle="chrome" class="btn pull-right" href="#"><i class="icon-play"></i></a>
+                                </div>
+                        </div>
+                </div>
+
+                <div id="ide" class="chrome chrome-edit">
+                        <pre id="spec"></pre>
+                        <pre id="src"></pre>
+                        <pre id="out"></pre>
+                </div>
+        </body>
+</html>
