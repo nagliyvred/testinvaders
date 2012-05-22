@@ -9,7 +9,7 @@ describe("Tank", function() {
   it("should look like a tank", function() {
     var stub_painter = {draw_tank: jasmine.createSpy('stub_painter.draw_tank')};
     tank.draw(stub_painter);
-    expect(stub_painter.draw_tank).toHaveBeenCalledWith({x: 0, y: 500});
+    expect(stub_painter.draw_tank).toHaveBeenCalledWith(tank);
   });
 
   describe("when the tank has been updated", function() {
@@ -26,7 +26,7 @@ describe("Tank", function() {
 
     it("should set the tank position based on the mouse", function() {
       var box = tank.box;
-      expect(box.position.x).toEqual(input.mouse.x - (box.width / 2));
+      expect(tank.x).toEqual(input.mouse.x - (box.width / 2));
     });
   });
 

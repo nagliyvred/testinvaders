@@ -4,19 +4,20 @@ function Tank(bullet) {
   var width = 66;
   var height = 42;
 
-  this.position = {x: x, y: y};
-  this.box = new BoundingBox(this.position, width, height);
+  this.x = 0;
+  this.y = 500;
+  this.box = new BoundingBox(this, width, height);
 
   this.update = function(dt, input) {
-    this.position.x = input.mouse.x - (this.box.width / 2);
+    this.x = input.mouse.x - (this.box.width / 2);
 
     if (input.pressed("shoot")) {
-      bullet.shoot(-200, input.mouse.x, this.position.y, this);
+      bullet.shoot(-200, input.mouse.x, this.y, this);
     }
   };
 
   this.draw = function(painter) {
-    painter.draw_tank(this.position);
+    painter.draw_tank(this);
   };
 
   this.collide = function() {

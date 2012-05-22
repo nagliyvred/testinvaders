@@ -31,7 +31,6 @@ describe("Bullet", function() {
       velocity = Math.random();
       x = Math.random();
       y = Math.random();
-      p = {x: x, y: y};
       owner = { };
 
       bullet.shoot(velocity, x, y, owner);
@@ -42,7 +41,7 @@ describe("Bullet", function() {
 
       bullet.update(delta_time);
 
-      expect(bullet.position.y).toEqual(y + (delta_time * velocity));
+      expect(bullet.y).toEqual(y + (delta_time * velocity));
     });
 
     it("should appear like a white streak", function() {
@@ -50,14 +49,14 @@ describe("Bullet", function() {
       var stub_painter = {draw_bullet: spy_draw_bullet};
 
       bullet.draw(stub_painter);
-      expect(spy_draw_bullet).toHaveBeenCalledWith(p);
+      expect(spy_draw_bullet).toHaveBeenCalledWith(bullet);
     });
 
     it("should be hittable", function() {
       var box = bullet.box;
 
-      expect(box.position.x).toBe(x);
-      expect(box.position.y).toBe(y);
+      expect(bullet.x).toBe(x);
+      expect(bullet.y).toBe(y);
       expect(box.width).toBeGreaterThan(0);
       expect(box.height).toBeGreaterThan(0);
     });

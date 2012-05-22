@@ -1,17 +1,15 @@
-function BoundingBox(position, width, height) {
-  this.position = position;
+function BoundingBox(thing, width, height) {
   this.width = width;
   this.height = height;
 
-  this.set = function(position, width, height) {
-    this.position = position;
+  this.set = function(width, height) {
     this.width = width;
     this.height = height;
   };
 
   this.make_unhittable = function() {
-    this.position.x = 0;
-    this.position.y = 0;
+    thing.x = 0;
+    thing.y = 0;
     this.width = 0;
     this.height = 0;
   };
@@ -30,10 +28,10 @@ function BoundingBox(position, width, height) {
     return true;
   };
 
-  this.left = function() { return this.position.x; };
-  this.right = function() { return this.position.x + this.width; };
-  this.top = function() { return this.position.y; };
-  this.bottom = function() {return this.position.y + this.height; };
+  this.left = function() { return thing.x; };
+  this.right = function() { return thing.x + this.width; };
+  this.top = function() { return thing.y; };
+  this.bottom = function() {return thing.y + this.height; };
 
   return this;
 }

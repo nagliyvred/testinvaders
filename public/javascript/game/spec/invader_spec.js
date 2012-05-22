@@ -11,7 +11,6 @@ describe("Invader", function() {
     velocity = Math.random();
     x = Math.random();
     y = Math.random();
-    p = {x: x, y: y};
     shot_countdown = Math.random();
 
     stub_bullet = {shoot: jasmine.createSpy("stub_bullet.shoot")};
@@ -23,15 +22,15 @@ describe("Invader", function() {
   it("should be hittable", function() {
     var box = invader.box;
 
-    expect(box.position.x).toEqual(x);
-    expect(box.position.y).toEqual(y);
+    expect(invader.x).toEqual(x);
+    expect(invader.y).toEqual(y);
     expect(box.height).toBeGreaterThan(0);
     expect(box.width).toBeGreaterThan(0);
   });
 
   it("should look like blatant copyright infringement", function() {
     invader.draw(stub_painter);
-    expect(stub_painter.draw_invader).toHaveBeenCalledWith(p);
+    expect(stub_painter.draw_invader).toHaveBeenCalledWith(invader);
   });
 
   describe("when updated", function() {
@@ -42,8 +41,8 @@ describe("Invader", function() {
 
       var new_box = invader.box;
 
-      expect(new_box.position.x).toEqual(x + velocity);
-      expect(new_box.position.y).toEqual(y);
+      expect(invader.x).toEqual(x + velocity);
+      expect(invader.y).toEqual(y);
     });
 
     describe("shooting a bullet", function() {

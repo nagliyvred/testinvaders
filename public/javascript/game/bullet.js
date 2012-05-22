@@ -3,28 +3,27 @@ function Bullet(velocity, x, y) {
   var width = 4;
   var height = 20;
 
-  x = 0;
-  y = 0;
+  this.x = 0;
+  this.y = 0;
 
-  this.position = {x: x, y: y};
-  this.box = new BoundingBox(this.position, 0, 0);
+  this.box = new BoundingBox(this, 0, 0);
 
   this.shoot = function(new_velocity, new_x, new_y, owner) {
     velocity = new_velocity;
-    this.position.x = new_x;
-    this.position.y = new_y;
-    this.box.set(this.position, width, height);
+    this.x = new_x;
+    this.y = new_y;
+    this.box.set(width, height);
     this.owner = owner;
     active = true;
   };
 
   this.update = function(delta_time) {
-    this.position.y = this.position.y + (delta_time * velocity);
+    this.y = this.y + (delta_time * velocity);
   };
 
   this.draw = function(painter) {
     if (active) {
-      painter.draw_bullet(this.position);
+      painter.draw_bullet(this);
     }
   };
 

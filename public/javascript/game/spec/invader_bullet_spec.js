@@ -14,7 +14,7 @@ describe("A space invaders bullet", function() {
 
     it("should look like a zig-zag line", function() {
       bullet.draw(stub_painter);
-      expect(stub_painter.draw_invader_bullet).toHaveBeenCalled();
+      expect(stub_painter.draw_invader_bullet).toHaveBeenCalledWith(bullet);
     });
 
   });
