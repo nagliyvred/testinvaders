@@ -1,7 +1,8 @@
-function Bullet(velocity, x, y) {
+function Bullet() {
   var active = false;
   var width = 4;
   var height = 20;
+  var velocity = 0;
 
   x = 0;
   y = 0;
