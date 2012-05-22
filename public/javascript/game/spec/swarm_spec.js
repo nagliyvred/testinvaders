@@ -1,13 +1,60 @@
 describe("Swarm", function() {
-  var stub_invader = {id: "stub_invader"};
-  var invaders = [stub_invader];
+  var invaders;
   var swarm;
+  var zone_width = 800;
 
   beforeEach(function() {
-    swarm = new Swarm(invaders);
+    invaders = [
+      {
+        invade: jasmine.createSpy("invader_invade"),
+        position: new Position(600, 0),
+        box: { width: 100 }
+      }
+    ];
+    swarm = new Swarm(invaders, zone_width);
   });
 
-  describe("when one of the invaders hits the edge of the screen", function() {
-    xit("should tell all the invaders to INVADE");
+  describe("when none of the invaders are hitting the edge of the screen", function() {
+    it("should not tell the invaders to INVADE", function() {
+      swarm.update();
+
+      expect(invaders[0].invade).not.toHaveBeenCalled();
+    });
+  });
+
+  describe("when one of the invaders hits the right edge of the screen", function() {
+    beforeEach(function() {
+      invaders.push(
+        {
+          invade: jasmine.createSpy("invader_invade"),
+          position: new Position(0, 0),
+          box: { width: 100 }
+        }
+      );
+    });
+    it("should tell all the invaders to INVADE", function() {
+      swarm.update();
+
+      expect(invaders[0].invade).toHaveBeenCalled();
+      expect(invaders[1].invade).toHaveBeenCalled();
+    });
+  });
+
+  describe("when one of the invaders hits the left edge of the screen", function() {
+    beforeEach(function() {
+      invaders.push(
+        {
+          invade: jasmine.createSpy("invader_invade"),
+          position: new Position(700, 0),
+          box: { width: 100 }
+        }
+      );
+    });
+    it("should tell all the invaders to INVADE", function() {
+      swarm.update();
+
+      expect(invaders[0].invade).toHaveBeenCalled();
+      expect(invaders[1].invade).toHaveBeenCalled();
+    });
   });
 });
