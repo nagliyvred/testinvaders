@@ -8,7 +8,7 @@ describe("Swarm", function() {
       {
         invade: jasmine.createSpy("invader_invade"),
         position: new Position(600, 0),
-        box: { width: 100 }
+        box: { width: 100, is_hittable: jasmine.createSpy("is_hittable").andReturn(true) }
       }
     ];
     swarm = new Swarm(invaders, zone_width);
@@ -34,7 +34,7 @@ describe("Swarm", function() {
         {
           invade: jasmine.createSpy("invader_invade"),
           position: new Position(0, 0),
-          box: { width: 100 }
+          box: { width: 100, is_hittable: jasmine.createSpy("is_hittable").andReturn(true) }
         }
       );
     });
@@ -52,7 +52,7 @@ describe("Swarm", function() {
         {
           invade: jasmine.createSpy("invader_invade"),
           position: new Position(700, 0),
-          box: { width: 100 }
+          box: { width: 100, is_hittable: jasmine.createSpy("is_hittable").andReturn(true) }
         }
       );
     });
@@ -62,5 +62,13 @@ describe("Swarm", function() {
       expect(invaders[0].invade).toHaveBeenCalled();
       expect(invaders[1].invade).toHaveBeenCalled();
     });
+    describe("if the invader is dead", function() {
+      it("shoud not tell the invaders to INVADE", function() {
+        invaders[0].box.is_hittable = jasmine.createSpy("is_hittable").andReturn(false);
+
+        expect(invaders[0].invade).not.toHaveBeenCalled();
+      });
+    });
   });
+
 });
