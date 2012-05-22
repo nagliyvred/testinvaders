@@ -5,7 +5,7 @@ describe("BoundingBox", function() {
   var position;
 
   beforeEach(function() {
-    position = new Position(10, 20);
+    position = {x: 10, y: 20};
     bb = new BoundingBox(position, 30, 40);
   });
 
@@ -74,8 +74,8 @@ describe("BoundingBox", function() {
     var box_not_overlapping;
 
     beforeEach(function() {
-      box_overlapping = new BoundingBox(new Position(10, 20), 30, 40);
-      box_not_overlapping = new BoundingBox(new Position(1, 2), 3, 4);
+      box_overlapping = new BoundingBox({x: 10, y: 20}, 30, 40);
+      box_not_overlapping = new BoundingBox({x: 1, y: 2}, 3, 4);
     });
 
     it("should not detect a collision with itself", function() {

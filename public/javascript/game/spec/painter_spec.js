@@ -23,7 +23,7 @@ describe("Painter", function() {
     it("should draw the tank bullet image at the specified position", function() {
       var x = Math.random();
       var y = Math.random();
-      var position = new Position(x, y);
+      var position = {x: x, y: y};
 
       painter.draw_bullet(position);
 
@@ -35,7 +35,7 @@ describe("Painter", function() {
     it("should draw the invader bullet at the specified position", function() {
       var x = Math.random();
       var y = Math.random();
-      var position = new Position(x, y);
+      var position = {x: x, y: y};
 
       painter.draw_invader_bullet(position);
 
@@ -47,7 +47,7 @@ describe("Painter", function() {
     it("should draw the tank image at the specified position", function() {
       var x = Math.random();
       var y = Math.random();
-      var position = new Position(x, y);
+      var position = {x: x, y: y};
 
       painter.draw_tank(position);
 
@@ -59,7 +59,7 @@ describe("Painter", function() {
     it("should draw the invader image at the specified position", function() {
       var x = Math.random();
       var y = Math.random();
-      var position = new Position(x, y);
+      var position = {x: x, y: y};
 
       painter.draw_invader(position);
 

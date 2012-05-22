@@ -4,7 +4,7 @@ function Tank(bullet) {
   var width = 66;
   var height = 42;
 
-  this.position = new Position(x, y);
+  this.position = {x: x, y: y};
   this.box = new BoundingBox(this.position, width, height);
 
   this.update = function(dt, input) {

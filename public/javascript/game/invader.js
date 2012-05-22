@@ -6,7 +6,7 @@ function Invader(initial_velocity, initial_x, initial_y, initial_countdown, bull
   var velocity = initial_velocity || 50;
   var x = initial_x || 0;
   var y = initial_y || 0;
-  this.position = new Position(x,y);
+  this.position = {x: x, y: y};
   this.box = new BoundingBox(this.position, width, height);
 
   var shoot_countdown = (initial_countdown || 0);

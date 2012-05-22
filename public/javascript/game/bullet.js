@@ -6,7 +6,7 @@ function Bullet(velocity, x, y) {
   x = 0;
   y = 0;
 
-  this.position = new Position(x, y);
+  this.position = {x: x, y: y};
   this.box = new BoundingBox(this.position, 0, 0);
 
   this.shoot = function(new_velocity, new_x, new_y, owner) {

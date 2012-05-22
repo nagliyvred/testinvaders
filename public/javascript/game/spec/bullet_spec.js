@@ -31,7 +31,7 @@ describe("Bullet", function() {
       velocity = Math.random();
       x = Math.random();
       y = Math.random();
-      p = new Position(x, y);
+      p = {x: x, y: y};
       owner = { };
 
       bullet.shoot(velocity, x, y, owner);
