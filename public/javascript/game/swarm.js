@@ -1,23 +1,24 @@
 function Swarm(invaders, zone_width) {
   this.box = new BoundingBox(new Position(0, 0), 0, 0);
 
+  var min = function(array) {
+    return Math.min.apply(Math, array);
+  };
+
+  var max = function(array) {
+    return Math.max.apply(Math, array);
+  };
+
+  var collect_invader_x_positions = function() {
+    return invaders.map(function(invader) {
+      return invader.position.x;
+    });
+  };
+
   this.update = function() {
 
-    // Find the furtherest left point of the swarm
-    var min_x = invaders.reduce(function(current_min, invader_i) {
-      if(invader_i.position.x < current_min && invader_i.box.is_hittable()) {
-        return invader_i.position.x;
-      }
-      return current_min;
-    }, zone_width);
-
-    // Find the furtherest right point of the swarm
-    var max_x = invaders.reduce(function(current_max, invader_i) {
-      if(invader_i.position.x > current_max && invader_i.box.is_hittable()) {
-        return invader_i.position.x;
-      }
-      return current_max;
-    }, 0);
+    var min_x = min(collect_invader_x_positions());
+    var max_x = max(collect_invader_x_positions());
 
     // If the swarm hits the edge of the zone, INVADE!
     if(((max_x + invaders[0].box.width) >= zone_width) || (min_x <= 0)) {
