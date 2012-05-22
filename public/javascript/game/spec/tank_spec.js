@@ -9,7 +9,7 @@ describe("Tank", function() {
   it("should look like a tank", function() {
     var stub_painter = {draw_tank: jasmine.createSpy('stub_painter.draw_tank')};
     tank.draw(stub_painter);
-    expect(stub_painter.draw_tank).toHaveBeenCalledWith(0, 500);
+    expect(stub_painter.draw_tank).toHaveBeenCalledWith(new Position(0, 500));
   });
 
   describe("when the tank has been updated", function() {
@@ -25,8 +25,8 @@ describe("Tank", function() {
     });
 
     it("should set the tank position based on the mouse", function() {
-      var box = tank.box();
-      expect(box.x).toEqual(input.mouse.x - (box.width / 2));
+      var box = tank.box;
+      expect(box.position.x).toEqual(input.mouse.x - (box.width / 2));
     });
   });
 
@@ -43,7 +43,7 @@ describe("Tank", function() {
     it("should shoot", function() {
       stub_bullet.shoot = jasmine.createSpy("stub_bullet.shoot");
       tank.update(0, input);
-      expect(stub_bullet.shoot).toHaveBeenCalledWith(-200, 0, 500);
+      expect(stub_bullet.shoot).toHaveBeenCalledWith(-200, 0, 500, tank);
     });
   });
 });

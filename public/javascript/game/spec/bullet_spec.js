@@ -12,7 +12,7 @@ describe("Bullet", function() {
     });
 
     it("should not be hittable", function() {
-      var box = bullet.box();
+      var box = bullet.box;
 
       expect(box.width).toBe(0);
       expect(box.height).toBe(0);
@@ -25,13 +25,16 @@ describe("Bullet", function() {
     var velocity;
     var x;
     var y;
+    var owner;
 
     beforeEach(function() {
       velocity = Math.random();
       x = Math.random();
       y = Math.random();
+      p = new Position(x, y) ;
+      owner = { };
 
-      bullet.shoot(velocity, x, y);
+      bullet.shoot(velocity, x, y, owner);
     });
 
     it("should move vertically at some velocity", function() {
@@ -39,7 +42,7 @@ describe("Bullet", function() {
 
       bullet.update(delta_time);
 
-      expect(bullet.box().y).toEqual(y + (delta_time * velocity));
+      expect(bullet.position.y).toEqual(y + (delta_time * velocity));
     });
 
     it("should appear like a white streak", function() {
@@ -47,24 +50,36 @@ describe("Bullet", function() {
       var stub_painter = {draw_bullet: spy_draw_bullet};
 
       bullet.draw(stub_painter);
-      expect(spy_draw_bullet).toHaveBeenCalledWith(x, y);
+      expect(spy_draw_bullet).toHaveBeenCalledWith(p);
     });
 
     it("should be hittable", function() {
-      var box = bullet.box();
+      var box = bullet.box;
 
-      expect(box.x).toBe(x);
-      expect(box.y).toBe(y);
+      expect(box.position.x).toBe(x);
+      expect(box.position.y).toBe(y);
       expect(box.width).toBeGreaterThan(0);
       expect(box.height).toBeGreaterThan(0);
     });
 
+    it("should set the owner of the bullet", function() {
+      expect(bullet.owner).toBe(owner);
+    });
+
     describe("when it is hit", function() {
-      beforeEach(function() {
-        bullet.collide();
+
+      it("should not collide with the tank", function() {
+        bullet.collide(new Tank());
+
+        expect(bullet.box.is_hittable()).toBeTruthy();
       });
 
-      shared_initial_state_examples();
+      it("should collide with an invader", function() {
+        bullet.collide(new Invader());
+
+        expect(bullet.box.is_hittable()).toBeFalsy();
+        //shared_initial_state_examples();
+      });
     });
   });
 });
