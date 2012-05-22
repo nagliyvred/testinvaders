@@ -5,7 +5,7 @@ function Tank(bullet) {
   var height = 42;
 
   this.position = new Position(x, y);
-  this.box = new BoundingBox(this.position, width, height) ;
+  this.box = new BoundingBox(this.position, width, height);
 
   this.update = function(dt, input) {
     this.position.x = input.mouse.x - (this.box.width / 2);

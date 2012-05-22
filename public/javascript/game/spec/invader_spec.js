@@ -11,7 +11,7 @@ describe("Invader", function() {
     velocity = Math.random();
     x = Math.random();
     y = Math.random();
-    p = new Position(x, y) ;
+    p = new Position(x, y);
     shot_countdown = Math.random();
 
     stub_bullet = {shoot: jasmine.createSpy("stub_bullet.shoot")};

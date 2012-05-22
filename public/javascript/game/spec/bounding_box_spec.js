@@ -1,12 +1,12 @@
 //This bounding box is based on top-left being 0,0 and x and y increase as you
 //go towards the bottom right
 describe("BoundingBox", function() {
-  var bb ;
-  var position ;
+  var bb;
+  var position;
 
   beforeEach(function() {
     position = new Position(10, 20);
-    bb = new BoundingBox(position, 30, 40) ;
+    bb = new BoundingBox(position, 30, 40);
   });
 
   describe("left", function() {
@@ -36,7 +36,7 @@ describe("BoundingBox", function() {
   describe("set", function() {
     it("should set the x,y,width and height to new values", function() {
       position.x = 1;
-      position.y = 2 ;
+      position.y = 2;
       bb.set(position,3,4);
 
       expect(bb.position.x).toBe(1);
@@ -48,24 +48,24 @@ describe("BoundingBox", function() {
 
   describe("make_unhittable", function() {
     it("should set the x,y,width and height to zero", function() {
-      bb.make_unhittable() ;
+      bb.make_unhittable();
 
       expect(bb.position.x).toBe(0);
       expect(bb.position.y).toBe(0);
       expect(bb.width).toBe(0);
       expect(bb.height).toBe(0);
-    }) ;
-  }) ;
+    });
+  });
 
   describe("hittable", function() {
     it("should return false if width and height are zero", function() {
-      bb.make_unhittable() ;
+      bb.make_unhittable();
 
-      expect(bb.is_hittable()).toBe(false) ;
+      expect(bb.is_hittable()).toBe(false);
     });
 
     it("should return true otherwise", function() {
-      expect(bb.is_hittable()).toBe(true) ;
+      expect(bb.is_hittable()).toBe(true);
     });
   });
 
