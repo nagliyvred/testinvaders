@@ -114,8 +114,17 @@ describe("Invader", function() {
   });
 
   describe("when told to invade", function() {
-    xit("should move toward the player's tank");
-    xit("should invert its lateral velocity");
+    beforeEach(function() {
+      invader.invade();
+    });
+
+    it("should move toward the player's tank", function() {
+      expect(invader.position.y).toBe(y + 10);
+    });
+
+    it("should invert its lateral velocity", function() {
+      expect(invader.velocity).toBe(velocity * -1);
+    });
   });
 
   describe("collisions", function() {

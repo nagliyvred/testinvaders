@@ -3,7 +3,7 @@ function Invader(initial_velocity, initial_x, initial_y, initial_countdown, bull
   var minimum_time_between_shots = 20;//seconds
   var active = true;
 
-  var velocity = initial_velocity || 50;
+  this.velocity = initial_velocity || 50;
   var x = initial_x || 0;
   var y = initial_y || 0;
   this.position = new Position(x,y);
@@ -33,7 +33,7 @@ function Invader(initial_velocity, initial_x, initial_y, initial_countdown, bull
     }
 
     // Movement
-    this.position.x += delta_time * velocity;
+    this.position.x += delta_time * this.velocity;
   };
 
   this.draw = function(painter) {
@@ -47,6 +47,11 @@ function Invader(initial_velocity, initial_x, initial_y, initial_countdown, bull
       active = false;
       this.box.make_unhittable();
     }
+  };
+
+  this.invade = function() {
+    this.position.y += 10;
+    this.velocity = this.velocity * -1;
   };
 
   return this;
