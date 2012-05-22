@@ -28,7 +28,8 @@ function Init() {
     }
   }
 
-  var swarm = new Swarm(invaders);
+  var swarm = new Swarm(invaders, 800);
+  things.push(swarm);
 
   var game = new Game(painter, things);
   game.run();

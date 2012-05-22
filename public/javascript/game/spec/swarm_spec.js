@@ -14,6 +14,12 @@ describe("Swarm", function() {
     swarm = new Swarm(invaders, zone_width);
   });
 
+  describe("collisions", function() {
+    it("should not be hittable", function() {
+      expect(swarm.box.is_hittable()).toBeFalsy();
+    });
+  });
+
   describe("when none of the invaders are hitting the edge of the screen", function() {
     it("should not tell the invaders to INVADE", function() {
       swarm.update();
