@@ -22,13 +22,14 @@ function Init() {
       var invader_bullet = new InvaderBullet();
       things.push(invader_bullet);
 
-      var invader = new Invader(50, x * 80, y * 60, 20 - (Math.random() * 20), invader_bullet);
+      var invader = new Invader(50, x * 70, y * 60, 20 - (Math.random() * 20), invader_bullet);
       invaders.push(invader);
       things.push(invader);
     }
   }
 
-  var swarm = new Swarm(invaders);
+  var swarm = new Swarm(invaders, 800);
+  things.push(swarm);
 
   var game = new Game(painter, things);
   game.run();
