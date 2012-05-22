@@ -8,6 +8,6 @@ describe("Swarm", function() {
   });
 
   describe("when one of the invaders hits the edge of the screen", function() {
-    xit("should tell all the invaders to INVADE")
+    xit("should tell all the invaders to INVADE");
   });
 });

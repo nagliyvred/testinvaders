@@ -15,7 +15,7 @@ describe("Invader", function() {
     shot_countdown = Math.random();
 
     stub_bullet = {shoot: jasmine.createSpy("stub_bullet.shoot")};
-    stub_painter = {draw_invader: jasmine.createSpy("stub_painter.draw_invader")}
+    stub_painter = {draw_invader: jasmine.createSpy("stub_painter.draw_invader")};
 
     invader = new Invader(velocity, x, y, shot_countdown, stub_bullet);
   });

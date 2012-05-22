@@ -22,7 +22,7 @@ function Game(painter, things) {
         if(thing.box.is_colliding_with(other_thing.box)) {
           thing.collide(other_thing);
           other_thing.collide(thing);
-        };
+        }
       });
     });
   };

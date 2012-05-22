@@ -6,11 +6,11 @@ function InvaderBullet(velocity, x, y) {
   };
 
   _this.collide = function(other_thing) {
-    if(other_thing.__proto__ === Tank.prototype) {
+    if(Object.getPrototypeOf(other_thing) === Tank.prototype) {
       _this.box.make_unhittable();
     }
   };
 
   return _this;
 
-};
+}

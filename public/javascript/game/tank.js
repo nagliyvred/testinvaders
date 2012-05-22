@@ -23,4 +23,4 @@ function Tank(bullet) {
   };
 
   return this;
-};
+}
