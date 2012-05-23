@@ -1,4 +1,5 @@
-function Swarm(invaders, zone_width) {
+function Swarm(invaders, zone_width, initial_direction) {
+  this.direction = initial_direction;
   this.box = new BoundingBox(new Position(0, 0), 0, 0);
 
   var min = function(array) {
@@ -25,6 +26,7 @@ function Swarm(invaders, zone_width) {
       for(var i = 0; i < invaders.length; i++) {
         invaders[i].invade();
       }
+      this.direction = this.direction * -1;
     }
   };
 
