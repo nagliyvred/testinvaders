@@ -13,19 +13,18 @@ function Swarm(invaders, zone_width, initial_direction) {
   };
 
   var collect_invader_x_positions = function() {
-    return invaders.map(function(invader) {
-      return invader.box.is_hittable() ? invader.position.x : -1;
-    }).filter(function(position_x) {
-      return position_x > -1;
+    return invaders.filter(function(invader) {
+      return invader.box.is_hittable();
+    }).map(function(invader) {
+      return invader.position.x;
     });
   };
 
   this.update = function() {
-
     var min_x = min(collect_invader_x_positions());
     var max_x = max(collect_invader_x_positions()) + invader_width;
 
-    // If the swarm hits the edge of the zone, INVADE!
+    // If the swarm hits the edge of the zone its moving towards, INVADE!
     if(((this.direction ==  1) && (max_x >= zone_width)) ||
        ((this.direction == -1) && (min_x <= 0))) {
 
