@@ -38,7 +38,7 @@ describe("Swarm", function() {
         invaders.push(
           {
             invade: jasmine.createSpy("invader_invade"),
-            position: new Position(0, 0),
+            position: new Position(700, 0),
             box: { width: 100, is_hittable: jasmine.createSpy("is_hittable").andReturn(true) }
           }
         );
@@ -64,6 +64,7 @@ describe("Swarm", function() {
             box: { width: 100, is_hittable: jasmine.createSpy("is_hittable").andReturn(true) }
           }
         ];
+        swarm = new Swarm(invaders, zone_width);
       });
       it("should not tell the invaders to INVADE", function() {
         swarm.update();
@@ -82,7 +83,7 @@ describe("Swarm", function() {
         invaders.push(
           {
             invade: jasmine.createSpy("invader_invade"),
-            position: new Position(700, 0),
+            position: new Position(0, 0),
             box: { width: 100, is_hittable: jasmine.createSpy("is_hittable").andReturn(true) }
           }
         );

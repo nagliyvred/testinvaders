@@ -2,6 +2,8 @@ function Swarm(invaders, zone_width, initial_direction) {
   this.direction = initial_direction;
   this.box = new BoundingBox(new Position(0, 0), 0, 0);
 
+  var invader_width = invaders[0].box.width;
+
   var min = function(array) {
     return Math.min.apply(Math, array);
   };
@@ -12,20 +14,25 @@ function Swarm(invaders, zone_width, initial_direction) {
 
   var collect_invader_x_positions = function() {
     return invaders.map(function(invader) {
-      return invader.position.x;
+      return invader.box.is_hittable() ? invader.position.x : -1;
+    }).filter(function(position_x) {
+      return position_x > -1;
     });
   };
 
   this.update = function() {
 
     var min_x = min(collect_invader_x_positions());
-    var max_x = max(collect_invader_x_positions());
+    var max_x = max(collect_invader_x_positions()) + invader_width;
 
     // If the swarm hits the edge of the zone, INVADE!
-    if(((max_x + invaders[0].box.width) >= zone_width) || (min_x <= 0)) {
+    if(((this.direction ==  1) && (max_x >= zone_width)) ||
+       ((this.direction == -1) && (min_x <= 0))) {
+
       for(var i = 0; i < invaders.length; i++) {
         invaders[i].invade();
       }
+
       this.direction = this.direction * -1;
     }
   };
