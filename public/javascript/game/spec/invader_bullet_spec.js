@@ -1,8 +1,18 @@
 describe("A space invaders bullet", function() {
   var bullet;
+  var velocity;
+  var x;
+  var y;
+  var owner;
 
   beforeEach(function() {
+    velocity = Math.random();
+    x = Math.random();
+    y = Math.random();
+    owner = { };
+    
     bullet = new InvaderBullet();
+    bullet.shoot(velocity, x, y, owner);
   });
 
   describe("appearance", function() {

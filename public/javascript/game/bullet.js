@@ -32,7 +32,12 @@ function Bullet() {
   this.collide = function(other_thing) {
     if(Object.getPrototypeOf(other_thing) === Invader.prototype) {
       this.box.make_unhittable();
+      active = false;
     }
+  };
+
+  this.is_active = function() {
+    return active;
   };
 
   return this;
