@@ -23,7 +23,7 @@
     var session = editor.getSession();
     session.setMode(new aceModeJavascript());
 
-    return session;
+    return editor;
   }
 
   function initConsole(id) {
@@ -38,7 +38,7 @@
     renderer.hideCursor(true);
     renderer.setShowGutter(false);
 
-    return editor.getSession();
+    return editor;
   }
 
   function SpecReloader(sessions, spec, data, out) {
@@ -63,10 +63,14 @@
     return this;
   }
 
-  function ChromeVisibilityController(data_binding, controls) {
+  function ChromeVisibilityController(data_binding, controls, editors) {
     data_binding.on('click', function() {
       controls.forEach(function(e) {
         $(e).toggle();
+      });
+
+      editors.forEach(function(e) {
+        e.resize();
       });
 
       return false;
@@ -185,27 +189,30 @@
   }
 
   $(function() {
-    var spec = initEditor("spec");
-    new DelayedChangeScheduler(spec, 1000);
+    var spec_editor = initEditor("spec");
+    var spec_session = spec_editor.getSession();
+    new DelayedChangeScheduler(spec_session, 1000);
 
-    var src = initEditor("src");
-    new DelayedChangeScheduler(src, 1000);
+    var src_editor = initEditor("src");
+    var src_session = src_editor.getSession();
+    new DelayedChangeScheduler(src_session, 1000);
 
-    var out = initConsole("out");
+    var out_editor = initConsole("out");
+    var out_session = out_editor.getSession();
 
     window.addEventListener("hashchange", titleUpdater($(".brand .title")));
 
-    new ChromeVisibilityController($("[data-toggle=chrome]"), $(".chrome"));
+    new ChromeVisibilityController($("[data-toggle=chrome]"), $(".chrome"), [spec_editor, src_editor, out_editor]);
     $(".chrome").hide();
 
     new ExampleLoader($("[data-example]"), "/public/javascript/game/", function(data) {
-      new SpecReloader([src, spec], spec, data, out);
+      new SpecReloader([src_session, spec_session], spec_session, data, out_session);
 
-      dataSync(spec, data, 'spec');
-      dataSync(src, data, 'src');
-      iFrameReloader(src, data, $("#game"));
+      dataSync(spec_session, data, 'spec');
+      dataSync(src_session, data, 'src');
+      iFrameReloader(src_session, data, $("#game"));
 
-      window.addEventListener("hashchange", exampleSelector("welcome", data, spec, src));
+      window.addEventListener("hashchange", exampleSelector("welcome", data, spec_session, src_session));
       $(window).trigger("hashchange");
 
       $(".chrome-play").show();
