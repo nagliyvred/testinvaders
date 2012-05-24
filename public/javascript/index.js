@@ -41,14 +41,16 @@
     return editor.getSession();
   }
 
-  function SpecReloader(sessions, out) {
+  function SpecReloader(sessions, spec, data, out) {
     var run = function() {
       var print = function(msg) {
         out.setValue(out.getValue() + msg);
       };
-      var to_test = sessions.map(function(s) {
-        return s.getValue();
+
+      var to_test = Object.keys(data).map(function(n) {
+        return data[n].src;
       });
+      to_test.push(spec.getValue());
 
       out.setValue("");
       runner(print, "runner").run(to_test);
@@ -190,7 +192,6 @@
     new DelayedChangeScheduler(src, 1000);
 
     var out = initConsole("out");
-    new SpecReloader([src, spec], out);
 
     window.addEventListener("hashchange", titleUpdater($(".brand .title")));
 
@@ -198,6 +199,8 @@
     $(".chrome").hide();
 
     new ExampleLoader($("[data-example]"), "/public/javascript/game/", function(data) {
+      new SpecReloader([src, spec], spec, data, out);
+
       dataSync(spec, data, 'spec');
       dataSync(src, data, 'src');
       iFrameReloader(src, data, $("#game"));
