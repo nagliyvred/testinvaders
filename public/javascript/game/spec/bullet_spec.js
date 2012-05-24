@@ -53,6 +53,14 @@ describe("Bullet", function() {
       expect(spy_draw_bullet).toHaveBeenCalledWith(p);
     });
 
+    it("should die when it goes off the top of the screen", function() {
+      expect(bullet.is_active()).toBeTruthy();
+
+      bullet.position.y = -1.5;
+      bullet.update(0);
+      expect(bullet.is_active()).toBeFalsy();
+    });
+
     it("should be hittable", function() {
       var box = bullet.box;
 

@@ -21,6 +21,11 @@ function Bullet() {
 
   this.update = function(delta_time) {
     this.position.y = this.position.y + (delta_time * velocity);
+
+    if (this.position.y < 0) {
+      active = false;
+      this.box.make_unhittable();
+    }
   };
 
   this.draw = function(painter) {
