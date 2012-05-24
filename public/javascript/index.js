@@ -18,7 +18,7 @@
   function initEditor(id) {
     var editor = ace.edit(id);
     editor.setShowPrintMargin(false);
-    editor.setTheme("ace/theme/twilight");
+    editor.setTheme("ace/theme/vibrant_ink");
 
     var session = editor.getSession();
     session.setMode(new aceModeJavascript());
@@ -32,7 +32,7 @@
     editor.setPrintMarginColumn(false);
     editor.setReadOnly(true);
     editor.setShowPrintMargin(false);
-    editor.setTheme("ace/theme/twilight");
+    editor.setTheme("ace/theme/vibrant_ink");
 
     var renderer = editor.renderer;
     renderer.hideCursor(true);
