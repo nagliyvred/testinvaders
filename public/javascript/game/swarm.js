@@ -1,5 +1,7 @@
-function Swarm(invaders, zone_width, initial_direction) {
-  this.direction = initial_direction;
+function Swarm(invaders, zone_width) {
+  var left = -1;
+  var right = 1;
+  this.direction = right;
   this.box = new BoundingBox(new Position(0, 0), 0, 0);
 
   var invader_width = invaders[0].box.width;
@@ -25,14 +27,14 @@ function Swarm(invaders, zone_width, initial_direction) {
     var max_x = max(collect_invader_x_positions()) + invader_width;
 
     // If the swarm hits the edge of the zone its moving towards, INVADE!
-    if(((this.direction ==  1) && (max_x >= zone_width)) ||
-       ((this.direction == -1) && (min_x <= 0))) {
+    if(((this.direction == right) && (max_x >= zone_width)) ||
+       ((this.direction == left) && (min_x <= 0))) {
 
       for(var i = 0; i < invaders.length; i++) {
         invaders[i].invade();
       }
 
-      this.direction = this.direction * -1;
+      this.direction = this.direction == right ? left : right;
     }
   };
 
