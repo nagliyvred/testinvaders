@@ -8,9 +8,9 @@ describe("Swarm", function() {
   var stub_invader = function(x, active) {
     return {
       invade: jasmine.createSpy("invader_invade"),
-      position: {x: x},
       active: active,
       box: {
+        x: x,
         width: 100,
      }
     };

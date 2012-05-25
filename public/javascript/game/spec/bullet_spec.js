@@ -30,7 +30,6 @@ describe("Bullet", function() {
       velocity = Math.random();
       x = Math.random();
       y = Math.random();
-      p = new Position(x, y);
       owner = { };
 
       bullet.shoot(velocity, x, y, owner);
@@ -41,7 +40,7 @@ describe("Bullet", function() {
 
       bullet.update(delta_time);
 
-      expect(bullet.position.y).toEqual(y + (delta_time * velocity));
+      expect(bullet.box.y).toEqual(y + (delta_time * velocity));
     });
 
     it("should be active", function() {
@@ -51,7 +50,7 @@ describe("Bullet", function() {
     it("should die when it goes off the top of the screen", function() {
       expect(bullet.active).toBeTruthy();
 
-      bullet.position.y = -1;
+      bullet.box.y = -1;
       bullet.update(1);
 
       expect(bullet.active).toBeFalsy();
@@ -60,8 +59,8 @@ describe("Bullet", function() {
     it("should be hittable", function() {
       var box = bullet.box;
 
-      expect(box.position.x).toBe(x);
-      expect(box.position.y).toBe(y);
+      expect(box.x).toBe(x);
+      expect(box.y).toBe(y);
       expect(box.width).toBeGreaterThan(0);
       expect(box.height).toBeGreaterThan(0);
     });

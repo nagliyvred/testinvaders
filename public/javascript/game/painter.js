@@ -12,19 +12,18 @@ function Painter(context) {
   };
 
   this.draw = function(thing) {
-
     if(Object.getPrototypeOf(thing) === Bullet.prototype) {
       if(Object.getPrototypeOf(thing.owner) === Tank.prototype) {
-        context.drawImage(this.images.tank_bullet, thing.position.x, thing.position.y);
+        context.drawImage(this.images.tank_bullet, thing.box.x, thing.box.y);
       } else {
-        context.drawImage(this.images.invader_bullet, thing.position.x, thing.position.y);
+        context.drawImage(this.images.invader_bullet, thing.box.x, thing.box.y);
       }
     }
     else if(Object.getPrototypeOf(thing) === Tank.prototype) {
-      context.drawImage(this.images.tank, thing.position.x, thing.position.y);
+      context.drawImage(this.images.tank, thing.box.x, thing.box.y);
     }
     else if(Object.getPrototypeOf(thing) === Invader.prototype) {
-      context.drawImage(this.images.invader, thing.position.x, thing.position.y);
+      context.drawImage(this.images.invader, thing.box.x, thing.box.y);
     }
   };
 
