@@ -11,6 +11,10 @@ function Painter(context) {
     invader_bullet: find_image("img_invader_bullet")
   };
 
+  this.draw = function(thing) {
+
+  };
+
   this.draw_bullet = function(position) {
     context.drawImage(this.images.tank_bullet, position.x, position.y);
   };

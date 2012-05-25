@@ -4,7 +4,7 @@ function Game(painter, things) {
   _this.draw = function() {
     painter.clear();
     things.forEach(function(thing) {
-      thing.draw(painter);
+      painter.draw(thing);
     });
   };
 

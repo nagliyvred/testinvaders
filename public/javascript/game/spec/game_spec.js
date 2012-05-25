@@ -4,18 +4,17 @@ describe("Given a Game", function() {
   beforeEach(function() {
     painter = {
       id: "Stub Painter",
-      clear: jasmine.createSpy('painter.clear')
+      clear: jasmine.createSpy('painter.clear'),
+      draw: jasmine.createSpy('painter.draw')
     };
     thing = {
       id: "Stub Thing",
-      draw: jasmine.createSpy('thing.draw'),
       update: jasmine.createSpy('update'),
       collide: jasmine.createSpy('collide'),
       box: {is_colliding_with: jasmine.createSpy('box_is_colliding_with') }
     };
     other_thing = {
       id: "Stub Other Thing",
-      draw: jasmine.createSpy('other_thing.draw'),
       update: jasmine.createSpy('update'),
       collide: jasmine.createSpy('collide'),
       box: {is_colliding_with: jasmine.createSpy('box_is_colliding_with') }
@@ -57,8 +56,8 @@ describe("Given a Game", function() {
 
     it("then ALL THE THINGS should be drawn", function() {
       game.draw();
-      expect(thing.draw).toHaveBeenCalledWith(painter);
-      expect(other_thing.draw).toHaveBeenCalledWith(painter);
+      expect(painter.draw).toHaveBeenCalledWith(thing);
+      expect(painter.draw).toHaveBeenCalledWith(other_thing);
     });
   });
 
