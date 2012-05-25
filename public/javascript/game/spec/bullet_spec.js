@@ -6,9 +6,8 @@ describe("Bullet", function() {
   });
 
   function shared_initial_state_examples() {
-    it("should not be visible", function() {
-      var stub_painter = {};
-      bullet.draw(stub_painter);
+    it("should not be active", function() {
+      expect(bullet.active).toBeFalsy();
     });
 
     it("should not be hittable", function() {
@@ -45,20 +44,17 @@ describe("Bullet", function() {
       expect(bullet.position.y).toEqual(y + (delta_time * velocity));
     });
 
-    it("should appear like a white streak", function() {
-      var spy_draw_bullet = jasmine.createSpy('draw_bullet');
-      var stub_painter = {draw_bullet: spy_draw_bullet};
-
-      bullet.draw(stub_painter);
-      expect(spy_draw_bullet).toHaveBeenCalledWith(p);
+    it("should be active", function() {
+      expect(bullet.active).toBeTruthy();
     });
 
     it("should die when it goes off the top of the screen", function() {
-      expect(bullet.is_active()).toBeTruthy();
+      expect(bullet.active).toBeTruthy();
 
-      bullet.position.y = -1.5;
-      bullet.update(0);
-      expect(bullet.is_active()).toBeFalsy();
+      bullet.position.y = -1;
+      bullet.update(1);
+
+      expect(bullet.active).toBeFalsy();
     });
 
     it("should be hittable", function() {

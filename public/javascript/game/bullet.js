@@ -1,5 +1,4 @@
 function Bullet() {
-  var active = false;
   var width = 4;
   var height = 20;
   var velocity = 0;
@@ -7,6 +6,7 @@ function Bullet() {
   x = 0;
   y = 0;
 
+  this.active = false;
   this.position = new Position(x, y);
   this.box = new BoundingBox(this.position, 0, 0);
 
@@ -16,33 +16,23 @@ function Bullet() {
     this.position.y = new_y;
     this.box.set(this.position, width, height);
     this.owner = owner;
-    active = true;
+    this.active = true;
   };
 
   this.update = function(delta_time) {
     this.position.y = this.position.y + (delta_time * velocity);
 
     if (this.position.y < 0) {
-      active = false;
+      this.active = false;
       this.box.make_unhittable();
-    }
-  };
-
-  this.draw = function(painter) {
-    if (active) {
-      painter.draw_bullet(this.position);
     }
   };
 
   this.collide = function(other_thing) {
     if(Object.getPrototypeOf(other_thing) === Invader.prototype) {
       this.box.make_unhittable();
-      active = false;
+      this.active = false;
     }
-  };
-
-  this.is_active = function() {
-    return active;
   };
 
   return this;
