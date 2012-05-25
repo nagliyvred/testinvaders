@@ -1,5 +1,5 @@
 describe("Tank", function() {
-  var stub_bullet = {id: "stub_bullet", this.active: false, is_active: function(){return this.active}};
+  var stub_bullet = {id: "stub_bullet", active: false};
   var tank;
 
   beforeEach(function() {
@@ -47,8 +47,10 @@ describe("Tank", function() {
     it("should not shoot if the current bullet is still active", function() {
       tank.update(0, input)
 
+      stub_bullet.active = true;
       stub_bullet.shoot = jasmine.createSpy("stub_bullet.shoot");
       tank.update(0, input);
+
       expect(stub_bullet.shoot).not.toHaveBeenCalled();
     });
   });

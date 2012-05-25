@@ -12,7 +12,7 @@ function Tank(bullet) {
     this.position.x = input.mouse.x - (this.box.width / 2);
 
     if (input.pressed("shoot")) {
-      if (!bullet.is_active()) {
+      if (!bullet.active) {
         bullet.shoot(-200, input.mouse.x, this.position.y, this);
       }
     }
