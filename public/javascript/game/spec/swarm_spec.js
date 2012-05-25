@@ -17,7 +17,7 @@ describe("Swarm", function() {
   };
 
   describe("swarm collisions", function() {
-    it("the swarm should not be hittable", function() {
+    it("the swarm should not be active", function() {
       invaders = [stub_invader(0, true)];
       swarm = new Swarm(invaders, zone_width);
 

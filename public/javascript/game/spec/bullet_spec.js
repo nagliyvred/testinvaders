@@ -9,13 +9,6 @@ describe("Bullet", function() {
     it("should not be active", function() {
       expect(bullet.active).toBeFalsy();
     });
-
-    it("should not be hittable", function() {
-      var box = bullet.box;
-
-      expect(box.width).toBe(0);
-      expect(box.height).toBe(0);
-    });
   }
 
   shared_initial_state_examples();
@@ -54,15 +47,6 @@ describe("Bullet", function() {
       bullet.update(1);
 
       expect(bullet.active).toBeFalsy();
-    });
-
-    it("should be hittable", function() {
-      var box = bullet.box;
-
-      expect(box.x).toBe(x);
-      expect(box.y).toBe(y);
-      expect(box.width).toBeGreaterThan(0);
-      expect(box.height).toBeGreaterThan(0);
     });
 
     it("should set the owner of the bullet", function() {

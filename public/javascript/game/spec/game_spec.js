@@ -26,11 +26,23 @@ describe("Given a Game", function() {
   });
 
   describe("when checking for collisions", function() {
-    it("should check that everything is colliding with everything else", function () {
+    it("should check that everything that is active is colliding with everything else that is active", function () {
+      game = new Game(painter, [thing, other_thing]);
       game.check_for_collisions();
 
       expect(thing.box.is_colliding_with).toHaveBeenCalledWith(other_thing.box);
       expect(other_thing.box.is_colliding_with).toHaveBeenCalledWith(thing.box);
+    });
+
+    it("should not check inactive things to see if they are colliding with anything", function() {
+      inactive_thing = {active: false, box: {is_colliding_with: jasmine.createSpy('inactive_thing_is_colliding_with')}};
+      game = new Game(painter, [thing, other_thing, inactive_thing]);
+      game.check_for_collisions();
+
+      expect(inactive_thing.box.is_colliding_with).not.toHaveBeenCalled();
+
+      expect(thing.box.is_colliding_with).not.toHaveBeenCalledWith(inactive_thing.box);
+      expect(other_thing.box.is_colliding_with).not.toHaveBeenCalledWith(inactive_thing.box);
     });
 
     it("should call collide on both things if they collide", function() {

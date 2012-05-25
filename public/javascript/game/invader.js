@@ -31,7 +31,6 @@ function Invader(initial_x, initial_y, bullet) {
   this.collide = function(other_thing) {
     if(other_thing.owner && Object.getPrototypeOf(other_thing.owner) === Tank.prototype) {
       this.active = false;
-      this.box.make_unhittable();
     }
   };
 

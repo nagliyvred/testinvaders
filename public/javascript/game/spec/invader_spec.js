@@ -19,15 +19,6 @@ describe("Invader", function() {
     invader = new Invader(x, y, stub_bullet);
   });
 
-  it("should be hittable", function() {
-    var box = invader.box;
-
-    expect(box.x).toEqual(x);
-    expect(box.y).toEqual(y);
-    expect(box.height).toBeGreaterThan(0);
-    expect(box.width).toBeGreaterThan(0);
-  });
-
   it("it should be active", function() {
     expect(invader.active).toBeTruthy();
   });

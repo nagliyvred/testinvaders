@@ -21,9 +21,11 @@ function Game(painter, things) {
   _this.check_for_collisions = function() {
     things.forEach(function(thing) {
       things.forEach(function(other_thing) {
-        if(thing.box.is_colliding_with(other_thing.box)) {
-          thing.collide(other_thing);
-          other_thing.collide(thing);
+        if(thing.active && other_thing.active) {
+          if(thing.box.is_colliding_with(other_thing.box)) {
+            thing.collide(other_thing);
+            other_thing.collide(thing);
+          }
         }
       });
     });
