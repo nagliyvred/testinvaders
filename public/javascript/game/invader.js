@@ -1,56 +1,43 @@
-function Invader(initial_velocity, initial_x, initial_y, initial_countdown, bullet) {
+function Invader(initial_x, initial_y, bullet) {
   var width = 66, height = 48;
-  var minimum_time_between_shots = 20;//seconds
-  var active = true;
+  var default_time_between_shots = 20;//seconds
+  var shoot_countdown = Math.random() * default_time_between_shots;
 
-  this.velocity = initial_velocity || 50;
-  var x = initial_x || 0;
-  var y = initial_y || 0;
-  this.position = new Position(x,y);
-  this.box = new BoundingBox(this.position, width, height);
-
-  var shoot_countdown = (initial_countdown || 0);
+  this.velocity = 50;
+  this.active = true;
+  this.box = new BoundingBox(initial_x, initial_y, width, height);
 
   var its_time_to_shoot = function() {
     return shoot_countdown <= 0;
   };
 
   var reset_shoot_countdown = function() {
-    shoot_countdown = minimum_time_between_shots;
+    shoot_countdown = default_time_between_shots;
   };
 
   this.update = function(delta_time) {
-    if (!active) {
-      return;
-    }
+    if(this.active) {
+      shoot_countdown -= delta_time;
 
-    shoot_countdown -= delta_time;
+      // Shooting
+      if(its_time_to_shoot()) {
+        bullet.shoot(50, this.box.x + (width / 2), this.box.y + (height / 2), this);
+        reset_shoot_countdown();
+      }
 
-    // Shooting
-    if(its_time_to_shoot()) {
-      bullet.shoot(50, this.position.x + (width / 2), this.position.y + (height / 2), this);
-      reset_shoot_countdown();
-    }
-
-    // Movement
-    this.position.x += delta_time * this.velocity;
-  };
-
-  this.draw = function(painter) {
-    if (active) {
-      painter.draw_invader(this.position);
+      // Movement
+      this.box.x += delta_time * this.velocity;
     }
   };
 
   this.collide = function(other_thing) {
     if(other_thing.owner && Object.getPrototypeOf(other_thing.owner) === Tank.prototype) {
-      active = false;
-      this.box.make_unhittable();
+      this.active = false;
     }
   };
 
   this.invade = function() {
-    this.position.y += 10;
+    this.box.y += 10;
     this.velocity = this.velocity * -1;
   };
 

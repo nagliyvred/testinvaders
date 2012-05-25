@@ -3,12 +3,8 @@ describe("Painter", function() {
     width: Math.random(),
     height: Math.random()
   };
-  var stub_gfx = {
-    tank_bullet: "stub_gfx_tank_bullet",
-    tank: "stub_gfx_tank",
-    invader: "stub_gfx_invader"
-  };
   var stub_context, painter;
+  var x, y;
 
   beforeEach(function() {
     stub_context = {
@@ -16,54 +12,64 @@ describe("Painter", function() {
       drawImage: jasmine.createSpy("stub_context.drawImage"),
       fillRect: jasmine.createSpy("stub_context.clearRect")
     };
-    painter = new Painter(stub_context, stub_gfx);
+    painter = new Painter(stub_context);
+    painter.images = {
+      tank_bullet: "stub_image_tank_bullet",
+      tank: "stub_image_tank",
+      invader: "stub_image_invader",
+      invader_bullet: "stub_image_invader_bullet"
+    };
+    x = Math.random();
+    y = Math.random();
   });
 
-  describe("draw_bullet", function() {
+  describe("drawing a bullet", function() {
     it("should draw the tank bullet image at the specified position", function() {
-      var x = Math.random();
-      var y = Math.random();
-      var position = new Position(x, y);
+      var bullet = new Bullet();
+      bullet.box.x = x;
+      bullet.box.y = y;
+      bullet.shoot(0, x, y, new Tank());
 
-      painter.draw_bullet(position);
+      painter.draw(bullet);
 
-      expect(stub_context.drawImage).toHaveBeenCalledWith(stub_gfx.tank_bullet, position.x, position.y);
+      expect(stub_context.drawImage).toHaveBeenCalledWith(painter.images.tank_bullet, x, y);
     });
   });
 
-  describe("draw_invader_bullet", function() {
+  describe("drawing an invader_bullet", function() {
     it("should draw the invader bullet at the specified position", function() {
-      var x = Math.random();
-      var y = Math.random();
-      var position = new Position(x, y);
+      var bullet = new InvaderBullet();
+      bullet.box.x = x;
+      bullet.box.y = y;
+      bullet.shoot(0, x, y, new Invader());
 
-      painter.draw_invader_bullet(position);
+      painter.draw(bullet);
 
-      expect(stub_context.drawImage).toHaveBeenCalledWith(stub_gfx.invader_bullet, position.x, position.y);
+      expect(stub_context.drawImage).toHaveBeenCalledWith(painter.images.invader_bullet, x, y);
     });
   });
 
-  describe("draw_tank", function() {
+  describe("drawing the tank", function() {
     it("should draw the tank image at the specified position", function() {
-      var x = Math.random();
-      var y = Math.random();
-      var position = new Position(x, y);
+      var tank = new Tank();
+      tank.box.x = x;
+      tank.box.y = y;
 
-      painter.draw_tank(position);
+      painter.draw(tank);
 
-      expect(stub_context.drawImage).toHaveBeenCalledWith(stub_gfx.tank, x, y);
+      expect(stub_context.drawImage).toHaveBeenCalledWith(painter.images.tank, x, y);
     });
   });
 
-  describe("draw_invader", function() {
+  describe("drawing an invader", function() {
     it("should draw the invader image at the specified position", function() {
-      var x = Math.random();
-      var y = Math.random();
-      var position = new Position(x, y);
+      var invader = new Invader();
+      invader.box.x = x;
+      invader.box.y = y;
 
-      painter.draw_invader(position);
+      painter.draw(invader);
 
-      expect(stub_context.drawImage).toHaveBeenCalledWith(stub_gfx.invader, x, y);
+      expect(stub_context.drawImage).toHaveBeenCalledWith(painter.images.invader, x, y);
     });
   });
 

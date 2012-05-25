@@ -1,18 +1,30 @@
-function Painter(context, gfx) {
-  this.draw_bullet = function(position) {
-    context.drawImage(gfx.tank_bullet, position.x, position.y);
+function Painter(context) {
+
+  var find_image = function(id) {
+    return document.getElementById(id);
   };
 
-  this.draw_invader_bullet = function(position) {
-    context.drawImage(gfx.invader_bullet, position.x, position.y);
+  this.images = {
+    tank: find_image("img_tank"),
+    invader: find_image("img_invader"),
+    tank_bullet: find_image("img_tank_bullet"),
+    invader_bullet: find_image("img_invader_bullet")
   };
 
-  this.draw_tank = function(position) {
-    context.drawImage(gfx.tank, position.x, position.y);
-  };
-
-  this.draw_invader = function(position) {
-    context.drawImage(gfx.invader, position.x, position.y);
+  this.draw = function(thing) {
+    if(Object.getPrototypeOf(thing) === Bullet.prototype) {
+      if(Object.getPrototypeOf(thing.owner) === Tank.prototype) {
+        context.drawImage(this.images.tank_bullet, thing.box.x, thing.box.y);
+      } else {
+        context.drawImage(this.images.invader_bullet, thing.box.x, thing.box.y);
+      }
+    }
+    else if(Object.getPrototypeOf(thing) === Tank.prototype) {
+      context.drawImage(this.images.tank, thing.box.x, thing.box.y);
+    }
+    else if(Object.getPrototypeOf(thing) === Invader.prototype) {
+      context.drawImage(this.images.invader, thing.box.x, thing.box.y);
+    }
   };
 
   this.clear = function() {

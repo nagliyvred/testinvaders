@@ -8,27 +8,32 @@
 function Init() {
   atom.input.bind(atom.button.LEFT, "shoot");
 
-  var gfx = new Gfx();
-  var painter = new Painter(atom.context, gfx);
+  var painter = new Painter(atom.context);
+  var things = [];
 
   var bullet = new Bullet();
   var tank = new Tank(bullet);
-
-  var things = [bullet, tank];
+  things.push(bullet);
+  things.push(tank);
 
   var invaders = [];
-  for(var y = 0; y < 5; y++) {
-    for(var x = 0; x < 10; x++) {
+  var column_offset = 70;
+  var row_offset = 60;
+  for(var row = 0; row < 5; row++) {
+    for(var col = 0; col < 10; col++) {
+      var x = col * column_offset;
+      var y = row * row_offset;
+      
       var invader_bullet = new InvaderBullet();
-      things.push(invader_bullet);
-
-      var invader = new Invader(50, x * 70, y * 60, 20 - (Math.random() * 20), invader_bullet);
+      var invader = new Invader(x, y, invader_bullet);
+      
       invaders.push(invader);
+      things.push(invader_bullet);
       things.push(invader);
     }
   }
 
-  var swarm = new Swarm(invaders, 900, 1);
+  var swarm = new Swarm(invaders, atom.canvas.width);
   things.push(swarm);
 
   var game = new Game(painter, things);

@@ -5,23 +5,23 @@ describe("Swarm", function() {
   var zone_width = 800;
   var direction = 1;
 
-  var stub_invader = function(x, is_hittable) {
+  var stub_invader = function(x, active) {
     return {
       invade: jasmine.createSpy("invader_invade"),
-      position: {x: x},
+      active: active,
       box: {
+        x: x,
         width: 100,
-        is_hittable: jasmine.createSpy("invader_is_hittable").andReturn(is_hittable)
      }
     };
   };
 
   describe("swarm collisions", function() {
-    it("the swarm should not be hittable", function() {
+    it("the swarm should not be active", function() {
       invaders = [stub_invader(0, true)];
       swarm = new Swarm(invaders, zone_width);
 
-      expect(swarm.box.is_hittable()).toBeFalsy();
+      expect(swarm.active).toBeTruthy();
     });
   });
 
@@ -38,7 +38,7 @@ describe("Swarm", function() {
   describe("dead invaders colliding with the zone edge", function() {
     it("should not tell the invaders to INVADE", function() {
       invaders = [stub_invader(700, false)];
-      swarm = new Swarm(invaders, zone_width, 1);
+      swarm = new Swarm(invaders, zone_width);
       swarm.update();
 
       expect(invaders[0].invade).not.toHaveBeenCalled();
@@ -49,7 +49,7 @@ describe("Swarm", function() {
     describe("when one of the invaders hits the right edge of the screen", function() {
       beforeEach(function() {
         invaders = [stub_invader(600, true), stub_invader(700, true)];
-        swarm = new Swarm(invaders, zone_width, 1);
+        swarm = new Swarm(invaders, zone_width);
         swarm.update();
       });
 
@@ -66,7 +66,7 @@ describe("Swarm", function() {
     describe("when one of the invaders is hitting the left edge of the screen", function() {
       beforeEach(function() {
         invaders = [stub_invader(0, true)];
-        swarm = new Swarm(invaders, zone_width, 1);
+        swarm = new Swarm(invaders, zone_width);
         swarm.update();
       });
 
@@ -79,7 +79,8 @@ describe("Swarm", function() {
   describe("when the swarm is moving left", function() {
     beforeEach(function() {
       invaders = [stub_invader(0, true)];
-      swarm = new Swarm(invaders, zone_width, -1);
+      swarm = new Swarm(invaders, zone_width);
+      swarm.direction = -1;
       swarm.update();
     });
 

@@ -6,16 +6,8 @@ describe("Bullet", function() {
   });
 
   function shared_initial_state_examples() {
-    it("should not be visible", function() {
-      var stub_painter = {};
-      bullet.draw(stub_painter);
-    });
-
-    it("should not be hittable", function() {
-      var box = bullet.box;
-
-      expect(box.width).toBe(0);
-      expect(box.height).toBe(0);
+    it("should not be active", function() {
+      expect(bullet.active).toBeFalsy();
     });
   }
 
@@ -31,7 +23,6 @@ describe("Bullet", function() {
       velocity = Math.random();
       x = Math.random();
       y = Math.random();
-      p = new Position(x, y);
       owner = { };
 
       bullet.shoot(velocity, x, y, owner);
@@ -42,24 +33,20 @@ describe("Bullet", function() {
 
       bullet.update(delta_time);
 
-      expect(bullet.position.y).toEqual(y + (delta_time * velocity));
+      expect(bullet.box.y).toEqual(y + (delta_time * velocity));
     });
 
-    it("should appear like a white streak", function() {
-      var spy_draw_bullet = jasmine.createSpy('draw_bullet');
-      var stub_painter = {draw_bullet: spy_draw_bullet};
-
-      bullet.draw(stub_painter);
-      expect(spy_draw_bullet).toHaveBeenCalledWith(p);
+    it("should be active", function() {
+      expect(bullet.active).toBeTruthy();
     });
 
-    it("should be hittable", function() {
-      var box = bullet.box;
+    it("should die when it goes off the top of the screen", function() {
+      expect(bullet.active).toBeTruthy();
 
-      expect(box.position.x).toBe(x);
-      expect(box.position.y).toBe(y);
-      expect(box.width).toBeGreaterThan(0);
-      expect(box.height).toBeGreaterThan(0);
+      bullet.box.y = -1;
+      bullet.update(1);
+
+      expect(bullet.active).toBeFalsy();
     });
 
     it("should set the owner of the bullet", function() {
@@ -71,13 +58,13 @@ describe("Bullet", function() {
       it("should not collide with the tank", function() {
         bullet.collide(new Tank());
 
-        expect(bullet.box.is_hittable()).toBeTruthy();
+        expect(bullet.active).toBeTruthy();
       });
 
       it("should collide with an invader", function() {
         bullet.collide(new Invader());
 
-        expect(bullet.box.is_hittable()).toBeFalsy();
+        expect(bullet.active).toBeFalsy();
         //shared_initial_state_examples();
       });
     });

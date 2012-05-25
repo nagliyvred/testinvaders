@@ -1,37 +1,26 @@
 describe("Invader", function() {
   var invader;
-  var velocity, x, y, shot_countdown;
+  var x, y, shot_countdown;
   var stub_bulllet;
   var stub_painter;
 
   var minimum_countdown = 10;
+  var velocity = 50;
   var width = 66, height = 48;
 
   beforeEach(function() {
-    velocity = Math.random();
     x = Math.random();
     y = Math.random();
-    p = new Position(x, y);
-    shot_countdown = Math.random();
+    shot_countdown = 20 ;
 
     stub_bullet = {shoot: jasmine.createSpy("stub_bullet.shoot")};
     stub_painter = {draw_invader: jasmine.createSpy("stub_painter.draw_invader")};
 
-    invader = new Invader(velocity, x, y, shot_countdown, stub_bullet);
+    invader = new Invader(x, y, stub_bullet);
   });
 
-  it("should be hittable", function() {
-    var box = invader.box;
-
-    expect(box.position.x).toEqual(x);
-    expect(box.position.y).toEqual(y);
-    expect(box.height).toBeGreaterThan(0);
-    expect(box.width).toBeGreaterThan(0);
-  });
-
-  it("should look like blatant copyright infringement", function() {
-    invader.draw(stub_painter);
-    expect(stub_painter.draw_invader).toHaveBeenCalledWith(p);
+  it("it should be active", function() {
+    expect(invader.active).toBeTruthy();
   });
 
   describe("when updated", function() {
@@ -42,8 +31,8 @@ describe("Invader", function() {
 
       var new_box = invader.box;
 
-      expect(new_box.position.x).toEqual(x + velocity);
-      expect(new_box.position.y).toEqual(y);
+      expect(new_box.x).toEqual(x + velocity);
+      expect(new_box.y).toEqual(y);
     });
 
     describe("shooting a bullet", function() {
@@ -58,6 +47,12 @@ describe("Invader", function() {
 
       beforeEach(function() {
         time_elapsed_until_the_next_shot = shot_countdown;
+      });
+
+      it("should only shoot if it is active", function() {
+        invader.active = false;
+        elapse_shot_timer();
+        expect(stub_bullet.shoot).not.toHaveBeenCalled();
       });
 
       describe("shooting when the timer has elapsed", function() {
@@ -95,21 +90,6 @@ describe("Invader", function() {
           expect(stub_bullet.shoot).toHaveBeenCalled();
         });
       });
-
-      describe("staggered bullets", function() {
-        it("should not shoot at the same time as another invader", function() {
-          var another_shot_countdown = 15;
-          var another_stub_bullet = {shoot: jasmine.createSpy("another_stub_bullet.shoot")};
-          var another_invader = new Invader(0, 0, 0, another_shot_countdown, another_stub_bullet);
-
-          [invader, another_invader].forEach(function(i) {
-            i.update(shot_countdown);
-          });
-
-          expect(stub_bullet.shoot).toHaveBeenCalled();
-          expect(another_stub_bullet.shoot).wasNotCalled();
-        });
-      });
     });
   });
 
@@ -119,7 +99,7 @@ describe("Invader", function() {
     });
 
     it("should move toward the player's tank", function() {
-      expect(invader.position.y).toBe(y + 10);
+      expect(invader.box.y).toBe(y + 10);
     });
 
     it("should invert its lateral velocity", function() {
@@ -135,7 +115,7 @@ describe("Invader", function() {
 
       invader.collide(invader_bullet);
 
-      expect(invader.box.is_hittable()).toBeTruthy();
+      expect(invader.active).toBeTruthy();
     });
 
     it("should collide with the tank bullets", function() {
@@ -145,7 +125,7 @@ describe("Invader", function() {
 
       invader.collide(tank_bullet);
 
-      expect(invader.box.is_hittable()).toBeFalsy();
+      expect(invader.active).toBeFalsy();
     });
   });
 
@@ -157,17 +137,8 @@ describe("Invader", function() {
       invader.collide(bullet);
     });
 
-    it("should be dead dead dead (ie, not visible)", function() {
-      invader.draw(stub_painter);
-
-      expect(stub_painter.draw_invader).wasNotCalled();
-    });
-
-    it("should not be hittable", function() {
-      var box = invader.box;
-
-      expect(box.width).toEqual(0);
-      expect(box.height).toEqual(0);
+    it("it should not be active", function() {
+      expect(invader.active).toBeFalsy();
     });
   });
 });
