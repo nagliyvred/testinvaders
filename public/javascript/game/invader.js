@@ -1,6 +1,7 @@
 function Invader(initial_x, initial_y, bullet) {
   var width = 66, height = 48;
-  var minimum_time_between_shots = 20;//seconds
+  var default_time_between_shots = 20;//seconds
+  var shoot_countdown = Math.random() * default_time_between_shots;
 
   var x = initial_x || 0;
   var y = initial_y || 0;
@@ -10,21 +11,15 @@ function Invader(initial_x, initial_y, bullet) {
   this.active = true;
   this.box = new BoundingBox(this.position, width, height);
 
-  var shoot_countdown = Math.random() * minimum_time_between_shots;
-
   var its_time_to_shoot = function() {
     return shoot_countdown <= 0;
   };
 
   var reset_shoot_countdown = function() {
-    shoot_countdown = minimum_time_between_shots;
+    shoot_countdown = default_time_between_shots;
   };
 
   this.update = function(delta_time) {
-    if (!this.active) {
-      return;
-    }
-
     shoot_countdown -= delta_time;
 
     // Shooting
