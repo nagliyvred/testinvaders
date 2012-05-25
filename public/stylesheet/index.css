@@ -56,3 +56,11 @@ iframe {
 }
 
 *[id*='runner'] { display: none; }
+
+.ace_gutter-cell {
+  padding-right: 1em !important;
+}
+
+pre {
+  margin: 0 !important;
+}
