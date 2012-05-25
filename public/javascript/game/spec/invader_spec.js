@@ -49,6 +49,12 @@ describe("Invader", function() {
         time_elapsed_until_the_next_shot = shot_countdown;
       });
 
+      it("should only shoot if it is active", function() {
+        invader.active = false;
+        elapse_shot_timer();
+        expect(stub_bullet.shoot).not.toHaveBeenCalled();
+      });
+
       describe("shooting when the timer has elapsed", function() {
 
         beforeEach(function() {

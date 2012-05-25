@@ -16,16 +16,18 @@ function Invader(initial_x, initial_y, bullet) {
   };
 
   this.update = function(delta_time) {
-    shoot_countdown -= delta_time;
+    if(this.active) {
+      shoot_countdown -= delta_time;
 
-    // Shooting
-    if(its_time_to_shoot()) {
-      bullet.shoot(50, this.box.x + (width / 2), this.box.y + (height / 2), this);
-      reset_shoot_countdown();
+      // Shooting
+      if(its_time_to_shoot()) {
+        bullet.shoot(50, this.box.x + (width / 2), this.box.y + (height / 2), this);
+        reset_shoot_countdown();
+      }
+
+      // Movement
+      this.box.x += delta_time * this.velocity;
     }
-
-    // Movement
-    this.box.x += delta_time * this.velocity;
   };
 
   this.collide = function(other_thing) {
