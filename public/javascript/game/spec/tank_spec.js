@@ -6,10 +6,8 @@ describe("Tank", function() {
     tank = new Tank(stub_bullet);
   });
 
-  it("should look like a tank", function() {
-    var stub_painter = {draw_tank: jasmine.createSpy('stub_painter.draw_tank')};
-    tank.draw(stub_painter);
-    expect(stub_painter.draw_tank).toHaveBeenCalledWith(new Position(0, 500));
+  it("should be active", function() {
+    expect(tank.active).toBeTruthy();
   });
 
   describe("when the tank has been updated", function() {
