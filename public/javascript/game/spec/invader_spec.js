@@ -29,9 +29,8 @@ describe("Invader", function() {
     expect(box.width).toBeGreaterThan(0);
   });
 
-  it("should look like blatant copyright infringement", function() {
-    invader.draw(stub_painter);
-    expect(stub_painter.draw_invader).toHaveBeenCalledWith(p);
+  it("it should be active", function() {
+    expect(invader.active).toBeTruthy();
   });
 
   describe("when updated", function() {
@@ -142,10 +141,8 @@ describe("Invader", function() {
       invader.collide(bullet);
     });
 
-    it("should be dead dead dead (ie, not visible)", function() {
-      invader.draw(stub_painter);
-
-      expect(stub_painter.draw_invader).wasNotCalled();
+    it("it should not be active", function() {
+      expect(invader.active).toBeFalsy();
     });
 
     it("should not be hittable", function() {
