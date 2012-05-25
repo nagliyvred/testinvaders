@@ -119,7 +119,7 @@ describe("Invader", function() {
 
       invader.collide(invader_bullet);
 
-      expect(invader.box.is_hittable()).toBeTruthy();
+      expect(invader.active).toBeTruthy();
     });
 
     it("should collide with the tank bullets", function() {
@@ -129,7 +129,7 @@ describe("Invader", function() {
 
       invader.collide(tank_bullet);
 
-      expect(invader.box.is_hittable()).toBeFalsy();
+      expect(invader.active).toBeFalsy();
     });
   });
 
@@ -143,13 +143,6 @@ describe("Invader", function() {
 
     it("it should not be active", function() {
       expect(invader.active).toBeFalsy();
-    });
-
-    it("should not be hittable", function() {
-      var box = invader.box;
-
-      expect(box.width).toEqual(0);
-      expect(box.height).toEqual(0);
     });
   });
 });

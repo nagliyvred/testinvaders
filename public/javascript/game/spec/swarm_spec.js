@@ -5,13 +5,13 @@ describe("Swarm", function() {
   var zone_width = 800;
   var direction = 1;
 
-  var stub_invader = function(x, is_hittable) {
+  var stub_invader = function(x, active) {
     return {
       invade: jasmine.createSpy("invader_invade"),
       position: {x: x},
+      active: active,
       box: {
         width: 100,
-        is_hittable: jasmine.createSpy("invader_is_hittable").andReturn(is_hittable)
      }
     };
   };
@@ -21,7 +21,7 @@ describe("Swarm", function() {
       invaders = [stub_invader(0, true)];
       swarm = new Swarm(invaders, zone_width);
 
-      expect(swarm.box.is_hittable()).toBeFalsy();
+      expect(swarm.active).toBeTruthy();
     });
   });
 

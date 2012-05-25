@@ -23,14 +23,12 @@ describe("A space invaders bullet", function() {
 
     it("should not collide with invaders", function() {
       bullet.collide(new Invader());
-      expect(bullet.box.is_hittable()).toBeTruthy();
+      expect(bullet.active).toBeTruthy();
     });
 
     it("should collide with the tank", function() {
       bullet.collide(new Tank());
-      expect(bullet.box.is_hittable()).toBeFalsy();
+      expect(bullet.active).toBeFalsy();
     });
-
   });
-
 });

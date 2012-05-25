@@ -75,13 +75,13 @@ describe("Bullet", function() {
       it("should not collide with the tank", function() {
         bullet.collide(new Tank());
 
-        expect(bullet.box.is_hittable()).toBeTruthy();
+        expect(bullet.active).toBeTruthy();
       });
 
       it("should collide with an invader", function() {
         bullet.collide(new Invader());
 
-        expect(bullet.box.is_hittable()).toBeFalsy();
+        expect(bullet.active).toBeFalsy();
         //shared_initial_state_examples();
       });
     });
