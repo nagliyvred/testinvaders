@@ -18,10 +18,6 @@ function Tank(bullet) {
     }
   };
 
-  this.draw = function(painter) {
-    painter.draw_tank(this.position);
-  };
-
   this.collide = function() {
   };
 

@@ -39,7 +39,6 @@ function Swarm(invaders, zone_width) {
   };
 
   this.collide = function() { };
-  this.draw = function() { };
 
   return this;
 }
