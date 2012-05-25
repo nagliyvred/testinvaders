@@ -1,11 +1,10 @@
 function Swarm(invaders, zone_width) {
-  var left = -1;
-  var right = 1;
+  var invader_width = invaders[0].box.width;
+  var left = -1, right = 1;
+
   this.direction = right;
   this.box = new BoundingBox(new Position(0, 0), 0, 0);
   this.active = true;
-
-  var invader_width = invaders[0].box.width;
 
   var min = function(array) {
     return Math.min.apply(Math, array);
