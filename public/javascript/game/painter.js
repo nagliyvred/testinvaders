@@ -12,23 +12,19 @@ function Painter(context) {
   };
 
   this.draw = function(thing) {
-
-  };
-
-  this.draw_bullet = function(position) {
-    context.drawImage(this.images.tank_bullet, position.x, position.y);
-  };
-
-  this.draw_invader_bullet = function(position) {
-    context.drawImage(this.images.invader_bullet, position.x, position.y);
-  };
-
-  this.draw_tank = function(position) {
-    context.drawImage(this.images.tank, position.x, position.y);
-  };
-
-  this.draw_invader = function(position) {
-    context.drawImage(this.images.invader, position.x, position.y);
+    if(thing.__proto__ == Bullet.prototype) {
+      if(thing.owner.__proto__ == Tank.prototype) {
+        context.drawImage(this.images.tank_bullet, thing.position.x, thing.position.y);
+      } else {
+        context.drawImage(this.images.invader_bullet, thing.position.x, thing.position.y);
+      }
+    }
+    else if(thing.__proto__ == Tank.prototype) {
+      context.drawImage(this.images.tank, thing.position.x, thing.position.y);
+    }
+    else if(thing.__proto__ == Invader.prototype) {
+      context.drawImage(this.images.invader, thing.position.x, thing.position.y);
+    }
   };
 
   this.clear = function() {
