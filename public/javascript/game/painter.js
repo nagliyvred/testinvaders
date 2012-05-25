@@ -11,20 +11,21 @@ function Painter(context) {
     invader_bullet: find_image("img_invader_bullet")
   };
 
-  this.draw_bullet = function(position) {
-    context.drawImage(this.images.tank_bullet, position.x, position.y);
-  };
+  this.draw = function(thing) {
 
-  this.draw_invader_bullet = function(position) {
-    context.drawImage(this.images.invader_bullet, position.x, position.y);
-  };
-
-  this.draw_tank = function(position) {
-    context.drawImage(this.images.tank, position.x, position.y);
-  };
-
-  this.draw_invader = function(position) {
-    context.drawImage(this.images.invader, position.x, position.y);
+    if(Object.getPrototypeOf(thing) === Bullet.prototype) {
+      if(Object.getPrototypeOf(thing.owner) === Tank.prototype) {
+        context.drawImage(this.images.tank_bullet, thing.position.x, thing.position.y);
+      } else {
+        context.drawImage(this.images.invader_bullet, thing.position.x, thing.position.y);
+      }
+    }
+    else if(Object.getPrototypeOf(thing) === Tank.prototype) {
+      context.drawImage(this.images.tank, thing.position.x, thing.position.y);
+    }
+    else if(Object.getPrototypeOf(thing) === Invader.prototype) {
+      context.drawImage(this.images.invader, thing.position.x, thing.position.y);
+    }
   };
 
   this.clear = function() {

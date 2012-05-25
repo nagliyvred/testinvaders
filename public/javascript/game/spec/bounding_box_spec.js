@@ -57,18 +57,6 @@ describe("BoundingBox", function() {
     });
   });
 
-  describe("hittable", function() {
-    it("should return false if width and height are zero", function() {
-      bb.make_unhittable();
-
-      expect(bb.is_hittable()).toBe(false);
-    });
-
-    it("should return true otherwise", function() {
-      expect(bb.is_hittable()).toBe(true);
-    });
-  });
-
   describe("collision detection", function() {
     var box_overlapping;
     var box_not_overlapping;

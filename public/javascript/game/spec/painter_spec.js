@@ -16,7 +16,7 @@ describe("Painter", function() {
     painter.images = {
       tank_bullet: "stub_image_tank_bullet",
       tank: "stub_image_tank",
-      invader: "stub_image_invader"
+      invader: "stub_image_invader",
       invader_bullet: "stub_image_invader_bullet"
     };
     var x = Math.random();
@@ -24,35 +24,49 @@ describe("Painter", function() {
     position = new Position(x, y);
   });
 
-  describe("draw_bullet", function() {
+  describe("drawing a bullet", function() {
     it("should draw the tank bullet image at the specified position", function() {
-      painter.draw_bullet(position);
+      var bullet = new Bullet();
+      bullet.position = position;
+      bullet.shoot(0, position.x, position.y, new Tank());
+
+      painter.draw(bullet);
 
       expect(stub_context.drawImage).toHaveBeenCalledWith(painter.images.tank_bullet, position.x, position.y);
     });
   });
 
-  describe("draw_invader_bullet", function() {
+  describe("drawing an invader_bullet", function() {
     it("should draw the invader bullet at the specified position", function() {
-      painter.draw_invader_bullet(position);
+      var bullet = new InvaderBullet();
+      bullet.position = position;
+      bullet.shoot(0, position.x, position.y, new Invader());
+
+      painter.draw(bullet);
 
       expect(stub_context.drawImage).toHaveBeenCalledWith(painter.images.invader_bullet, position.x, position.y);
     });
   });
 
-  describe("draw_tank", function() {
+  describe("drawing the tank", function() {
     it("should draw the tank image at the specified position", function() {
-      painter.draw_tank(position);
+      var tank = new Tank();
+      tank.position = position;
 
-      expect(stub_context.drawImage).toHaveBeenCalledWith(painter.images.tank, x, y);
+      painter.draw(tank);
+
+      expect(stub_context.drawImage).toHaveBeenCalledWith(painter.images.tank, position.x, position.y);
     });
   });
 
-  describe("draw_invader", function() {
+  describe("drawing an invader", function() {
     it("should draw the invader image at the specified position", function() {
-      painter.draw_invader(position);
+      var invader = new Invader();
+      invader.position = position;
 
-      expect(stub_context.drawImage).toHaveBeenCalledWith(painter.images.invader, x, y);
+      painter.draw(invader);
+
+      expect(stub_context.drawImage).toHaveBeenCalledWith(painter.images.invader, position.x, position.y);
     });
   });
 

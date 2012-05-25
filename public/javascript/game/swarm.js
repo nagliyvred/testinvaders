@@ -3,6 +3,7 @@ function Swarm(invaders, zone_width) {
   var right = 1;
   this.direction = right;
   this.box = new BoundingBox(new Position(0, 0), 0, 0);
+  this.active = true;
 
   var invader_width = invaders[0].box.width;
 
@@ -16,7 +17,7 @@ function Swarm(invaders, zone_width) {
 
   var collect_invader_x_positions = function() {
     return invaders.filter(function(invader) {
-      return invader.box.is_hittable();
+      return invader.active;
     }).map(function(invader) {
       return invader.position.x;
     });
@@ -39,7 +40,6 @@ function Swarm(invaders, zone_width) {
   };
 
   this.collide = function() { };
-  this.draw = function() { };
 
   return this;
 }

@@ -1,15 +1,13 @@
 describe("Tank", function() {
-  var stub_bullet = {id: "stub_bullet", this.active: false, is_active: function(){return this.active}};
+  var stub_bullet = {id: "stub_bullet", active: false};
   var tank;
 
   beforeEach(function() {
     tank = new Tank(stub_bullet);
   });
 
-  it("should look like a tank", function() {
-    var stub_painter = {draw_tank: jasmine.createSpy('stub_painter.draw_tank')};
-    tank.draw(stub_painter);
-    expect(stub_painter.draw_tank).toHaveBeenCalledWith(new Position(0, 500));
+  it("should be active", function() {
+    expect(tank.active).toBeTruthy();
   });
 
   describe("when the tank has been updated", function() {
@@ -49,8 +47,10 @@ describe("Tank", function() {
     it("should not shoot if the current bullet is still active", function() {
       tank.update(0, input)
 
+      stub_bullet.active = true;
       stub_bullet.shoot = jasmine.createSpy("stub_bullet.shoot");
       tank.update(0, input);
+
       expect(stub_bullet.shoot).not.toHaveBeenCalled();
     });
   });

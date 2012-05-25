@@ -16,10 +16,6 @@ function BoundingBox(position, width, height) {
     this.height = 0;
   };
 
-  this.is_hittable = function() {
-    return (this.width > 0 || this.height > 0);
-  };
-
   this.is_colliding_with = function(other_box) {
     if (this === other_box) { return false; }
     if (this.bottom() < other_box.top()) { return false; }
