@@ -12,7 +12,6 @@ describe("Invader", function() {
     x = Math.random();
     y = Math.random();
     shot_countdown = 20 ;
-    p = new Position(x, y);
 
     stub_bullet = {shoot: jasmine.createSpy("stub_bullet.shoot")};
     stub_painter = {draw_invader: jasmine.createSpy("stub_painter.draw_invader")};
@@ -23,8 +22,8 @@ describe("Invader", function() {
   it("should be hittable", function() {
     var box = invader.box;
 
-    expect(box.position.x).toEqual(x);
-    expect(box.position.y).toEqual(y);
+    expect(box.x).toEqual(x);
+    expect(box.y).toEqual(y);
     expect(box.height).toBeGreaterThan(0);
     expect(box.width).toBeGreaterThan(0);
   });
@@ -41,8 +40,8 @@ describe("Invader", function() {
 
       var new_box = invader.box;
 
-      expect(new_box.position.x).toEqual(x + velocity);
-      expect(new_box.position.y).toEqual(y);
+      expect(new_box.x).toEqual(x + velocity);
+      expect(new_box.y).toEqual(y);
     });
 
     describe("shooting a bullet", function() {
@@ -103,7 +102,7 @@ describe("Invader", function() {
     });
 
     it("should move toward the player's tank", function() {
-      expect(invader.position.y).toBe(y + 10);
+      expect(invader.box.y).toBe(y + 10);
     });
 
     it("should invert its lateral velocity", function() {

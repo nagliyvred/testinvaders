@@ -2,7 +2,7 @@ function Swarm(invaders, zone_width) {
   var left = -1;
   var right = 1;
   this.direction = right;
-  this.box = new BoundingBox(new Position(0, 0), 0, 0);
+  this.box = new BoundingBox(0, 0, 0, 0);
   this.active = true;
 
   var invader_width = invaders[0].box.width;
@@ -19,7 +19,7 @@ function Swarm(invaders, zone_width) {
     return invaders.filter(function(invader) {
       return invader.active;
     }).map(function(invader) {
-      return invader.position.x;
+      return invader.box.x;
     });
   };
 
