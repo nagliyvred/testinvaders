@@ -8,8 +8,7 @@
 function Init() {
   atom.input.bind(atom.button.LEFT, "shoot");
 
-  var gfx = new Gfx();
-  var painter = new Painter(atom.context, gfx);
+  var painter = new Painter(atom.context);
   var things = [];
 
   var bullet = new Bullet();
