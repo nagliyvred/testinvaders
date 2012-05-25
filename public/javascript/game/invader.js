@@ -1,15 +1,15 @@
-function Invader(initial_velocity, initial_x, initial_y, initial_countdown, bullet) {
+function Invader(initial_x, initial_y, bullet) {
   var width = 66, height = 48;
   var minimum_time_between_shots = 20;//seconds
   var active = true;
 
-  this.velocity = initial_velocity || 50;
+  this.velocity = 50;
   var x = initial_x || 0;
   var y = initial_y || 0;
   this.position = new Position(x,y);
   this.box = new BoundingBox(this.position, width, height);
 
-  var shoot_countdown = (initial_countdown || 0);
+  var shoot_countdown = Math.random() * minimum_time_between_shots;
 
   var its_time_to_shoot = function() {
     return shoot_countdown <= 0;

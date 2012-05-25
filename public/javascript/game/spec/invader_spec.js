@@ -1,23 +1,23 @@
 describe("Invader", function() {
   var invader;
-  var velocity, x, y, shot_countdown;
+  var x, y, shot_countdown;
   var stub_bulllet;
   var stub_painter;
 
   var minimum_countdown = 10;
+  var velocity = 50;
   var width = 66, height = 48;
 
   beforeEach(function() {
-    velocity = Math.random();
     x = Math.random();
     y = Math.random();
+    shot_countdown = 20 ;
     p = new Position(x, y);
-    shot_countdown = Math.random();
 
     stub_bullet = {shoot: jasmine.createSpy("stub_bullet.shoot")};
     stub_painter = {draw_invader: jasmine.createSpy("stub_painter.draw_invader")};
 
-    invader = new Invader(velocity, x, y, shot_countdown, stub_bullet);
+    invader = new Invader(x, y, stub_bullet);
   });
 
   it("should be hittable", function() {
@@ -93,21 +93,6 @@ describe("Invader", function() {
           invader.update(0.010);
 
           expect(stub_bullet.shoot).toHaveBeenCalled();
-        });
-      });
-
-      describe("staggered bullets", function() {
-        it("should not shoot at the same time as another invader", function() {
-          var another_shot_countdown = 15;
-          var another_stub_bullet = {shoot: jasmine.createSpy("another_stub_bullet.shoot")};
-          var another_invader = new Invader(0, 0, 0, another_shot_countdown, another_stub_bullet);
-
-          [invader, another_invader].forEach(function(i) {
-            i.update(shot_countdown);
-          });
-
-          expect(stub_bullet.shoot).toHaveBeenCalled();
-          expect(another_stub_bullet.shoot).wasNotCalled();
         });
       });
     });
