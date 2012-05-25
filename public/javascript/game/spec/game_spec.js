@@ -11,13 +11,15 @@ describe("Given a Game", function() {
       id: "Stub Thing",
       update: jasmine.createSpy('update'),
       collide: jasmine.createSpy('collide'),
-      box: {is_colliding_with: jasmine.createSpy('box_is_colliding_with') }
+      box: {is_colliding_with: jasmine.createSpy('box_is_colliding_with') },
+      active: true
     };
     other_thing = {
       id: "Stub Other Thing",
       update: jasmine.createSpy('update'),
       collide: jasmine.createSpy('collide'),
-      box: {is_colliding_with: jasmine.createSpy('box_is_colliding_with') }
+      box: {is_colliding_with: jasmine.createSpy('box_is_colliding_with') },
+      active: true
     };
 
     game = new Game(painter, [thing, other_thing]);
@@ -58,6 +60,16 @@ describe("Given a Game", function() {
       game.draw();
       expect(painter.draw).toHaveBeenCalledWith(thing);
       expect(painter.draw).toHaveBeenCalledWith(other_thing);
+    });
+    describe("when a thing is not active", function() {
+
+      it("then the thing should not be drawn", function() {
+        var inactive_thing = { active: false };
+        game = new Game(painter, [inactive_thing]);
+        game.draw();
+
+        expect(painter.draw).not.toHaveBeenCalledWith(thing);
+      });
     });
   });
 
