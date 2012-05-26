@@ -37,5 +37,8 @@ function Init() {
   things.push(swarm);
 
   var game = new Game(painter, things);
+
+  window._game = game;
+
   game.run();
 }

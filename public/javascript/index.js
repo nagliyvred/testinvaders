@@ -216,6 +216,14 @@
       $(window).trigger("hashchange");
 
       $(".chrome-play").show();
+
+      $(".icon-pause").closest("a").on("click", function() {
+        $("#game")[0].contentWindow._game.stop();
+      });
+
+      $(".icon-play").closest("a").on("click", function() {
+        $("#game")[0].contentWindow._game.run();
+      });
     });
   });
 })($, ace, console, require);
