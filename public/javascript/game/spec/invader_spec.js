@@ -23,6 +23,28 @@ describe("Invader", function() {
     expect(invader.active).toBeTruthy();
   });
 
+  describe("collisions", function() {
+    it("should collide with bullets from the tank", function() {
+      var tank_bullet = new Bullet();
+      var shooting_tank = new Tank();
+      tank_bullet.shoot(0, 0, 0, shooting_tank);
+
+      invader.collide(tank_bullet);
+
+      expect(invader.active).toBeFalsy();
+    });
+
+    it("should not collide with bullets from invaders", function() {
+      var invader_bullet = new InvaderBullet();
+      var shooting_invader = new Invader();
+      invader_bullet.shoot(0, 0, 0, shooting_invader);
+
+      invader.collide(invader_bullet);
+
+      expect(invader.active).toBeTruthy();
+    });
+  });
+
   describe("when updated", function() {
     var stub_input = {};
 
@@ -107,38 +129,4 @@ describe("Invader", function() {
     });
   });
 
-  describe("collisions", function() {
-    it("should not collide with invader bullets", function() {
-      var invader_bullet = new InvaderBullet();
-      var shooting_invader = new Invader();
-      invader_bullet.shoot(0, 0, 0, shooting_invader);
-
-      invader.collide(invader_bullet);
-
-      expect(invader.active).toBeTruthy();
-    });
-
-    it("should collide with the tank bullets", function() {
-      var tank_bullet = new Bullet();
-      var tank = new Tank();
-      tank_bullet.shoot(0, 0, 0, tank);
-
-      invader.collide(tank_bullet);
-
-      expect(invader.active).toBeFalsy();
-    });
-  });
-
-  describe("after a collision", function() {
-
-    beforeEach(function() {
-      var bullet = new Bullet();
-      bullet.shoot(0, 0, 0, new Tank());
-      invader.collide(bullet);
-    });
-
-    it("it should not be active", function() {
-      expect(invader.active).toBeFalsy();
-    });
-  });
 });

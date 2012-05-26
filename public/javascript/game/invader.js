@@ -30,10 +30,12 @@ function Invader(initial_x, initial_y, bullet) {
     }
   };
 
+  var is_a_bullet_from = function(bullet, shooter) {
+    return (Object.getPrototypeOf(bullet) === Bullet.prototype &&
+           bullet.shooter_is(shooter));
+  };
+
   this.collide = function(other_thing) {
-    if(other_thing.owner && Object.getPrototypeOf(other_thing.owner) === Tank.prototype) {
-      this.active = false;
-    }
   };
 
   this.invade = function() {

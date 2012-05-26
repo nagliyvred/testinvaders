@@ -28,5 +28,9 @@ function Bullet() {
     }
   };
 
+  this.shooter_is = function(type) {
+    return (Object.getPrototypeOf(this.owner) == type.prototype);
+  };
+
   return this;
 }

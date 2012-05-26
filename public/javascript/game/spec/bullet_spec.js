@@ -23,7 +23,7 @@ describe("Bullet", function() {
       velocity = Math.random();
       x = Math.random();
       y = Math.random();
-      owner = { };
+      owner = new Invader();
 
       bullet.shoot(velocity, x, y, owner);
     });
@@ -51,6 +51,10 @@ describe("Bullet", function() {
 
     it("should set the owner of the bullet", function() {
       expect(bullet.owner).toBe(owner);
+    });
+
+    it("should tell if the owner is an invader", function() {
+      expect(bullet.shooter_is(Invader)).toBeTruthy();
     });
 
     describe("when it is hit", function() {
