@@ -7,7 +7,7 @@ class Repository < Grape::API
 
   helpers do
     def forks
-      DB[:forks]
+      Sequel::DATABASES.first[:forks]
     end
 
     def default_fork

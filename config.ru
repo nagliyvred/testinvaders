@@ -1,10 +1,10 @@
 require 'rack-rewrite'
 require './repository'
 
-DB = Sequel.connect ENV['DATABASE_URL'] || 'sqlite://development.db'
+db = Sequel.connect ENV['DATABASE_URL'] || 'sqlite://development.db'
 
 Sequel.extension :migration
-Sequel::IntegerMigrator.new(DB, 'migrations').run
+Sequel::IntegerMigrator.new(db, 'migrations').run
 
 public_directory = File.join Dir.pwd, 'public'
 
