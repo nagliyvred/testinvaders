@@ -32,16 +32,16 @@ class Repository < Grape::API
       default_fork
     end
 
+    post 'new' do
+      {id: forks.insert(data: request.body.read)}
+    end
+
     get ':id' do
       forks[id: params[:id]][:data]
     end
 
     put ':id' do
       forks[id: params[:id]] = {data: request.body.read}
-    end
-
-    post 'new' do
-      {id: forks.insert(data: request.body.read)}
     end
   end
 end

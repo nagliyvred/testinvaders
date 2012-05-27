@@ -42,6 +42,15 @@ describe Repository do
     end
   end
 
+  it 'should create new forks' do
+    post '/v1/forks/new', stub_fork.to_json
+
+    assert last_response.successful?, 'Failed to create a new fork'
+
+    new_id = JSON(last_response.body)['id']
+    forks[id: new_id][:data].must_equal stub_fork.to_json
+  end
+
   it 'should reply with the data for a fork' do
     get "/v1/forks/#{@fork_id}"
 
@@ -53,15 +62,6 @@ describe Repository do
     put "/v1/forks/#{@fork_id}", stub_fork_2.to_json
 
     assert last_response.ok?, "Failed to put fork: #{@fork_id}"
-    JSON(DB[:forks][id: @fork_id][:data]).must_equal stub_fork_2
-  end
-
-  it 'should create new forks' do
-    post '/v1/forks/new', stub_fork.to_json
-
-    assert last_response.successful?, 'Failed to create a new fork'
-
-    new_id = JSON(last_response.body)['id']
-    DB[:forks][id: new_id][:data].must_equal stub_fork.to_json
+    JSON(forks[id: @fork_id][:data]).must_equal stub_fork_2
   end
 end
