@@ -28,12 +28,12 @@ class Repository < Grape::API
   end
 
   resource :forks do
+    get 'new' do
+      default_fork
+    end
+
     get ':id' do
-      if fork = forks[id: params[:id]]
-        fork[:data]
-      else
-        default_fork
-      end
+      forks[id: params[:id]][:data]
     end
 
     put ':id' do

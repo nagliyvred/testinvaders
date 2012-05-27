@@ -28,16 +28,16 @@ describe Repository do
 
   before { @fork_id = forks.insert(data: stub_fork.to_json) }
 
-  it 'should reply with default data on requests for non-existent forks' do
+  it 'should reply with default data' do
     Dir.mktmpdir do |tmpdir|
       Dir.mkdir File.join(tmpdir, 'spec')
 
       File.open(File.join(tmpdir, 'thing.js'), 'w') { |f| f << 'abc' }
       File.open(File.join(tmpdir, 'spec', 'thing_spec.js'), 'w') { |f| f << '123' }
 
-      get '/v1/forks/xyzzy', {}, {'repository.path' => tmpdir}
+      get '/v1/forks/new', {}, {'repository.path' => tmpdir}
 
-      assert last_response.ok?, 'Failed to get non-existent fork: xyzzy'
+      assert last_response.ok?, 'Failed to get new fork'
       JSON(last_response.body).must_equal 'thing' => {'src' => 'abc', 'spec' => '123'}
     end
   end
