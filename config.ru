@@ -16,7 +16,7 @@ run Rack::Builder.new {
   run Repository
 
   use Rack::Rewrite do
-    r302 '/', '/public/html/index.html'
+    rewrite '/', '/public/html/index.html'
   end
 
   map '/public' do

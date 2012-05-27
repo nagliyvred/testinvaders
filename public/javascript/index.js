@@ -8,7 +8,7 @@
       run: function(scripts, callback){
         $("#" + name).remove();
 
-        var sandbox = $('<iframe />').attr({id: name, src: "runner.html"}).on('load', function() {
+        var sandbox = $('<iframe />').attr({id: name, src: "/public/html/runner.html"}).on('load', function() {
           this.contentWindow.run(scripts, print, callback);
         }).appendTo(document.body);
       }
