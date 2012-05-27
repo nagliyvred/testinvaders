@@ -115,48 +115,12 @@
     return _this;
   }
 
-  function ExampleLoader(bindings, base, on_loaded) {
+  function ExampleLoader(api_base, on_loaded) {
     var data = {};
-    var names = bindings.map(function() {
-      return $(this).data("example");
-    });
 
-    var inflight = names.length * 2;
-
-    function try_done() {
-      if (!inflight && on_loaded) {
-        on_loaded(data);
-      }
-    }
-
-    names.forEach(function(n) {
-      // TODO: When things fall apart, they tend to shatter.
-      // So handle errors.
-
-      data[n] = {};
-
-      function complete() {
-        inflight--;
-        try_done();
-      }
-
-      $.ajax({
-        url: base + n + ".js",
-        dataType: 'text',
-        success: function(r) {
-          data[n].src = r;
-        },
-        complete: complete
-      });
-
-      $.ajax({
-        url: base + "spec/" + n + "_spec.js",
-        dataType: 'text',
-        success: function(r) {
-          data[n].spec = r;
-        },
-        complete: complete
-      });
+    $.getJSON(api_base + 'new', function(r) {
+      data = r;
+      on_loaded(data);
     });
   }
 
@@ -205,7 +169,7 @@
     new ChromeVisibilityController($("[data-toggle=chrome]"), $(".chrome"), [spec_editor, src_editor, out_editor]);
     $(".chrome").hide();
 
-    new ExampleLoader($("[data-example]"), "/public/javascript/game/", function(data) {
+    new ExampleLoader("/v1/forks/", function(data) {
       new SpecReloader([src_session, spec_session], spec_session, data, out_session);
 
       dataSync(spec_session, data, 'spec');
