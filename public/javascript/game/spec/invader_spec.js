@@ -1,43 +1,33 @@
-describe("Invader", function() {
-  var invader;
-  var x, y, shot_countdown;
-  var stub_bulllet;
-  var stub_painter;
+describe("Invader", function() { var invader;
+  var x, y;
 
-  var minimum_countdown = 10;
   var velocity = 50;
   var width = 66, height = 48;
 
   beforeEach(function() {
     x = Math.random();
     y = Math.random();
-    shot_countdown = 20 ;
 
-    stub_bullet = {shoot: jasmine.createSpy("stub_bullet.shoot")};
-    stub_painter = {draw_invader: jasmine.createSpy("stub_painter.draw_invader")};
-
-    invader = new Invader(x, y, stub_bullet);
+    invader = new Invader(x, y);
   });
 
-  it("it should be active", function() {
+  it("it should be alive", function() {
     expect(invader.active).toBeTruthy();
   });
 
   describe("collisions", function() {
-    it("should collide with bullets from the tank", function() {
+    it("should die if it collides with bullets from the tank", function() {
       var tank_bullet = new Bullet();
-      var shooting_tank = new Tank();
-      tank_bullet.shoot(0, 0, 0, shooting_tank);
+      tank_bullet.shoot(0, 0, 0, new Tank());
 
       invader.collide(tank_bullet);
 
       expect(invader.active).toBeFalsy();
     });
 
-    it("should not collide with bullets from invaders", function() {
+    it("should not die if it collides with bullets from invaders", function() {
       var invader_bullet = new InvaderBullet();
-      var shooting_invader = new Invader();
-      invader_bullet.shoot(0, 0, 0, shooting_invader);
+      invader_bullet.shoot(0, 0, 0, new Invader());
 
       invader.collide(invader_bullet);
 
@@ -59,6 +49,8 @@ describe("Invader", function() {
 
     describe("shooting a bullet", function() {
 
+      var stub_bulllet;
+      var shot_countdown;
       var time_elapsed_until_the_next_shot;
       var minimum_time_between_shots = 20;
 
@@ -69,6 +61,10 @@ describe("Invader", function() {
 
       beforeEach(function() {
         time_elapsed_until_the_next_shot = shot_countdown;
+        shot_countdown = 20;
+
+        stub_bullet = {shoot: jasmine.createSpy("stub_bullet.shoot")};
+        invader = new Invader(x, y, stub_bullet);
       });
 
       it("should only shoot if it is active", function() {
