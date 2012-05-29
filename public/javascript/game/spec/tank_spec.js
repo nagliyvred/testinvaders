@@ -1,13 +1,23 @@
 describe("Tank", function() {
-  var stub_bullet = {id: "stub_bullet", active: false};
+  var stub_bullet = {active: false};
   var tank;
 
   beforeEach(function() {
     tank = new Tank(stub_bullet);
   });
 
-  it("should be active", function() {
-    expect(tank.active).toBeTruthy();
+  describe("when a tank is created", function() {
+    it("should be active", function() {
+      expect(tank.active).toBeTruthy();
+    });
+
+    it("should start in the middle of the zone", function() {
+      expect(tank.box.y).toEqual(500);
+    });
+  });
+
+  describe("when tank is in a collision", function() {
+    // TODO: Implement this when we have time.
   });
 
   describe("when the tank has been updated", function() {

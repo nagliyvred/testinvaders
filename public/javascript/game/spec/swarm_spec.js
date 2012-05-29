@@ -3,7 +3,6 @@ describe("Swarm", function() {
   var invaders;
   var swarm;
   var zone_width = 800;
-  var direction = 1;
 
   var stub_invader = function(x, active) {
     return {
@@ -16,8 +15,8 @@ describe("Swarm", function() {
     };
   };
 
-  describe("swarm collisions", function() {
-    it("the swarm should not be active", function() {
+  describe("when the swarm collides with something", function() {
+    it("the swarm remains active", function() {
       invaders = [stub_invader(0, true)];
       swarm = new Swarm(invaders, zone_width);
 
@@ -35,7 +34,7 @@ describe("Swarm", function() {
     });
   });
 
-  describe("dead invaders colliding with the zone edge", function() {
+  describe("when a dead invader collides with the zone edge", function() {
     it("should not tell the invaders to INVADE", function() {
       invaders = [stub_invader(700, false)];
       swarm = new Swarm(invaders, zone_width);

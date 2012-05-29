@@ -1,6 +1,5 @@
 function Bullet() {
-  var width = 4;
-  var height = 20;
+  var width = 4, height = 20;
   var velocity = 0;
 
   this.active = false;

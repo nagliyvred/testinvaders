@@ -4,6 +4,12 @@ function BoundingBox(x, y, width, height) {
   this.width = width;
   this.height = height;
 
+  // Left, right, top bottom make the collision comparisons more readable
+  this.left = function() { return this.x; };
+  this.right = function() { return this.x + this.width; };
+  this.top = function() { return this.y; };
+  this.bottom = function() {return this.y + this.height; };
+
   this.is_colliding_with = function(other_box) {
     if (this === other_box) { return false; }
     if (this.bottom() < other_box.top()) { return false; }
@@ -13,11 +19,6 @@ function BoundingBox(x, y, width, height) {
 
     return true;
   };
-
-  this.left = function() { return this.x; };
-  this.right = function() { return this.x + this.width; };
-  this.top = function() { return this.y; };
-  this.bottom = function() {return this.y + this.height; };
 
   return this;
 }

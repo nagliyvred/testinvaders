@@ -1,8 +1,7 @@
-describe("Invader", function() { var invader;
+describe("Invader", function() {
   var x, y;
-
   var velocity = 50;
-  var width = 66, height = 48;
+  var invader;
 
   beforeEach(function() {
     x = Math.random();
@@ -11,29 +10,36 @@ describe("Invader", function() { var invader;
     invader = new Invader(x, y);
   });
 
-  it("it should be alive", function() {
-    expect(invader.active).toBeTruthy();
+  describe("when it has been created", function() {
+    it("it should be alive", function() {
+      expect(invader.active).toBeTruthy();
+    });
   });
 
-  describe("collisions", function() {
-    it("should die if it collides with bullets from the tank", function() {
+  describe("when it is involved in a collision", function() {
+    var bullet_velocity;
+    beforeEach(function() {
+      bullet_velocity = 100;
+    });
+    it("should die if the collision is with a bullet from the tank", function() {
       var tank_bullet = new Bullet();
-      tank_bullet.shoot(0, 0, 0, new Tank());
+      tank_bullet.shoot(bullet_velocity, x, y, new Tank());
 
       invader.collide(tank_bullet);
 
       expect(invader.active).toBeFalsy();
     });
 
-    it("should not die if it collides with bullets from invaders", function() {
+    it("should not die if the collision is with a with bullet from an invader", function() {
       var invader_bullet = new InvaderBullet();
-      invader_bullet.shoot(0, 0, 0, new Invader());
+      invader_bullet.shoot(bullet_velocity, x, y, new Invader());
 
       invader.collide(invader_bullet);
 
       expect(invader.active).toBeTruthy();
     });
   });
+
 
   describe("when updated", function() {
     var stub_input = {};
@@ -75,6 +81,7 @@ describe("Invader", function() { var invader;
 
       describe("shooting when the timer has elapsed", function() {
 
+        var width = 66, height = 48;
         beforeEach(function() {
           elapse_shot_timer();
         });
