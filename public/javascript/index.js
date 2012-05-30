@@ -173,6 +173,10 @@
     var out_editor = initConsole("out");
     var out_session = out_editor.getSession();
 
+    $([spec_session, src_session]).on("change", function() {
+      out_session.setValue("");
+    });
+
     window.addEventListener("hashchange", titleUpdater($(".brand .title")));
 
     new ChromeVisibilityController($("[data-toggle=chrome]"), $(".chrome"), [spec_editor, src_editor, out_editor]);
