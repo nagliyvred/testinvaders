@@ -17,7 +17,7 @@ function Tank(bullet) {
 
     if (input.pressed("shoot")) {
       if (!bullet.active) {
-        bullet.shoot(-200, input.mouse.x, this.box.y, this);
+        bullet.shoot(-200, input.mouse.x, this.box.y);
       }
     }
   };

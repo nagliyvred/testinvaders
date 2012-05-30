@@ -23,7 +23,7 @@ function Invader(initial_x, initial_y, bullet) {
 
       // Shooting
       if(its_time_to_shoot()) {
-        bullet.shoot(50, this.box.x + (width / 2), this.box.y + (height / 2), this);
+        bullet.shoot(50, this.box.x + (width / 2), this.box.y + (height / 2));
         shoot_countdown = number_of_seconds_between_shots;
       }
 

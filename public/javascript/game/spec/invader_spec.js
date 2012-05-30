@@ -28,7 +28,7 @@ describe("Invader", function() {
 
     it("should die if the collision is with a bullet from the tank", function() {
       var tank_bullet = new Bullet();
-      tank_bullet.shoot(bullet_velocity, x, y, new Tank());
+      tank_bullet.shoot(bullet_velocity, x, y);
 
       invader.collide(tank_bullet);
 
@@ -37,7 +37,7 @@ describe("Invader", function() {
 
     it("should not die if the collision is with a with bullet from an invader", function() {
       var invader_bullet = new InvaderBullet();
-      invader_bullet.shoot(bullet_velocity, x, y, new Invader());
+      invader_bullet.shoot(bullet_velocity, x, y);
 
       invader.collide(invader_bullet);
 
@@ -95,7 +95,7 @@ describe("Invader", function() {
         });
 
         it("should shoot the bullet from the middle of the invader", function() {
-          expect(stub_bullet.shoot).toHaveBeenCalledWith(jasmine.any(Number), x + (width / 2), y + (height / 2), invader);
+          expect(stub_bullet.shoot).toHaveBeenCalledWith(jasmine.any(Number), x + (width / 2), y + (height / 2));
         });
 
         it("should not shoot a bullet within twenty seconds of firing one before", function() {

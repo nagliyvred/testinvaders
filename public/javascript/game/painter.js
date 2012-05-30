@@ -13,7 +13,7 @@ function Painter(context) {
 
   this.draw = function(thing) {
     if(Object.getPrototypeOf(thing) === Bullet.prototype) {
-      if(Object.getPrototypeOf(thing.owner) === Tank.prototype) {
+      if(thing.team == Team.Earth) {
         context.drawImage(this.images.tank_bullet, thing.box.x, thing.box.y);
       } else {
         context.drawImage(this.images.invader_bullet, thing.box.x, thing.box.y);

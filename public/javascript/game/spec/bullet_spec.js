@@ -19,15 +19,13 @@ describe("Bullet", function() {
     var velocity;
     var x;
     var y;
-    var owner;
 
     beforeEach(function() {
       velocity = Math.random();
       x = Math.random();
       y = Math.random();
-      owner = new Invader();
 
-      bullet.shoot(velocity, x, y, owner);
+      bullet.shoot(velocity, x, y);
     });
 
     it("should move vertically at some velocity", function() {
@@ -49,10 +47,6 @@ describe("Bullet", function() {
 
         expect(bullet.active).toBeFalsy();
       });
-    });
-
-    it("should have an owner", function() {
-      expect(bullet.owner).toBe(owner);
     });
 
     describe("when it is in a collision", function() {

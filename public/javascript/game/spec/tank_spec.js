@@ -55,7 +55,7 @@ describe("Tank", function() {
     it("should shoot", function() {
       stub_bullet.shoot = jasmine.createSpy("stub_bullet.shoot");
       tank.update(0, input);
-      expect(stub_bullet.shoot).toHaveBeenCalledWith(-200, 0, 500, tank);
+      expect(stub_bullet.shoot).toHaveBeenCalledWith(-200, 0, 500);
     });
 
     it("should not shoot if the current bullet is still active", function() {
