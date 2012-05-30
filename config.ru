@@ -16,7 +16,7 @@ run Rack::Builder.new {
   run Repository
 
   use Rack::Rewrite do
-    rewrite '/', '/public/html/index.html'
+    rewrite %r{^/(\?[0-9]*)?$}, '/public/html/index.html'
   end
 
   map '/public' do
