@@ -1,13 +1,31 @@
 describe("Tank", function() {
-  var stub_bullet = {id: "stub_bullet", active: false};
+  var stub_bullet = {active: false};
   var tank;
 
   beforeEach(function() {
     tank = new Tank(stub_bullet);
   });
 
-  it("should be active", function() {
-    expect(tank.active).toBeTruthy();
+  describe("when a tank is created", function() {
+    it("should be active", function() {
+      expect(tank.active).toBeTruthy();
+    });
+
+    it("should start in the middle of the zone", function() {
+      expect(tank.box.y).toEqual(500);
+    });
+
+    it("should be on the Earth team", function() {
+      expect(tank.team).toEqual(Team.Earth);
+    });
+
+    it("should specify the tank image", function() {
+      expect(tank.image).toEqual("tank");
+    });
+  });
+
+  describe("when tank is in a collision", function() {
+    // TODO: Implement this when we have time.
   });
 
   describe("when the tank has been updated", function() {
@@ -41,7 +59,7 @@ describe("Tank", function() {
     it("should shoot", function() {
       stub_bullet.shoot = jasmine.createSpy("stub_bullet.shoot");
       tank.update(0, input);
-      expect(stub_bullet.shoot).toHaveBeenCalledWith(-200, 0, 500, tank);
+      expect(stub_bullet.shoot).toHaveBeenCalledWith(-200, 0, 500);
     });
 
     it("should not shoot if the current bullet is still active", function() {

@@ -3,19 +3,18 @@ describe("Given a Game", function() {
 
   beforeEach(function() {
     painter = {
-      id: "Stub Painter",
       clear: jasmine.createSpy('painter.clear'),
       draw: jasmine.createSpy('painter.draw')
     };
+
     thing = {
-      id: "Stub Thing",
       update: jasmine.createSpy('update'),
       collide: jasmine.createSpy('collide'),
       box: {is_colliding_with: jasmine.createSpy('box_is_colliding_with') },
       active: true
     };
+
     other_thing = {
-      id: "Stub Other Thing",
       update: jasmine.createSpy('update'),
       collide: jasmine.createSpy('collide'),
       box: {is_colliding_with: jasmine.createSpy('box_is_colliding_with') },
@@ -89,14 +88,15 @@ describe("Given a Game", function() {
     it("then ALL THE THINGS should be updated", function() {
       var dt = Math.random();
       game.update(dt);
+
       expect(thing.update).toHaveBeenCalledWith(dt, atom.input);
       expect(other_thing.update).toHaveBeenCalledWith(dt, atom.input);
     });
 
     it("then ALL THE THINGS should check for collisions", function() {
       spyOn(game, 'check_for_collisions');
-
       game.update();
+
       expect(game.check_for_collisions).toHaveBeenCalled();
     });
   });

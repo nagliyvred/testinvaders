@@ -1,18 +1,21 @@
 function Invader(initial_x, initial_y, bullet) {
-  var width = 66, height = 48;
-  var default_time_between_shots = 20;//seconds
-  var shoot_countdown = Math.random() * default_time_between_shots;
+  var width = 66;
+  var height = 48;
 
+  this.team = Team.Invaders;
   this.velocity = 50;
-  this.active = true;
   this.box = new BoundingBox(initial_x, initial_y, width, height);
+  this.active = true;
+  this.image = "invader";
 
-  var its_time_to_shoot = function() {
-    return shoot_countdown <= 0;
+  this.collide = function(other_thing) {
+    // TODO: Implement this later!
   };
 
-  var reset_shoot_countdown = function() {
-    shoot_countdown = default_time_between_shots;
+  var number_of_seconds_between_shots = 20;
+  var shoot_countdown = Math.random() * number_of_seconds_between_shots;
+  var its_time_to_shoot = function() {
+    return shoot_countdown <= 0;
   };
 
   this.update = function(delta_time) {
@@ -21,18 +24,12 @@ function Invader(initial_x, initial_y, bullet) {
 
       // Shooting
       if(its_time_to_shoot()) {
-        bullet.shoot(50, this.box.x + (width / 2), this.box.y + (height / 2), this);
-        reset_shoot_countdown();
+        bullet.shoot(50, this.box.x + (width / 2), this.box.y + (height / 2));
+        shoot_countdown = number_of_seconds_between_shots;
       }
 
       // Movement
       this.box.x += delta_time * this.velocity;
-    }
-  };
-
-  this.collide = function(other_thing) {
-    if(other_thing.owner && Object.getPrototypeOf(other_thing.owner) === Tank.prototype) {
-      this.active = false;
     }
   };
 

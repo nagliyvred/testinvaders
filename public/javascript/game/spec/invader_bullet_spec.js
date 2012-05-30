@@ -3,16 +3,24 @@ describe("A space invaders bullet", function() {
   var velocity;
   var x;
   var y;
-  var owner;
 
   beforeEach(function() {
     velocity = Math.random();
     x = Math.random();
     y = Math.random();
-    owner = { };
 
     bullet = new InvaderBullet();
-    bullet.shoot(velocity, x, y, owner);
+    bullet.shoot(velocity, x, y);
+  });
+
+  describe("when it is created", function() {
+    it("should be on the Invaders team", function() {
+      expect(bullet.team).toEqual(Team.Invaders);
+    });
+
+    it("should specify the invader bullet image", function() {
+      expect(bullet.image).toEqual("invader_bullet");
+    });
   });
 
   describe("collisions", function() {

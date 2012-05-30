@@ -28,7 +28,7 @@ describe("Painter", function() {
       var bullet = new Bullet();
       bullet.box.x = x;
       bullet.box.y = y;
-      bullet.shoot(0, x, y, new Tank());
+      bullet.shoot(0, x, y);
 
       painter.draw(bullet);
 
@@ -41,7 +41,7 @@ describe("Painter", function() {
       var bullet = new InvaderBullet();
       bullet.box.x = x;
       bullet.box.y = y;
-      bullet.shoot(0, x, y, new Invader());
+      bullet.shoot(0, x, y);
 
       painter.draw(bullet);
 

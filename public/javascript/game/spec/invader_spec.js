@@ -1,26 +1,52 @@
 describe("Invader", function() {
-  var invader;
-  var x, y, shot_countdown;
-  var stub_bulllet;
-  var stub_painter;
-
-  var minimum_countdown = 10;
+  var x, y;
   var velocity = 50;
-  var width = 66, height = 48;
+  var invader;
 
   beforeEach(function() {
     x = Math.random();
     y = Math.random();
-    shot_countdown = 20 ;
 
-    stub_bullet = {shoot: jasmine.createSpy("stub_bullet.shoot")};
-    stub_painter = {draw_invader: jasmine.createSpy("stub_painter.draw_invader")};
-
-    invader = new Invader(x, y, stub_bullet);
+    invader = new Invader(x, y);
   });
 
-  it("it should be active", function() {
-    expect(invader.active).toBeTruthy();
+  describe("when it has been created", function() {
+    it("should be alive", function() {
+      expect(invader.active).toBeTruthy();
+    });
+
+    it("should be on the Invaders team", function() {
+      expect(invader.team).toEqual(Team.Invaders);
+    });
+
+    it("should specify the invader image", function() {
+      expect(invader.image).toEqual("invader");
+    });
+  });
+
+  describe("when it is involved in a collision", function() {
+    var bullet_velocity;
+    beforeEach(function() {
+      bullet_velocity = 100;
+    });
+
+    it("should die if the collision is with a bullet from the tank", function() {
+      var tank_bullet = new Bullet();
+      tank_bullet.shoot(bullet_velocity, x, y);
+
+      invader.collide(tank_bullet);
+
+      expect(invader.active).toBeFalsy();
+    });
+
+    it("should not die if the collision is with a with bullet from an invader", function() {
+      var invader_bullet = new InvaderBullet();
+      invader_bullet.shoot(bullet_velocity, x, y);
+
+      invader.collide(invader_bullet);
+
+      expect(invader.active).toBeTruthy();
+    });
   });
 
   describe("when updated", function() {
@@ -37,6 +63,8 @@ describe("Invader", function() {
 
     describe("shooting a bullet", function() {
 
+      var stub_bulllet;
+      var shot_countdown;
       var time_elapsed_until_the_next_shot;
       var minimum_time_between_shots = 20;
 
@@ -47,6 +75,10 @@ describe("Invader", function() {
 
       beforeEach(function() {
         time_elapsed_until_the_next_shot = shot_countdown;
+        shot_countdown = 20;
+
+        stub_bullet = {shoot: jasmine.createSpy("stub_bullet.shoot")};
+        invader = new Invader(x, y, stub_bullet);
       });
 
       it("should only shoot if it is active", function() {
@@ -57,6 +89,7 @@ describe("Invader", function() {
 
       describe("shooting when the timer has elapsed", function() {
 
+        var width = 66, height = 48;
         beforeEach(function() {
           elapse_shot_timer();
         });
@@ -66,7 +99,7 @@ describe("Invader", function() {
         });
 
         it("should shoot the bullet from the middle of the invader", function() {
-          expect(stub_bullet.shoot).toHaveBeenCalledWith(jasmine.any(Number), x + (width / 2), y + (height / 2), invader);
+          expect(stub_bullet.shoot).toHaveBeenCalledWith(jasmine.any(Number), x + (width / 2), y + (height / 2));
         });
 
         it("should not shoot a bullet within twenty seconds of firing one before", function() {
@@ -107,38 +140,4 @@ describe("Invader", function() {
     });
   });
 
-  describe("collisions", function() {
-    it("should not collide with invader bullets", function() {
-      var invader_bullet = new InvaderBullet();
-      var shooting_invader = new Invader();
-      invader_bullet.shoot(0, 0, 0, shooting_invader);
-
-      invader.collide(invader_bullet);
-
-      expect(invader.active).toBeTruthy();
-    });
-
-    it("should collide with the tank bullets", function() {
-      var tank_bullet = new Bullet();
-      var tank = new Tank();
-      tank_bullet.shoot(0, 0, 0, tank);
-
-      invader.collide(tank_bullet);
-
-      expect(invader.active).toBeFalsy();
-    });
-  });
-
-  describe("after a collision", function() {
-
-    beforeEach(function() {
-      var bullet = new Bullet();
-      bullet.shoot(0, 0, 0, new Tank());
-      invader.collide(bullet);
-    });
-
-    it("it should not be active", function() {
-      expect(invader.active).toBeFalsy();
-    });
-  });
 });

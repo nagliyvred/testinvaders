@@ -3,14 +3,15 @@ function Bullet() {
   var height = 20;
   var velocity = 0;
 
+  this.team = Team.Earth;
   this.active = false;
   this.box = new BoundingBox(0, 0, width, height);
+  this.image = "tank_bullet";
 
-  this.shoot = function(new_velocity, new_x, new_y, owner) {
+  this.shoot = function(new_velocity, new_x, new_y) {
     velocity = new_velocity;
     this.box.x = new_x;
     this.box.y = new_y;
-    this.owner = owner;
     this.active = true;
   };
 

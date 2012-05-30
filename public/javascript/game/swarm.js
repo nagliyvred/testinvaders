@@ -26,7 +26,6 @@ function Swarm(invaders, zone_width) {
     var min_x = min(collect_invader_x_positions());
     var max_x = max(collect_invader_x_positions()) + invader_width;
 
-    // If the swarm hits the edge of the zone its moving towards, INVADE!
     if(((this.direction == right) && (max_x >= zone_width)) ||
        ((this.direction == left) && (min_x <= 0))) {
 

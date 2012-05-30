@@ -5,27 +5,31 @@ describe("Bullet", function() {
     bullet = new Bullet();
   });
 
-  function shared_initial_state_examples() {
+  describe("when it has been created", function() {
     it("should not be active", function() {
       expect(bullet.active).toBeFalsy();
     });
-  }
 
-  shared_initial_state_examples();
+    it("should be on the Earth team", function() {
+      expect(bullet.team).toEqual(Team.Earth);
+    });
+
+    it("should specify the bullet image", function() {
+      expect(bullet.image).toEqual("tank_bullet");
+    });
+  });
 
   describe("when it is shot", function() {
     var velocity;
     var x;
     var y;
-    var owner;
 
     beforeEach(function() {
       velocity = Math.random();
       x = Math.random();
       y = Math.random();
-      owner = { };
 
-      bullet.shoot(velocity, x, y, owner);
+      bullet.shoot(velocity, x, y);
     });
 
     it("should move vertically at some velocity", function() {
@@ -40,32 +44,27 @@ describe("Bullet", function() {
       expect(bullet.active).toBeTruthy();
     });
 
-    it("should die when it goes off the top of the screen", function() {
-      expect(bullet.active).toBeTruthy();
+    describe("when it goes off the top of the zone", function() {
+      it("should be inactive", function() {
+        bullet.box.y = -1;
+        bullet.update(1);
 
-      bullet.box.y = -1;
-      bullet.update(1);
-
-      expect(bullet.active).toBeFalsy();
+        expect(bullet.active).toBeFalsy();
+      });
     });
 
-    it("should set the owner of the bullet", function() {
-      expect(bullet.owner).toBe(owner);
-    });
+    describe("when it is in a collision", function() {
 
-    describe("when it is hit", function() {
-
-      it("should not collide with the tank", function() {
+      it("it should still be active if it collides with the tank", function() {
         bullet.collide(new Tank());
 
         expect(bullet.active).toBeTruthy();
       });
 
-      it("should collide with an invader", function() {
+      it("it should not be active if it collides with an invader", function() {
         bullet.collide(new Invader());
 
         expect(bullet.active).toBeFalsy();
-        //shared_initial_state_examples();
       });
     });
   });
