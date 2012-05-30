@@ -91,9 +91,9 @@
       this.contentDocument.body.appendChild(script);
     });
 
-    src.on("delay:change", function() {
+    return {reload: function() {
       iframe.attr("src", iframe.attr("src"));
-    });
+    }};
   }
 
   function DelayedChangeScheduler(watch, delay) {
@@ -183,19 +183,19 @@
 
       dataSync(spec_session, data, 'spec');
       dataSync(src_session, data, 'src');
-      iFrameReloader(src_session, data, $("#game"));
+      var reloader = iFrameReloader(src_session, data, $("#game"));
 
       window.addEventListener("hashchange", exampleSelector("welcome", data, spec_session, src_session));
       $(window).trigger("hashchange");
 
       $(".chrome-play").show();
 
-      $(".icon-pause").closest("a").on("click", function() {
+      $(".btn-stop").closest("a").on("click", function() {
         $("#game")[0].contentWindow._game.stop();
       });
 
-      $(".icon-play").closest("a").on("click", function() {
-        $("#game")[0].contentWindow._game.run();
+      $(".btn-reload").closest("a").on("click", function() {
+        reloader.reload();
       });
     });
 
