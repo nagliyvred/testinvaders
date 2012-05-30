@@ -200,6 +200,13 @@
     });
 
     $("[data-bind=deploy]").on("click", function() {
+      var _this = $(this);
+      if (_this.hasClass("disabled")) {
+        return;
+      } else {
+        _this.addClass("disabled");
+      }
+
       loader.deploy(function(fork_id) {
         window.open("/?" + fork_id, "_top");
       });
