@@ -16,7 +16,7 @@ describe("Invader", function() {
     });
 
     it("should be on the Invaders team", function() {
-      expect(invader.team).toEqual(Team().Invaders);
+      expect(invader.team).toEqual(Team.Invaders);
     });
   });
 

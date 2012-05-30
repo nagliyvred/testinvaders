@@ -17,7 +17,7 @@ describe("A space invaders bullet", function() {
 
   describe("when it is created", function() {
     it("should be on the Invaders team", function() {
-      expect(bullet.team).toEqual(Team().Invaders);
+      expect(bullet.team).toEqual(Team.Invaders);
     });
   });
 

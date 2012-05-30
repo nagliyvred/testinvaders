@@ -1,6 +1,4 @@
-function Team() {
-  return {
-    Invaders: "Invaders",
-    Earth: "Earth"
-  };
+Team = {
+  Invaders: "Invaders",
+  Earth: "Earth"
 };

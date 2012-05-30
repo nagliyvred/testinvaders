@@ -3,7 +3,7 @@ function Tank(bullet) {
   var height = 42;
   var initial_y = 500;
 
-  this.team = Team().Earth;
+  this.team = Team.Earth;
   this.box = new BoundingBox(0, initial_y, width, height);
   this.active = true;
 

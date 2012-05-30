@@ -2,7 +2,7 @@ function Invader(initial_x, initial_y, bullet) {
 
   var width = 66, height = 48;
 
-  this.team = Team().Invaders;
+  this.team = Team.Invaders;
   this.velocity = 50;
   this.box = new BoundingBox(initial_x, initial_y, width, height);
   this.active = true;

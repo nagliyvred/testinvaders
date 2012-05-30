@@ -16,7 +16,7 @@ describe("Tank", function() {
     });
 
     it("should be on the Earth team", function() {
-      expect(tank.team).toEqual(Team().Earth);
+      expect(tank.team).toEqual(Team.Earth);
     });
   });
 
