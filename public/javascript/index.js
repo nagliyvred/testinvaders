@@ -116,11 +116,20 @@
   }
 
   function ExampleLoader(api_base, on_loaded) {
-    var data = {};
+    var _this = this;
 
-    $.getJSON(api_base + 'new', function(r) {
-      data = r;
-      on_loaded(data);
+    var fork_id = window.location.search.substring(1) || "new";
+
+    this.data = {};
+    this.deploy = function(on_deployed) {
+      $.post(api_base + "new", JSON.stringify(this.data), function(response) {
+        on_deployed(response.id);
+      }, "json");
+    };
+
+    $.getJSON(api_base + fork_id, function(r) {
+      _this.data = r;
+      on_loaded(_this);
     });
   }
 
@@ -169,7 +178,9 @@
     new ChromeVisibilityController($("[data-toggle=chrome]"), $(".chrome"), [spec_editor, src_editor, out_editor]);
     $(".chrome").hide();
 
-    new ExampleLoader("/v1/forks/", function(data) {
+    new ExampleLoader("/v1/forks/", function(loader) {
+      var data = loader.data;
+
       new SpecReloader([src_session, spec_session], spec_session, data, out_session);
 
       dataSync(spec_session, data, 'spec');
@@ -187,6 +198,12 @@
 
       $(".icon-play").closest("a").on("click", function() {
         $("#game")[0].contentWindow._game.run();
+      });
+
+      $("[data-bind=deploy]").on("click", function() {
+        loader.deploy(function(fork_id) {
+          window.open("/?" + fork_id, "_top");
+        });
       });
     });
   });
