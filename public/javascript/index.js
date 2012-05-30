@@ -42,6 +42,9 @@
   }
 
   function SpecReloader(sessions, spec, data, out) {
+    // TODO: Terrible hack.
+    var outter = $("#out");
+
     var run = function() {
       var print = function(msg) {
         out.setValue(out.getValue() + msg);
@@ -53,7 +56,14 @@
       to_test.push(spec.getValue());
 
       out.setValue("");
-      runner(print, "runner").run(to_test);
+      outter.css("background-color", "yellow");
+      runner(print, "runner").run(to_test, function(jasmine_runner) {
+        if (jasmine_runner.results().passed()) {
+          outter.css("background-color", "green");
+        } else {
+          outter.css("background-color", "red");
+        }
+      });
     };
 
     sessions.forEach(function(e) {
