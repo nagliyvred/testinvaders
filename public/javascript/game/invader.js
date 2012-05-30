@@ -1,6 +1,6 @@
 function Invader(initial_x, initial_y, bullet) {
-
-  var width = 66, height = 48;
+  var width = 66;
+  var height = 48;
 
   this.team = Team.Invaders;
   this.velocity = 50;
@@ -11,8 +11,8 @@ function Invader(initial_x, initial_y, bullet) {
     // TODO: Implement this later!
   };
 
-  var default_time_between_shots = 20;//seconds
-  var shoot_countdown = Math.random() * default_time_between_shots;
+  var number_of_seconds_between_shots = 20;
+  var shoot_countdown = Math.random() * number_of_seconds_between_shots;
   var its_time_to_shoot = function() {
     return shoot_countdown <= 0;
   };
@@ -24,7 +24,7 @@ function Invader(initial_x, initial_y, bullet) {
       // Shooting
       if(its_time_to_shoot()) {
         bullet.shoot(50, this.box.x + (width / 2), this.box.y + (height / 2), this);
-        shoot_countdown = default_time_between_shots;
+        shoot_countdown = number_of_seconds_between_shots;
       }
 
       // Movement

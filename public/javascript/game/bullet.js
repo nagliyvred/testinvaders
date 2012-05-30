@@ -1,5 +1,6 @@
 function Bullet() {
-  var width = 4, height = 20;
+  var width = 4;
+  var height = 20;
   var velocity = 0;
 
   this.team = Team.Earth;
@@ -26,10 +27,6 @@ function Bullet() {
     if(Object.getPrototypeOf(other_thing) === Invader.prototype) {
       this.active = false;
     }
-  };
-
-  this.shooter_is = function(type) {
-    return (Object.getPrototypeOf(this.owner) == type.prototype);
   };
 
   return this;

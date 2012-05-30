@@ -55,10 +55,6 @@ describe("Bullet", function() {
       expect(bullet.owner).toBe(owner);
     });
 
-    it("should tell if the owner is an invader", function() {
-      expect(bullet.shooter_is(Invader)).toBeTruthy();
-    });
-
     describe("when it is in a collision", function() {
 
       it("it should still be active if it collides with the tank", function() {
