@@ -12,6 +12,7 @@ group :development do
   gem 'minitest'
   gem 'rack-test'
   gem 'rake'
+  gem 'shotgun'
   gem 'sqlite3'
 end
 
