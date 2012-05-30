@@ -63,7 +63,7 @@ describe("Tank", function() {
     });
 
     it("should not shoot if the current bullet is still active", function() {
-      tank.update(0, input)
+      tank.update(0, input);
 
       stub_bullet.active = true;
       stub_bullet.shoot = jasmine.createSpy("stub_bullet.shoot");

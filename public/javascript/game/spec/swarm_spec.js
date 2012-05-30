@@ -10,7 +10,7 @@ describe("Swarm", function() {
       active: active,
       box: {
         x: x,
-        width: 100,
+        width: 100
      }
     };
   };
