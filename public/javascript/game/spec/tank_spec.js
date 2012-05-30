@@ -18,6 +18,10 @@ describe("Tank", function() {
     it("should be on the Earth team", function() {
       expect(tank.team).toEqual(Team.Earth);
     });
+
+    it("should specify the tank image", function() {
+      expect(tank.image).toEqual("tank");
+    });
   });
 
   describe("when tank is in a collision", function() {

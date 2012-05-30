@@ -17,6 +17,10 @@ describe("A space invaders bullet", function() {
     it("should be on the Invaders team", function() {
       expect(bullet.team).toEqual(Team.Invaders);
     });
+
+    it("should specify the invader bullet image", function() {
+      expect(bullet.image).toEqual("invader_bullet");
+    });
   });
 
   describe("collisions", function() {

@@ -12,18 +12,8 @@ function Painter(context) {
   };
 
   this.draw = function(thing) {
-    if(Object.getPrototypeOf(thing) === Bullet.prototype) {
-      if(thing.team == Team.Earth) {
-        context.drawImage(this.images.tank_bullet, thing.box.x, thing.box.y);
-      } else {
-        context.drawImage(this.images.invader_bullet, thing.box.x, thing.box.y);
-      }
-    }
-    else if(Object.getPrototypeOf(thing) === Tank.prototype) {
-      context.drawImage(this.images.tank, thing.box.x, thing.box.y);
-    }
-    else if(Object.getPrototypeOf(thing) === Invader.prototype) {
-      context.drawImage(this.images.invader, thing.box.x, thing.box.y);
+    if(thing.image) {
+      context.drawImage(this.images[thing.image], thing.box.x, thing.box.y);
     }
   };
 

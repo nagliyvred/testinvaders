@@ -13,6 +13,10 @@ describe("Bullet", function() {
     it("should be on the Earth team", function() {
       expect(bullet.team).toEqual(Team.Earth);
     });
+
+    it("should specify the bullet image", function() {
+      expect(bullet.image).toEqual("tank_bullet");
+    });
   });
 
   describe("when it is shot", function() {

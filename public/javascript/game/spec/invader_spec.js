@@ -18,6 +18,10 @@ describe("Invader", function() {
     it("should be on the Invaders team", function() {
       expect(invader.team).toEqual(Team.Invaders);
     });
+
+    it("should specify the invader image", function() {
+      expect(invader.image).toEqual("invader");
+    });
   });
 
   describe("when it is involved in a collision", function() {

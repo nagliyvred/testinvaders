@@ -6,6 +6,7 @@ function Bullet() {
   this.team = Team.Earth;
   this.active = false;
   this.box = new BoundingBox(0, 0, width, height);
+  this.image = "tank_bullet";
 
   this.shoot = function(new_velocity, new_x, new_y) {
     velocity = new_velocity;

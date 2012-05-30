@@ -6,6 +6,7 @@ function Tank(bullet) {
   this.team = Team.Earth;
   this.box = new BoundingBox(0, initial_y, width, height);
   this.active = true;
+  this.image = "tank";
 
   this.collide = function() {
     // TODO: Implement tank collisions or else

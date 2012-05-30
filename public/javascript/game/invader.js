@@ -6,6 +6,7 @@ function Invader(initial_x, initial_y, bullet) {
   this.velocity = 50;
   this.box = new BoundingBox(initial_x, initial_y, width, height);
   this.active = true;
+  this.image = "invader";
 
   this.collide = function(other_thing) {
     // TODO: Implement this later!
