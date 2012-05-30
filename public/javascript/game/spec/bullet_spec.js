@@ -9,6 +9,10 @@ describe("Bullet", function() {
     it("should not be active", function() {
       expect(bullet.active).toBeFalsy();
     });
+
+    it("should be on the Earth team", function() {
+      expect(bullet.team).toEqual(Team().Earth);
+    });
   });
 
   describe("when it is shot", function() {

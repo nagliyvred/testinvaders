@@ -14,6 +14,10 @@ describe("Tank", function() {
     it("should start in the middle of the zone", function() {
       expect(tank.box.y).toEqual(500);
     });
+
+    it("should be on the Earth team", function() {
+      expect(tank.team).toEqual(Team().Earth);
+    });
   });
 
   describe("when tank is in a collision", function() {

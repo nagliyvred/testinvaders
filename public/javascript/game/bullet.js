@@ -2,6 +2,7 @@ function Bullet() {
   var width = 4, height = 20;
   var velocity = 0;
 
+  this.team = Team().Earth;
   this.active = false;
   this.box = new BoundingBox(0, 0, width, height);
 

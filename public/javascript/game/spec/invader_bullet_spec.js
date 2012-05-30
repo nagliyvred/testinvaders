@@ -15,6 +15,12 @@ describe("A space invaders bullet", function() {
     bullet.shoot(velocity, x, y, owner);
   });
 
+  describe("when it is created", function() {
+    it("should be on the Invaders team", function() {
+      expect(bullet.team).toEqual(Team().Invaders);
+    });
+  });
+
   describe("collisions", function() {
 
     beforeEach(function() {

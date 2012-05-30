@@ -1,15 +1,11 @@
 function Invader(initial_x, initial_y, bullet) {
+
   var width = 66, height = 48;
 
+  this.team = Team().Invaders;
   this.velocity = 50;
   this.box = new BoundingBox(initial_x, initial_y, width, height);
-
   this.active = true;
-
-  var is_a_bullet_from = function(bullet, shooter) {
-    return (Object.getPrototypeOf(bullet) === Bullet.prototype &&
-           bullet.shooter_is(shooter));
-  };
 
   this.collide = function(other_thing) {
     // TODO: Implement this later!

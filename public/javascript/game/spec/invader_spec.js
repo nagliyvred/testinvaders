@@ -11,8 +11,12 @@ describe("Invader", function() {
   });
 
   describe("when it has been created", function() {
-    it("it should be alive", function() {
+    it("should be alive", function() {
       expect(invader.active).toBeTruthy();
+    });
+
+    it("should be on the Invaders team", function() {
+      expect(invader.team).toEqual(Team().Invaders);
     });
   });
 
@@ -21,6 +25,7 @@ describe("Invader", function() {
     beforeEach(function() {
       bullet_velocity = 100;
     });
+
     it("should die if the collision is with a bullet from the tank", function() {
       var tank_bullet = new Bullet();
       tank_bullet.shoot(bullet_velocity, x, y, new Tank());
@@ -39,7 +44,6 @@ describe("Invader", function() {
       expect(invader.active).toBeTruthy();
     });
   });
-
 
   describe("when updated", function() {
     var stub_input = {};
