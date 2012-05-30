@@ -184,6 +184,7 @@
       dataSync(spec_session, data, 'spec');
       dataSync(src_session, data, 'src');
       var reloader = iFrameReloader(src_session, data, $("#game"));
+      reloader.reload();
 
       window.addEventListener("hashchange", exampleSelector("welcome", data, spec_session, src_session));
       $(window).trigger("hashchange");
