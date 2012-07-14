@@ -3,9 +3,6 @@ require './repository'
 
 db = Sequel.connect ENV['DATABASE_URL'] || 'sqlite://development.db'
 
-Sequel.extension :migration
-Sequel::IntegerMigrator.new(db, 'migrations').run
-
 public_directory = File.join Dir.pwd, 'public'
 
 run Rack::Builder.new {
