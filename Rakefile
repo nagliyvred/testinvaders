@@ -7,6 +7,10 @@ rescue LoadError
   end
 end
 
+task :spec do
+  require './repository_spec'
+end
+
 namespace :db do
   task :migrate do
     require 'sequel'
