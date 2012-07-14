@@ -1,0 +1,67 @@
+testinvaders: a course on fast feedback, test-driven development, and automated deployment
+
+Copyright 2012,
+
+  * Andrew Kiellor <akiellor@thoughtworks.com>
+  * Mike Gardiner <mgardin@thoughtworks.com>
+  * Ryan Boucher <rboucher@thoughtworks.com>
+  * Scott Robinson <sr@thoughtworks.com>
+  * ThoughtWorks, Inc.
+
+Licensed under the Apache License, Version 2.0 (the "License"); you may not use
+this file except in compliance with the License.  You may obtain a copy of the
+License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software distributed
+under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+CONDITIONS OF ANY KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations under the License.
+
+Depends upon:
+
+  * ace 
+    * Ajax.org
+    * MPL/LGPL/GPL
+    * http://ace.ajax.org/
+
+  * atom 
+    * Jeremy Apthorp
+    * 2-clause BSD
+    * https://github.com/nornagon/atom
+
+  * bootstrap 
+    * Twitter, Inc.
+    * Apache, Version 2.0
+    * http://twitter.github.com/bootstrap
+
+  * grape 
+    * Michael Bleigh and Intridea, Inc.
+    * MIT
+    * https://github.com/intridea/grape/
+
+  * jasmine 
+    * Pivotal Labs.
+    * MIT
+    * http://pivotal.github.com/jasmine/
+
+  * rack
+    * Christian Neukirchen
+    * MIT
+    * http://rack.github.com/
+
+  * rack-rewrite 
+    * John Trupiano
+    * MIT
+    * https://github.com/jtrupiano/rack-rewrite
+
+  * sequel 
+    * Sharon Rosner and Jeremy Evans
+    * MIT
+    * http://sequel.rubyforge.org/
+
+  * zepto 
+    * Thomas Fuchs
+    * MIT
+    * http://zeptojs.com/
