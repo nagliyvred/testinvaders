@@ -11,6 +11,7 @@ A course on fast feedback, test-driven development, and automated deployment.
 ### The hard way!
 
 1. `$ bundle install`
+1. `$ rake db:migrate`
 1. `$ shotgun`
 1. <http://localhost:9393/>
 
