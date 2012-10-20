@@ -22,6 +22,7 @@
 
     var session = editor.getSession();
     session.setMode(new aceModeJavascript());
+    session.setTabSize(2);
 
     return editor;
   }
