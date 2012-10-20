@@ -39,9 +39,5 @@ class Repository < Grape::API
     get ':id' do
       forks[id: params[:id]][:data]
     end
-
-    put ':id' do
-      forks[id: params[:id]] = {data: request.body.read}
-    end
   end
 end
