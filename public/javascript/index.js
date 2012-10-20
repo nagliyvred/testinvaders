@@ -41,7 +41,7 @@
     return editor;
   }
 
-  function SpecReloader(sessions, spec, data, out) {
+  function SpecReloader(sessions, data, out) {
     // TODO: Terrible hack.
     var outter = $("#out");
 
@@ -53,7 +53,7 @@
       var to_test = Object.keys(data).map(function(n) {
         return data[n].src;
       });
-      to_test.push(spec.getValue());
+      to_test.push(data[getCurrentExample()].spec);
 
       out.setValue("");
       outter.css("background-color", "yellow");
@@ -193,10 +193,11 @@
     $(".chrome").hide();
 
     var loader = new ExampleLoader("/v1/forks/", function(data) {
-      new SpecReloader([src_session, spec_session], spec_session, data, out_session);
-
       dataSync(spec_session, data, 'spec');
       dataSync(src_session, data, 'src');
+
+      new SpecReloader([src_session, spec_session], data, out_session);
+
       var reloader = iFrameReloader(src_session, data, $("#game"));
       reloader.reload();
 
