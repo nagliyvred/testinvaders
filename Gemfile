@@ -7,7 +7,8 @@ gem 'grape'
 gem 'sequel'
 
 group :development do
-  gem 'jasmine'
+  gem 'jasmine', '1.2.0'
+  gem 'jasmine-phantom'
   gem 'minitest'
   gem 'rack-test'
   gem 'rake'
