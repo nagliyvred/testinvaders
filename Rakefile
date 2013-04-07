@@ -49,6 +49,7 @@ namespace :build do
   task :package do
     puts "building version #{ENV['GO_PIPELINE_LABEL']}"
     system("fpm  -s dir -t deb -n testinvaders -v #{ENV['GO_PIPELINE_LABEL']} -x '*.git*' --prefix=/opt/testinvaders .")
+    system("cp -v testinvaders*.deb /var/repo/ && dpkg-scanpackages /var/repo /dev/null | gzip -9c > /var/repo/Packages.gz")
   end
 
 end
