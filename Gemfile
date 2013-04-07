@@ -14,6 +14,7 @@ group :development do
   gem 'rake'
   gem 'shotgun'
   gem 'sqlite3'
+  gem 'fpm'
 end
 
 group :production do
