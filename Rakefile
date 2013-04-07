@@ -43,3 +43,12 @@ namespace :db do
     Sequel::IntegerMigrator.new(db, 'migrations').run
   end
 end
+
+namespace :build do
+  desc "building deployable deb"
+  task :package do
+    puts "building version #{ENV['GO_PIPELINE_COUNTER']}"
+    system("fpm  -s dir -t deb -n testinvaders -v #{ENV['GO_PIPELINE_COUNTER']} -x '*.git*' --prefix=/opt/testinvaders .")
+  end
+
+end
