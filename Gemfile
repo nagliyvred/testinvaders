@@ -6,6 +6,8 @@ gem 'rack-rewrite'
 gem 'grape'
 gem 'sequel'
 
+gem 'daemons'
+
 group :development do
   gem 'jasmine', '1.2.0'
   gem 'jasmine-phantom'

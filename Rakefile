@@ -48,7 +48,7 @@ namespace :build do
   desc "building deployable deb"
   task :package do
     puts "building version #{ENV['GO_PIPELINE_LABEL']}"
-    system("fpm  -s dir -t deb -n testinvaders -v #{ENV['GO_PIPELINE_LABEL']} -x '*.git*' --prefix=/opt/testinvaders .")
+    system("fpm  -s dir -t deb -n testinvaders -v #{ENV['GO_PIPELINE_LABEL']} -x '*.git*' --prefix=/opt/testinvaders --after-install scripts/post-install.sh .")
     system("cp -v testinvaders*.deb /var/repo/ ")
     Dir.chdir("/var/repo") do 
       system("dpkg-scanpackages . /dev/null | gzip -9c > /var/repo/Packages.gz")

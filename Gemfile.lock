@@ -8,6 +8,7 @@ GEM
     childprocess (0.3.9)
       ffi (~> 1.0, >= 1.0.11)
     clamp (0.3.1)
+    daemons (1.1.9)
     diff-lcs (1.2.2)
     ffi (1.6.0)
     fpm (0.4.31)
@@ -71,6 +72,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  daemons
   fpm
   grape
   jasmine (= 1.2.0)
