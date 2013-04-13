@@ -10,10 +10,10 @@ cat > /etc/init.d/testinvaders <<EOF
 
 case "\$1" in
   start)
-  /usr/bin/ruby1.9.1 /usr/bin/rackup /opt/testinvaders/config.ru --host 0.0.0.0 --port 9090 -P /tmp/testinvaders.pid -D
+    cd /opt/testinvaders && /usr/bin/ruby1.9.1 /usr/bin/rackup /opt/testinvaders/config.ru --host 0.0.0.0 --port 9090 -P /tmp/testinvaders.pid -D
   ;;
   status)
-    pid=`cat /tmp/testinvaders.pid`
+    pid=\`cat /tmp/testinvaders.pid\`
     ps -p \$pid 2>/dev/null 1>&2
     is_there=\$?
     if [[ \$pid != '' ]] && [[ \$is_there == '0' ]]; then
@@ -24,7 +24,7 @@ case "\$1" in
   ;;
   
   stop)
-    pid=`cat /tmp/testinvaders.pid`
+    pid=\`cat /tmp/testinvaders.pid\`
     if [[ \$pid != '' ]]; then
       kill \$pid
       sleep 2
