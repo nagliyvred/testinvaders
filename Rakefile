@@ -53,7 +53,8 @@ namespace :build do
     Dir.chdir("/var/repo") do 
       system("dpkg-scanpackages . /dev/null | gzip -9c > /var/repo/Packages.gz")
     end
-
+    puts "writing revision #{ENV['GO_REVISION']}"
+    File.open('git_revision','w') { |f| f.write("#{ENV['GO_REVISION']}"); }
   end
 
 end
